@@ -1,14 +1,14 @@
-#关于积木云web3.0系统
+#积木云·新一代web开发工厂
 
 这个系统也许是我一生要坚持的东西！
 
-我的愿景：建网站就像搭积木一样简单(Building website as simple as building blocks)。
+我的愿景：建应用就像搭积木一样简单(Building app as simple as building blocks)。
 
 #一些疑问？
 
 程序是否收费：系统免费开源（当然我需要你的捐赠）
 
-程序干什么用：建网站，介于框架和cms之间！方便你的扩展！
+程序干什么用：建应用，介于框架和cms之间！方便你的扩展！
 
 程序的构成：这个系统是我整合了芒果云和onethink，其中做了N多优化！
 
