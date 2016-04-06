@@ -1,0 +1,67 @@
+<if condition="$list['type'] eq 2">
+    <if condition="count($list['res']) gt 0">
+        <switch name="list.style">
+            <case value="1">
+                <script src="__PUBLIC__/Core/js/ext/slider/js/jquery.slides.min.js"></script>
+                <link href="__PUBLIC__/Core/js/ext/slider/css/slider.css" rel="stylesheet" type="text/css"/>
+                <div style="height: {$list.ad.height};width:{$list.ad.width}px;">
+
+                    <div id="slide_{$list.ad.pos}" style="">
+                        <volist name="list.res" id="vo">
+                            <a href="{$vo.link}" title="{$vo.title}" target="_blank"><img src="{$vo.advspic|getThumbImageById=$list['ad']['width'],$list['ad']['height']}" alt="{$vo.title}"></a>
+                        </volist>
+                        <a href="#" class="slidesjs-previous slidesjs-navigation"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                        <a href="#" class="slidesjs-next slidesjs-navigation"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                    </div>
+
+                </div>
+                <script>
+                    $(function () {
+                        $("#slide_{$list.ad.pos}").slidesjs({
+                            navigation: false
+                        });
+                    })
+                </script>
+            </case>
+            <case value="2">
+                <script src="__PUBLIC__/Core/js/ext/kinmaxshow/js/kinmaxshow.min.js"></script>
+                <div  style="width:{$list.ad.width}px;height:{$list.ad.height}px">
+                    <div id="slide_{$list.ad.pos}" >
+                        <volist name="list.res" id="vo">
+                            <div>
+                                <a href="{$vo.link}" target="_blank" title="{$vo.title}"><img src="{$vo.advspic|getThumbImageById=$list['ad']['width'],$list['ad']['height']}" alt="{$vo.title}"></a>
+                            </div>
+                        </volist>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(function(){
+                        var h_s={$list.ad.height};
+                    $("#slide_{$list.ad.pos}").kinMaxShow({height:h_s});
+                    });
+                </script>
+            </case>
+            <default />
+            <!-- 自定义样式代码开始 -->
+              <div class="fotorama" data-click="false" data-stopautoplayontouch="false" data-swipe="false" data-nav="true" data-arrows="true" data-transition="crossfade" data-transitionduration="1500" data-loop="true" data-autoplay="4000" data-fit="cover" data-minheight="300" data-maxheight="960">
+                <volist name="list.res" id="vo">
+                  <img alt="{$vo.title}" src="{$vo.advspic|getThumbImageById=$list['ad']['width'],$list['ad']['height']}"> 
+                </volist>
+              </div>
+            <!-- 自定义样式代码结束 -->
+        </switch>
+    </if>
+
+    <elseif condition="$list['type'] eq 3"/>
+    <div style="width:{$list['width']};height:{$list['height']};background: #cecece;">
+        <div style="margin:0px auto;width:150px;line-height: 30px;">{$list.advstext}</div>
+    </div>
+    <elseif condition="$list['type'] eq 1"/>
+    <if condition="$list['advspic'] neq 0">
+        <a href="{$list.link}"><img src="{$list.advspic|get_cover='path'}"/></a>
+    </if>
+
+    <elseif condition="$list['type'] eq 4"/>
+    {$list.advshtml}
+</if>
+<!-- add more -->

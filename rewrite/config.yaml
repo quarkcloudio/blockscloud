@@ -1,0 +1,11 @@
+name: saetest
+version: 1
+handle:
+
+- rewrite: if(!is_dir() && !is_file() && path~"^home$") goto "index.php/home/index/index.html"
+- rewrite: if(!is_dir() && !is_file() && path~"^ucenter/([0-9]+)(.*)$") goto "index.php/usercenter/index/index/uid/$1$2"
+- rewrite: if(!is_dir() && !is_file() && path~"^ucenter_/(.*)$") goto "index.php/usercenter/index/index/$1"
+- rewrite: if(!is_dir() && !is_file() && path~"^ucenter$") goto "index.php/usercenter/index/index.html"
+- rewrite: if(!is_dir() && !is_file() && path~"^people_/(.*)$") goto "index.php/people/index/index/$1"
+- rewrite: if(!is_dir() && !is_file() && path~"^people$") goto "index.php/people/index/index.html"
+- rewrite: if(!is_dir() && !is_file() && path~"^(.*)$") goto "index.php/$1"

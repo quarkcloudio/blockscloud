@@ -1,0 +1,49 @@
+<div class="tools" style="margin-bottom:10px;">
+    <a class="btn" href="{:addons_url('Advs://Advs/add')}">新 增</a>
+    <!-- <a class="btn" href="{:addons_url('Advs://Advs/addAdvs')}">分类</a> -->
+    <button class="btn ajax-post" target-form="ids" url="{:addons_url('Advs://Advs/savestatus',array('status'=>1))}">启 用</button>
+    <button class="btn ajax-post" target-form="ids" url="{:addons_url('Advs://Advs/savestatus',array('status'=>0))}">禁用</button>
+</div>
+<table style="text-align: center;">
+	<thead>
+		<tr>
+			<th class="row-selected row-selected"><input class="check-all" type="checkbox"></th>
+			<th style="text-align: center;">序号</th>
+			<volist name="listKey" id="vo">
+				<th style="text-align: center;">{$vo}</th>
+			</volist>
+			<th style="text-align: center;">操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		<volist name="_list" id="lv" >
+		<tr>
+			<td><input class="ids" type="checkbox" name="id[]" value="{$lv.id}"></td>
+			<td>{$lv.id}</td>
+            <php>
+            $sing = M('advertising')->find($lv['position']);
+            $lv['positiontext'] = $sing['title'];
+            $lv['statustext'] = $lv['status'] == 0 ? '禁用' : '正常';
+            $lv['create_time'] =intval($lv['create_time'])!=0? date('Y-m-d H:i', $lv['create_time']):'';
+            $lv['end_time']= intval($lv['end_time'])!=0? date('Y-m-d H:i', $lv['end_time']):'';
+        </php>
+			<volist name="listKey" id="lk">
+
+				<td>{$lv.$key}</td>
+			</volist>
+			<td>
+				<a href="{:addons_url('Advs://Advs/edit',array('id'=>$lv['id']))}">编辑</a>
+				<if condition="$lv.status eq 1">
+				<a class="confirm ajax-get" href="{:addons_url('Advs://Advs/forbidden',array('id'=>$lv['id']))}">禁用</a>
+				<else/>
+				<a class="confirm ajax-get" href="{:addons_url('Advs://Advs/off',array('id'=>$lv['id']))}">启用</a>
+				</if>
+				<a class="confirm ajax-get" href="{:addons_url('Advs://Advs/del',array('id'=>$lv['id']))}">删除</a>
+			</td>
+		</tr>
+		</volist>
+	</tbody>
+</table>
+<block name="script">
+<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+</block>

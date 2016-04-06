@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>网站助手-登录</title>
+
+    <link href="__Helper_STATIC__/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__Helper_STATIC__/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="__Helper_STATIC__/css/animate.css" rel="stylesheet">
+    <link href="__Helper_STATIC__/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+<div class="lock-word animated fadeInDown">
+    <span class="first-word">HELPER</span><span>TOOLS</span>
+</div>
+    <div class="middle-box text-center lockscreen animated fadeInDown">
+        <div>
+            <div class="m-b-md">
+            <img alt="image" class="img-circle circle-border" src="./Application/Helper/icon.png" width="150">
+            </div>
+            <h3>网站助手</h3>
+            <p>您可以使用网站助手，快速便捷的管理网站。</p>
+            <form class="m-t" role="form" method="post" action="{:U('login')}">
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control" placeholder="请输入管理密码" required="">
+                </div>
+                <button type="submit" class="btn btn-primary block full-width">登录</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="__Helper_STATIC__/js/jquery-2.1.1.js"></script>
+    <script src="__Helper_STATIC__/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

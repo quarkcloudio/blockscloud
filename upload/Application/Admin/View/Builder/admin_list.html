@@ -1,0 +1,196 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Core/js/ext/magnific/magnific-popup.css"/>
+    <!-- 标题 -->
+    <div class="main-title">
+        <h2>
+            {$title|htmlspecialchars}
+        </h2>
+    </div>
+    <php>
+        foreach($searches as $search){
+            if($_REQUEST[$search['name']])
+        {
+        $show=1;
+        }
+        }
+    </php>
+
+    <div style="margin-bottom: 10px;" <eq name='show' value="">class="hidden" </eq>id="search_form">
+
+        <style>
+            .tb_search td{
+                padding: 5px 10px;
+            }
+        </style>
+<form id="searchForm" method="get" action="{$searchPostUrl}" class="form-dont-clear-url-param">
+    <div class="search-form  cf " style="margin-bottom: 10px">
+        <table class="tb_search">
+
+    <volist name="searches" id="search">
+
+
+              <tr style="line-height: 28px">
+                  <td>
+                      {$search.title}
+                  </td>
+                  <td>
+                      <input style="float: none" type="text" name="{$search.name}" class="search-input"
+                             value="{:I($search['name'])}">
+                  </td>
+                  <td>
+                      {$search.des}
+                  </td>
+              </tr>
+
+    </volist>
+            <tr><td></td>
+                <td><input type="submit" class="btn" value="确定"/> <button class="btn ajax-post btn" onclick="toggle_search()">关闭</button></td>
+                <td></td>
+            </tr>
+    </table>
+        </div>
+        </form>
+        <div style="border-top:1px solid #ccc;border-bottom: 1px solid white"></div>
+    </div>
+    <!-- 按钮工具栏 -->
+    <div class="cf">
+        <div class="fl">
+<if condition="count($searches) gt 0">
+    <button class="btn submit-btn" url="?status=-1" target-form="ids" style="padding: 6px 16px;" onclick="toggle_search()">搜索</button>
+
+</if>
+
+            <volist name="buttonList" id="button">
+                <{$button.tag} {$button.attr}>{$button.title|htmlspecialchars}</{$button.tag}>
+            </volist>
+        </div>
+    </div>
+
+    <!-- 数据表格 -->
+    <div class="data-table">
+        <table>
+            <!-- 表头 -->
+            <thead>
+            <tr>
+                <th class="row-selected row-selected">
+                    <input class="check-all" type="checkbox"/>
+                </th>
+                <volist name="keyList" id="field">
+                    <th>{$field.title|htmlspecialchars}</th>
+                </volist>
+            </tr>
+            </thead>
+
+            <!-- 列表 -->
+            <tbody>
+            <volist name="list" id="e">
+                <tr>
+                    <td><input class="ids" type="checkbox" value="{$e['id']}" name="ids[]"></td>
+                    <volist name="keyList" id="field">
+                        <td>{$e[$field['name']]}</td>
+                    </volist>
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+    </div>
+    <!-- 分页 -->
+    <div class="page">
+        {$pagination}
+    </div>
+    </div>
+
+    <script type="text/javascript" src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
+    <script type="text/javascript">
+//        //搜索功能
+//        $("#search").click(function () {
+//            var url = $(this).attr('url');
+//            var query = $('.search-form').find('input').serialize();
+//            query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g, '');
+//            query = query.replace(/^&/g, '');
+//            if (url.indexOf('?') > 0) {
+//                url += '&' + query;
+//            } else {
+//                url += '?' + query;
+//            }
+//            window.location.href = url;
+//        });
+        //回车搜索
+//        $(".search-input").keyup(function (e) {
+//            if (e.keyCode === 13) {
+//                $("#search").click();
+//                return false;
+//            }
+//        });
+        function toggle_search(){
+            $('#search_form').toggle('slide');
+        }
+
+
+        $(document).on('submit', '.form-dont-clear-url-param', function(e){
+            e.preventDefault();
+
+            var seperator = "&";
+            var form = $(this).serialize();
+            var action = $(this).attr('action');
+            if(action == ''){
+                action = location.href;
+            }
+            var new_location = action + seperator + form;
+
+            location.href = new_location;
+
+            return false;
+        });
+
+
+    </script>
+
+
+    <script>
+        $(function(){
+            $('.tox-confirm').click(function(e){
+                var text = $(this).attr('data-confirm');
+                var result = confirm(text);
+                if(result) {
+                    return true;
+                } else {
+                    e.stopImmediatePropagation();
+                    e.stopPropagation();
+                    e.preventDefault();
+                    return false;
+                }
+            })
+        });
+
+
+        $(document).ready(function () {
+
+            $('.popup-gallery').each(function () { // the containers for all your galleries
+                $(this).magnificPopup({
+                    delegate: 'a',
+                    type: 'image',
+                    tLoading: '正在载入 #%curr%...',
+                    mainClass: 'mfp-img-mobile',
+                    gallery: {
+                        enabled: true,
+                        navigateByImgClick: true,
+                        preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
+
+                    },
+                    image: {
+                        tError: '<a href="%url%">图片 #%curr%</a> 无法被载入.',
+                        titleSrc: function (item) {
+                            /*           return item.el.attr('title') + '<small>by Marsel Van Oosten</small>';*/
+                            return '';
+                        },
+                        verticalFit: false
+                    }
+                });
+            });
+        });
+    </script>
+    <script type="text/javascript" src="__PUBLIC__/Core/js/ext/magnific/jquery.magnific-popup.min.js"></script>
+</block>

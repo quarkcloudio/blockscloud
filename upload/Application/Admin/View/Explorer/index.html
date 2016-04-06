@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" scroll="no">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="renderer" content="webkit">
+	<title>我的电脑 - 积木云</title>
+	<link rel="Shortcut Icon" href="__PUBLIC__/static/cloud/images/favicon.ico">
+	<link href="__PUBLIC__/static/cloud/js/lib/picasa/style/style.css?ver=3.12" rel="stylesheet"/>
+	<link href="__PUBLIC__/static/cloud/style/bootstrap.css?ver=3.12" rel="stylesheet"/>
+	<link rel="stylesheet" href="__PUBLIC__/static/cloud/style/font-awesome/css/font-awesome.css">
+	<!--[if IE 7]>
+	<link rel="stylesheet" href="__PUBLIC__/static/cloud/style/font-awesome/css/font-awesome-ie7.css">
+	<![endif]-->
+	<link href="__PUBLIC__/static/cloud/style/skin/simple/app_explorer.css?ver=3.12" rel="stylesheet" id='link_css_list'/>
+	
+</head>
+
+<?php if(isset($_GET['type'])){?>
+<style>.topbar{display: none;}.frame-header{top:0;}.frame-main{top:50px;}</style>
+<?php } ?>
+
+<body style="overflow:hidden;" oncontextmenu="return core.contextmenu();">
+	<div class="topbar">
+	    <div class="content">
+	        <div class="top_left">
+	            <a href="./" class="topbar_menu title"><i class="icon-cloud"></i>BlocksCloud</a>
+	            <a class='topbar_menu this' href='index.php?desktop' target='_self'><i class='font-icon menu-desktop'></i>桌面</a>
+	            <a class='topbar_menu ' href='index.php?explorer' target='_self'><i class='font-icon menu-explorer'></i>文件管理</a>
+	            <a class='topbar_menu ' href='index.php?editor' target='_self'><i class='font-icon menu-editor'></i>编辑器</a>
+	            <a class='topbar_menu ' href='./lib/plugins/adminer/' target='_blank'>adminer</a>
+	        </div>
+	        <div class="top_right">
+	            <div class="menu_group"> <a id='topbar_language' data-toggle="dropdown" href="#" class="topbar_menu"> <i class='font-icon icon-flag'></i>&nbsp;<b class="caret"></b> </a>
+	                <ul class="dropdown-menu topbar_language fadein pull-right" role="menu" aria-labelledby="topbar_language">
+	                    <li><a href='javascript:core.language("en");' class=''>English</a></li>
+	                    <li><a href='javascript:core.language("zh_CN");' class='this'>简体中文</a></li>
+	                    <li><a href='javascript:core.language("zh_TW");' class=''>繁體中文</a></li>
+	                </ul>
+	            </div>
+	            <div class="menu_group"> <a href="#" id='topbar_user' data-toggle="dropdown" class="topbar_menu"><i class="font-icon icon-user"></i>guest&nbsp;<b class="caret"></b></a>
+	                <ul class="dropdown-menu menu-topbar_user fadein pull-right" role="menu" aria-labelledby="topbar_user">
+	                    <li><a href="javascript:core.setting('user');"><i class="font-icon icon-user"></i>个人中心</a></li>
+	                    <li><a href="javascript:core.setting('theme');"><i class="font-icon icon-dashboard"></i>主题切换</a></li>
+	                    <li><a href="javascript:core.fullScreen();"><i class="font-icon icon-fullscreen"></i>全屏/退出全屏</a></li>
+	                    <li><a href="javascript:core.setting('help');"><i class="font-icon icon-question"></i>使用帮助</a></li>
+	                    <li><a href="javascript:core.setting('about');"><i class="font-icon icon-info-sign"></i>关于作品</a></li>
+	                    <li role="presentation" class="divider"></li>
+	                    <li><a href="./index.php?user/logout"><i class="font-icon icon-off"></i>退出</a></li>
+	                </ul>
+	            </div>
+	        </div>
+	        <div style="clear:both"></div>
+	    </div>
+	</div>
+	<div class="frame-header">
+		<div class="header-content">
+			<div class="header-left">
+				<div class="btn-group btn-group-sm">
+					<button class="btn btn-default" id='history_back' title='后退' type="button">
+						<i class="font-icon icon-arrow-left"></i>
+					</button>
+					<button class="btn btn-default" id='history_next' title='前进' type="button">
+						<i class="font-icon icon-arrow-right"></i>
+					</button>
+					<button class="btn btn-default" id='refresh' title='刷新' type="button">
+						<i class="font-icon icon-refresh"></i>
+					</button>
+				</div>
+			</div><!-- /header left -->
+			
+			<div class='header-middle'>
+				<button class="btn btn-default" id='home' title='根目录'>
+					<i class="font-icon icon-home"></i>
+				</button>
+
+				<div id='yarnball' title="点击进入编辑状态"></div>
+				<div id='yarnball_input'><input type="text" name="path" value="" class="path" id="path"/></div>
+
+				<button class="btn btn-default" id='up' title='上层' type="button">
+					<i class="font-icon icon-circle-arrow-up"></i>
+				</button>
+				<div class="path_tips" title="该目录没有写权限<br/>可以在操作系统中设置此目录的权限"><i class="icon-warning-sign"></i>只读</div>
+			</div><!-- /header-middle end-->		
+			<div class='header-right'>
+				<input type="text" name="seach"/>
+				<button class="btn btn-default" id='search' title='搜索' type="button">
+					<i class="font-icon icon-search"></i>
+				</button>
+			</div>
+		</div>
+	</div><!-- / header end -->
+
+	<div class="frame-main">
+		<div class='frame-left'>
+			<ul id="folderList" class="ztree"></ul>
+			<div class="bottom_box">
+				<div class="box_content">
+					<a style="margin-left:60px;" href="javascript:ui.path.list('*recycle*');" class="cell menuRecycleButton"><i class="font-icon icon-trash"></i><span>回收站</span></a>
+					<div style="clear:both"></div>
+				</div>
+			</div>
+		</div><!-- / frame-left end-->
+		<div class='frame-resize'></div>
+		<div class='frame-right'>
+			<div class="frame-right-main">
+				<div class="tools">
+					<div class="tools-left">
+						<!-- 回收站tool -->
+						<div class="btn-group btn-group-sm kod_recycle_tool hidden">
+							<button id='recycle_clear' class="btn btn-default" type="button">
+					        	<i class="font-icon icon-folder-close-alt"></i>清空回收站
+					        </button>
+						</div>
+
+						<!-- 分享 tool -->
+						<div class="btn-group btn-group-sm kod_share_tool hidden">
+							<button id='refresh' class="btn btn-default" type="button">
+					        	<i class="font-icon icon-folder-close-alt"></i>刷新
+					        </button>
+						</div>
+
+						<!-- 文件功能 -->
+						<div class="btn-group btn-group-sm kod_path_tool">
+					        <button id='newfolder' class="btn btn-default" type="button">
+					        	<i class="font-icon icon-folder-close-alt"></i>新建文件夹
+					        </button>
+					        <button id='newfile' class="btn btn-default" type="button">
+					        	<i class="font-icon icon-file-alt"></i>新建文件
+					        </button>
+					        <button id='upload' class="btn btn-default" type="button">
+					        	<i class="font-icon icon-cloud-upload"></i>上传
+					        </button>
+
+					        <div class="btn-group btn-group-sm">
+						    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+						      <i class="font-icon icon-tasks"></i>more&nbsp;<span class="caret"></span>	      
+						    </button>
+						    <ul class="dropdown-menu pull-right drop-menu-action fadein">
+								<li id="open"><a href='javascript:;'><i class="font-icon icon-folder-open-alt"></i>打开</a></li>
+							    <li id="share"><a href='javascript:;'><i class="font-icon icon-share-sign"></i>分享</a></li>
+							    <li id="download"><a href='javascript:;'><i class="font-icon icon-download"></i>下载</a></li>
+							    <li id="zip"><a href='javascript:;'><i class="font-icon icon-folder-close"></i>zip压缩</a></li>
+							    <li class="divider"></li>
+							    <li id="copy"><a href='javascript:;'><i class="font-icon icon-copy"></i>复制</a></li>
+							    <li id="rname"><a href='javascript:;'><i class="font-icon icon-pencil"></i>重命名</a></li>
+							    <li id="cute"><a href='javascript:;'><i class="font-icon icon-cut"></i>剪切</a></li>
+							    <li id="past"><a href='javascript:;'><i class="font-icon icon-paste"></i>粘贴</a></li>
+							    <li id="remove"><a href='javascript:;'><i class="font-icon icon-trash"></i>删除</a></li>
+								<li class="divider"></li>
+								<li id="clone"><a href='javascript:;'><i class="font-icon icon-external-link"></i>创建副本</a></li>
+							    <li id="createLink"><a href='javascript:;'><i class="font-icon icon-share-alt"></i>创建快捷方式</a></li>
+							    <li class="divider"></li>
+							    <li id="info"><a href='javascript:;'><i class="font-icon icon-info"></i>属性</a></li>
+						    </ul>
+						  </div>
+						</div>
+						<span class='msg'>载入中...</span>
+					</div>
+					<div class="tools-right">
+						<div class="btn-group btn-group-sm">
+						  <button id='set_icon' title="图标排列" type="button" class="btn btn-default">
+						  	<i class="font-icon icon-th"></i>
+						  </button>
+						  <button id='set_list' title="列表排列" type="button" class="btn btn-default">
+						  	<i class="font-icon icon-list"></i>
+						  </button>
+						</div>
+					</div>
+					<div style="clear:both"></div>
+				</div><!-- end tools -->
+				<div id='list_type_list'></div><!-- list type 列表排序方式 -->
+				<div class='bodymain html5_drag_upload_box menuBodyMain'>
+					<div class="fileContiner"></div>
+				</div><!-- html5拖拽上传list -->
+			</div>
+		</div><!-- / frame-right end-->
+	</div><!-- / frame-main end-->
+<div class="common_footer">
+	Powered by BlocksCloud | Copyright &copy; <a target="_blank" href="http://ixiaoquan.com/">ixiaoquan.com</a> All rights reserved. 
+	<a class="icon-info-sign copyright_bottom" href="javascript:core.copyright();"></a>
+</div>
+<script src="http://{$Think.server.HTTP_HOST}__PUBLIC__/static/cloud/js/lib/seajs/sea.js?ver=3.12"></script>
+<script src="{:U('js/common_js')}"></script>
+<script type="text/javascript">
+	G.this_path = "{$dir}";
+	G.static_path= "__PUBLIC__/static/cloud/";
+	seajs.config({
+		base: "__PUBLIC__/static/cloud/js/",
+		preload: ["lib/jquery-1.8.0.min"],
+		map:[
+			[ /^(.*\.(?:css|js))(.*)$/i,'$1$2?ver='+G.version]
+		]
+	});
+	seajs.use("app/src/explorer/main");
+</script>
+</body>
+</html>

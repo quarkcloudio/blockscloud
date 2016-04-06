@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>登陆-积木云</title>
+
+    <link href="__THEME_STATIC__/Home/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__THEME_STATIC__/Home/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="__THEME_STATIC__/Home/css/animate.css" rel="stylesheet">
+    <link href="__THEME_STATIC__/Home/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div>
+            <div>
+
+                <h1 class="logo-name">云</h1>
+
+            </div>
+            <h3>有趣的社交网络</h3>
+            <p>积木云，重新定义网络社区；欢迎加入，我们等你！</p>
+            <p>登陆你可以发现更多</p>
+            <form class="m-t" role="form" method="post" action="__SELF__">
+                <div class="form-group">
+                    <input type="text" name="username" class="form-control" placeholder="用户名" required="">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control" placeholder="密码" required="">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="verify" class="form-control" placeholder="验证码" required="">
+                </div>
+                <div class="form-group">
+                    <img class="verifyimg reloadverify" width="100%" alt="点击切换" src="{:U('verify')}" style="cursor:pointer;">
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">登陆</button>
+
+                <a href="#"><small>忘记密码?</small></a>
+                <p class="text-muted text-center"><small>还没有账号?</small></p>
+                <a class="btn btn-sm btn-white btn-block" href="{:U('Public/register')}">注册积木云</a>
+            </form>
+            <p class="m-t"> <small>版权所有 积木云 &copy; 2015</small> </p>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="__THEME_STATIC__/Home/js/jquery-2.1.1.js"></script>
+    <script src="__THEME_STATIC__/Home/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(document)
+            .ajaxStart(function(){
+                $("button:submit").addClass("log-in").attr("disabled", true);
+            })
+            .ajaxStop(function(){
+                $("button:submit").removeClass("log-in").attr("disabled", false);
+            });
+
+
+        $("form").submit(function(){
+            var self = $(this);
+            $.post(self.attr("action"), self.serialize(), success, "json");
+            return false;
+
+            function success(data){
+                if(data.status){
+                    window.location.href = data.url;
+                } else {
+                    alert(data.info);
+                    //刷新验证码
+                    $(".reloadverify").click();
+                }
+            }
+        });
+
+        $(function(){
+            var verifyimg = $(".verifyimg").attr("src");
+            $(".reloadverify").click(function(){
+                if( verifyimg.indexOf('?')>0){
+                    $(".verifyimg").attr("src", verifyimg+'&random='+Math.random());
+                }else{
+                    $(".verifyimg").attr("src", verifyimg.replace(/\?.*$/,'')+'?'+Math.random());
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

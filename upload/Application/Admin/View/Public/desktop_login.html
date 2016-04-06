@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>积木云</title>
+    <link href="__PUBLIC__/static/cloud/images/favicon.ico" rel="Shortcut Icon" >
+    <link href="__PUBLIC__/static/cloud/style/bootstrap.css" rel="stylesheet"/>
+    <link href="__PUBLIC__/static/cloud/style/font-awesome/css/font-awesome.css" rel="stylesheet" >
+    <!-- 字体不能跨域问题 -->
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="__PUBLIC__/static/cloud/style/font-awesome/css/font-awesome-ie7.css">
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/static/cloud/style/login.css">
+    <script src="__PUBLIC__/static/cloud/js/lib/jquery-1.8.0.min.js"></script>
+</head>
+
+<body>
+
+    <div class="background" style="background-image:url('{$wallpaper}')"></div><!-- 背景图片 -->
+    <div class="loginbox" >
+        <div class="title">
+            <div class="logo"><i class="icon-cloud"></i>积木云</div>
+            <div class='info'>——积木云.WEB3管理器</div>
+        </div>
+        <form action="{:U('login')}" method="post" class="login-form">
+        <div class="form">
+            <div class="inputs">
+                <div><span>用户名：</span><input id="username" name='username' type="text" placeholder="用户名" required/> </div> 
+                <div><span>密码：</span><input id="password" name='password' type="password" placeholder="密码" required /></div>
+                
+                <!-- 三次密码输入错误需要填写验证码 -->
+                <div class='check_code'>
+                    <span>验证码：</span>
+                    <input name='verify' id="verify" class="check_code" type="text" placeholder="验证码" required /> <img src='{:U('Public/verify')}' onclick="this.src='{:U('Public/verify')}&random='+Math.random()"/>
+                    <div style="clear:both;"></div>
+                </div>       
+            </div>
+            <div class="actions">
+                <input type="button" id="submit" value="登录" />
+                <input type="checkbox" class="checkbox" name="rember_password" id='rm' checked='checked' />
+                <label for='rm'>记住密码</label>               
+            </div>
+            <div class="msg"></div>
+            <div style="clear:both;"></div>
+        </div>
+        </form>
+    </div>
+<div class="common_footer">Powered by BlocksCloud_v{$Think.BLOCKSCLOUD_VERSION} | Copyright © www.ixiaoquan.com All rights reserved.</div>
+<script type="text/javascript">
+    $('#submit').click(function () {
+        var username = $('#username').val();
+        var password = $('#password').val();
+        var verify   = $('#verify').val();
+        $.post("{:U('login')}", { "username": username,"password":password,"verify":verify},
+           function(data){
+             if (data.status == 1) {
+                $(".msg").html('登录成功！正在跳转...');
+                window.location.href="{:U('index/index')}"; 
+             }else{
+                $(".msg").html(data.info);
+             }
+             
+           }, "json");
+    });
+</script>
+</body>
+</html>

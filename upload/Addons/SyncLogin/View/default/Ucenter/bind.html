@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <include file="Public/head"/>
+</head>
+<body>
+<!-- 头部 -->
+<include file="Public/header1"/>
+<!-- /头部 -->
+<block name="style">
+<style>
+    a.btn:hover{color: #fff!important;}
+</style>
+</block>
+<!-- 主体 -->
+<block name="header">
+    <php>
+        function check_is_bind_account($uid=0,$type=''){
+        $check = D('sync_login')->where(array('uid'=>$uid,'type'=>$type))->find();
+        if($check){
+        return true;
+        }
+        return false;
+        }
+    </php>
+    <div id="main-container" class="container">
+        <include file="Public/user_info"/>
+        <include file="Public/_top_menu"/>
+        <div>
+            <div class="col-md-3 col-sm-4 col-xs-6 pad_0">
+                <div class="sidebar common_block_border clearfix">
+                    <div>
+                        <!--导航栏-->
+                        <php>
+                            //各列字段的含义分别是：标签名称，图标，链接，tabHash
+                            if($uid==is_login()) {
+                            $oneuser_navbar_items_title='设置';
+                            $oneuser_navbar_items = array(
+                            array(
+                            array('个人档案',U('usercenter/config/info'),'info'),
+                            array('个人视频',U('usercenter/config/view'),'view'),
+                            array('申请认证',U('usercenter/config/rank'),'rank'),
+                            array('绑定微博',addons_url('SyncLogin://Ucenter/bind'),'bind')
+                            )
+                            );
+                            } else {
+                            $oneuser_navbar_items = array(
+                            );
+                            }
+                        </php>
+                        <if condition="$oneuser_navbar_items_title">
+                <span class="sidebar_title col-xs-12">
+                    {$oneuser_navbar_items_title}
+                </span>
+                        </if>
+                        <ul class="col-xs-12 pad_0">
+                            <volist name="oneuser_navbar_items" id="item">
+                                <neq name="key" value="0">
+                                    <div class="line"></div>
+                                </neq>
+                                <volist name="item" id="child_item">
+                                    <php>
+                                        $activeClass = $tabHash == $child_item[2] ? 'sidebar_active' : '';
+                                    </php>
+                                    <li>
+                                        <a href="{$child_item[1]}" class="{$activeClass}">
+                                            {$child_item[0]}
+                                        </a>
+                                    </li>
+                                </volist>
+
+                            </volist>
+
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-8 col-xs-11" style="padding-left:10px;padding-right: 0;">
+
+
+                <div class="uc_config_info common_block_border clearfix col-xs-12 "
+                     style="padding-top:20px;padding-bottom: 20px;">
+                    <h2>帐号绑定</h2>
+
+                    <div class="other_login_link" style="margin: 0">
+                        <volist name="list" id="vo">
+                            <p>
+           <span class="col-xs-4">  <a href="javascript:" class="other_login other_login_{$vo['name']}"></a></span>
+           <span class="col-xs-6"><if condition="$vo['is_bind']">已绑定 &nbsp; [<a href="{$vo.info.profile_url}" target="_blank">{$vo.info.nick}</a>]<else/>未绑定</if> </span>
+<span class="">
+    <if condition="$vo['is_bind']"><a href="javascript:" class="btn btn-primary unbind" data-type="{$vo.name}"  data-url="{:addons_url('SyncLogin://Ucenter/unbind')}">取消绑定</a>
+        <else/>
+        <a href="{:addons_url('SyncLogin://Base/login',array('type'=>$vo['name']))}" class="btn btn-primary ">点击绑定</a></if>
+</span>
+
+                            </p>
+
+                        </volist>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+            $(window).resize(function () {
+                $("#main-container").css("min-height", $(window).height() - 343);
+            }).resize();
+        })
+    </script>
+</block>
+<!-- /主体 -->
+
+<!-- 底部 -->
+<include file="Public/footer1"/>
+<!-- /底部 -->
+
+<script>
+    $(function () {
+        var $sidebar = $('#usercenter-sidebar-td');
+        var $sidebar_xs = $('#usercenter-sidebar-xs');
+        var $sidebar_sm = $('#usercenter-sidebar-sm');
+        var $content = $('#usercenter-content-td');
+
+        function trigger_resp() {
+            var width = $(window).width();
+            if (width < 768) {
+                on_xs();
+            } else {
+                on_sm();
+            }
+        }
+
+        function on_xs() {
+            $sidebar_xs.append($sidebar);
+            $content.css({'padding-left': 0, 'padding-right': 0});
+        }
+
+        function on_sm() {
+            $sidebar_sm.prepend($sidebar);
+            $content.css({'padding-left': '50px', 'padding-right': '50px'});
+        }
+
+        trigger_resp();
+
+        $(window).resize(function () {
+            trigger_resp();
+        })
+        $('.unbind').click(function(){
+            if(confirm('确定要取消绑定么？')){
+                var obj = $(this);
+                var type =obj.attr('data-type');
+                var url =  obj.attr('data-url');
+                $.post(url,{type:type},function(res){
+                    handleAjax(res);
+                })
+            }
+
+        })
+
+
+    })
+</script>
+
+</body>
+</html>

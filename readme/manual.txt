@@ -1,0 +1,122 @@
+﻿开发手册
+
+1.分类下推荐文章列表标签
+<article:position pos="4" cate="6" limit="1" name="vo" >
+<img src="{$vo.cover_id|get_cover='path'}"/>
+<a href="{:U('Home/Article/detail?id='.$vo['id'])}" title="{$vo.title}">
+{$vo.title}
+</a>
+{$vo.description}
+</article:position>
+
+2.分类下文章列表标签
+<article:list name="article" category="3" child="true" row="3" >
+  <li>
+      <img src="{$article.cover_id|get_cover='path'}"/>
+      <a href="{:U('Home/Article/detail?id='.$article['id'])}">
+          {$article.title}
+      </a>
+      <span>
+           {$article.create_time|date='Y-m-d H:i:s',###}
+      </span>
+  </li>
+</article:list>
+
+3.U函数链接
+单页{:U('Home/Article/page?id=1')}
+栏目{:U('Home/Article/lists?category=industry_news')}
+
+4.焦点图
+<banner name="vo" pos="1" >
+  <a href="{$vo.link}" title="{$vo.title}">
+    <img src="{$vo.advspic|get_cover='path'}" />
+  </a>
+</banner>
+
+5.同级栏目列表
+<catelist category="$category['id']" name="vo">
+   <a href='{:U('Home/Article/lists?category='.$vo['name'])}' <eq name="vo['id']" value="$category['id']"> class="hover" </eq>  title='{$vo.title}'>
+       {$vo.title}
+   </a>
+</catelist>
+
+6.模板引用
+<template file="Public/header.html" />
+<template file="Public/footer.html" />
+
+7.栏目列表标签
+<volist name="list" id="data">
+  <a href="{:U('Article/detail?id='.$data['id'])}">
+     <img style="width:171px;height:101px;" src="<empty name="data['cover_id']">__STATIC__/noimage/noimage.gif<else />{$data.cover_id|get_cover='path'}</empty>" />
+  </a>
+  {$data.create_time|date='Y.m.d',###}
+  <a href="{:U('Article/detail?id='.$data['id'])}">
+     {$data.title}
+  </a>
+  {$data.description}
+</volist>
+<link href="__STATIC__/page.css" rel="stylesheet">
+<div class="pagination">
+  <ul>
+    <article:page cate="$category['id']" listrow="$category['list_row']" />
+  </ul>
+</div>
+
+8.友情链接标签
+<friendlink name="vo" num="5" >
+   <a href="{$vo.link}" target="_blank">{$vo.title}</a>&nbsp;
+</friendlink>
+
+9.钩子
+  留言板钩子{:hook('messageBoard')}
+  友情链接钩子{:hook('friendLink')}
+  轮播图钩子{:hook('Advs','banner')}
+  支付宝接口{:hook('indexAliPlay','config')}
+  编辑器
+  <textarea name="content">{$data[$field['name']]}</textarea>
+  {:hook('documentEditFormContent', array('name'=>'content','value'=>$data[$field['name']]))}
+
+10.获取指定文档列表
+<artlist name="vo" order="view desc" num="6" subday='week' >
+   <eq name="vo['null']" value="1">
+      <li>暂无文章</li>
+      <else/>{$vo['like']}
+        <a title="{$vo['title']}" href="{:U('Home/Article/detail?id='.$vo['id'])}">
+          {$vo['title']}
+        </a>
+   </eq>
+</artlist>
+
+11.杂项
+获取分类信息：<a href="{:U('Article/lists?category='.$category['name'])}">{$category.title}</a>
+内容详情信息：文章标题{$info.title}，文章内容{$info.content}
+单个文章信息标签(artid:文章id,strip:1去除html标签，num：截取字符串数量)：<artinfo artid='6' strip='1' num='200' field='content' />
+N.导航
+  <think:nav name="nav">
+      <eq name="nav.pid" value="0">
+          <php>
+              $children=D('Channel')->where(array('pid'=>$nav['id']))->order('sort asc')->select();
+              if($children){
+          </php>
+          <li>
+              <a href="#">
+                  {$nav.title} 
+              </a>
+              <div class="subnav">
+                <div class="second">
+                  <volist name="children" id="subnav">
+                        <a href="{$subnav.url|get_nav_url}" target="<eq name='subnav.target' value='1'>_blank<else/>_self</eq>" >
+                          {$subnav.title}
+                        </a>
+                  </volist>
+                </div>
+              </div>
+          </li>
+          <php>}else{</php>
+          <li class="{$nav.url|get_current=###,'now',''}" ><a href="{$nav.url|get_nav_url}" title="{$nav.title}">{$nav.title}</a></li>
+          <php>}</php>
+      </eq>
+  </think:nav>
+
+
+

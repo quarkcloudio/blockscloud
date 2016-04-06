@@ -1,0 +1,65 @@
+<template file="Public/header.html" />
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>积木</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="{:U('index/index')}">首页</a>
+                    </li>
+                    <li class="active">
+                        <a href="{:U('Article/lists?category='.$category['name'])}">{$category.title}</a>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-lg-2">
+
+            </div>
+        </div>
+
+        <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox">
+                            <div class="ibox-content">
+                            <volist name="list" id="data">
+                                <in name="i" value="1,4,7"><div class="row"></in>
+                                
+                                    <div class="col-lg-4">
+                                        <div class="text-center m-t-lg">
+                                            <a href="{:U('Article/detail?id='.$data['id'])}"><img style="width: 200px;margin-top: 20px" alt="{$data.title}" src="{$data.cover_id|get_cover='path'}"></a>
+                                        </div>
+                                        <div class="text-center m-t-lg">
+                                            <a href="{:U('Article/detail?id='.$data['id'])}"><h1>{$data.title}</h1></a>
+                                            <small>下载次数{$data.id|downloadinfo=###,'download'}&nbsp;&nbsp;&nbsp;&nbsp;文件大小{$data.id|downloadinfo=###,'size'}MB</small>
+                                        </div>
+                                        <div>
+                                            <div class="hr-line-dashed"></div>
+                                            <div class="text-center p-m">
+                                                <p style="text-align: left;">
+                                                  {$data.id|downloadinfo=###,'content'}
+                                                </p>
+
+                                                <p class="text-center m-t-md">
+                                                    <a class="btn btn-success" href="{:U('File/download?id='.$data['id'])}" target="_blank">立即下载</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                <in name="i" value="3,6,9"></div></in>
+                            </volist>
+                            <!-- 当最后的总i不再3,6,9范围时，闭合标签 -->
+                            <notin name="i" value="3,6,9"></div></notin>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            <div class="pagination pagination-right pagination-large">
+                <article:page cate="$category['id']" listrow="$category['list_row']" />
+            </div>
+
+        </div>
+<template file="Public/footer.html" />

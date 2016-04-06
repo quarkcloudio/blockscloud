@@ -1,0 +1,23 @@
+<if condition="count($list['picture']) neq 0">
+    <div class="flink_image">
+        <h2 class="tit">合作伙伴</h2>
+        <ul class="aList clearfix">
+            <volist name="list.picture" id="po">
+                <li><a target="_blank" title="{$po.title}" href="{$po.link}"><img src="{$po.path}"/></a></li>
+            </volist>
+        </ul>
+    </div>
+</if>
+<if condition="count($list['writing']) neq 0">
+    <div class="flink_text">
+        <h2 class="tit">友情连接</h2>
+
+        <p class="pList clearfix">
+		<span>
+		  <volist name="list.writing" id="lo">
+              <a target="_blank" title="{$po.title}" href="{$lo.link}">{$lo.title}</a>
+          </volist>
+		</span>
+        </p>
+    </div>
+</if>

@@ -1,0 +1,104 @@
+<extend name="Public/base"/>
+
+<block name="body">
+<style type="text/css">
+.money{color: #e4393c; float: left; display: inline;font-size: 12px;}
+.app_status{float: right; display: inline; font-size: 12px;}
+.app_box{ width: 137px; height: 210px; background-color: #fff; padding: 10px; border: 1px solid #e6e6e6; float: left; margin-left: 20px; margin-top: 15px;}
+.clear_margin{ margin-left: 5px;}
+.app_title{ margin-top: 10px; margin-bottom: 5px; font-size: 12px;}
+.app_title a{color: #666666;}
+.app_list{ margin-top: 20px; width: 880px;}
+</style>
+	<div class="main-title">
+		<h2>本地插件</h2>
+	</div>
+
+	<div class="cf">
+		<a class="btn" href="{:U('addons')}">本 地</a>
+		<a class="btn" href="{:U('addonsOnline')}">市 场</a>
+		<a class="btn" href="{:U('appUpload')}">上 传</a>
+		<!-- 高级搜索 -->
+		<div class="search-form fr cf">
+			<div class="sleft">
+				<input type="text" name="name" class="search-input" value="{:I('name')}" placeholder="请输入名称">
+				<a class="sch-btn" href="javascript:;" id="search" url="{:U('themeOffline')}"><i class="btn-search"></i></a>
+			</div>
+		</div>
+	</div>
+
+	<div class="data-table table-striped">
+		<div class="app_list">
+				<notempty name="list">
+				<volist name="list" id="data">
+					<div class="app_box <in name='i' value='1,6,11'>clear_margin</in>">
+						<p><a href="#"><img width="137" height="150" src="{$data.name|get_app_img=###,'addons'}" ></a></p>
+						<p class="app_title"><a href="#">{$data.title}</a></p>
+						<p><span class="money">版本：{$data.version}</span>	
+						<empty name="data.uninstall">
+							<?php
+								$class	= get_addon_class($data['name']);
+								if(!class_exists($class)){
+									$has_config = 0;
+								}else{
+									$addon = new $class();
+									$has_config = count($addon->getConfig());
+								}
+							?>
+							<?php if ($has_config): ?>
+								<!-- <a class="app_status" href="{:U('Addons/config',array('id'=>$data['id']))}">设置</a> -->
+							<?php endif ?>
+						<?php if ($data['status'] >=0): ?>
+							<eq name="data.status" value="0">
+								<a class="app_status ajax-get" href="{:U('Addons/enable',array('id'=>$data['id']))}">启用</a>
+							<else />
+								<a class="app_status ajax-get" href="{:U('Addons/disable',array('id'=>$data['id']))}">禁用</a>
+							</eq>
+						<?php endif ?>
+							{// <eq name="data.author" value="thinkphp">}
+								<a class="app_status ajax-get" href="{:U('Addons/uninstall?id='.$data['id'])}">卸载&nbsp; </a>
+							{// </eq>}
+						<else />
+							<a class="app_status ajax-get" href="{:U('Addons/install?addon_name='.$data['name'])}">安装</a>
+						</empty>
+						</p>
+					</div>
+				</volist>
+				<else/>
+				<div class="text-center"> aOh! 暂时还没有内容! </div>
+				</notempty>
+		</div>
+		<div style="clear:both;"></div>
+		<!-- 分页 -->
+	    <div class="page">
+	        {$_page}
+	    </div>
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+$(function(){
+	//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+		window.location.href = url;
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			$("#search").click();
+			return false;
+		}
+	});
+});
+</script>
+</block>

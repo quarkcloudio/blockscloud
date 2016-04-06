@@ -1,0 +1,131 @@
+<extend name="Public/base"/>
+<block name="body">
+	<script>
+		function show_img(){
+			$("#img_area").show();
+		}
+		function hide_img(){
+			$("#img_area").hide();
+		}
+	</script>
+	<div class="main-title cf">
+		<h2><if condition="$_GET['_action'] eq 'add'">新增<else/>编辑</if>友情连接</h2>
+	</div>
+	<!-- 表单 -->
+	<form id="form" action="{:addons_url('SuperLinks://SuperLinks/update')}" method="post" class="form-horizontal">
+		<!-- 基础文档模型 -->
+		<div id="tab1" class="tab-pane in tab1">
+			<div class="form-item cf">
+				<label class="item-label">站点名称<span class="check-tips">（请输入友情连接站点名称）</span></label>
+				<div class="controls">
+					<input type="text" class="text input-large" name="title" value="{$info.title}">
+				</div>
+			</div>
+			<div class="form-item cf">
+				<label class="item-label">连接类型</label>
+				<div class="controls">
+				  <if condition="$_GET['_action'] eq 'add'">
+					<label class="checkbox"><input type="radio" name="type" value="1" checked="checked" onclick="javascript:show_img()">图片连接</label>
+					<label class="checkbox"><input type="radio" name="type" value="2" onclick="javascript:hide_img()">普通连接</label>
+				  <else/>
+					<label class="checkbox"><input type="radio" name="type" value="1" <if condition="$info.type eq 1">checked="checked"</if> onclick="javascript:show_img()">图片</label>
+					<label class="checkbox"><input type="radio" name="type" value="2" <if condition="$info.type eq 2">checked="checked"</if> onclick="javascript:hide_img()">普通</label>
+				  	<script>
+				  		$(function(){
+				  			<if condition="$info.type eq 1">
+						  		show_img();
+						  	<else/>
+						  		hide_img();	
+						  	</if>
+				  		});				  	
+				  	</script>
+				  </if>
+				</div>
+			</div>
+			<div class="form-item cf">
+				<label class="item-label">外链地址<span class="check-tips">（请填写带http://的全路径）</span></label>
+				<div class="controls">
+					<input type="text" class="text input-large" name="link" value="{$info.link}">
+				</div>
+			</div>
+			<div class="form-item cf" id="img_area">
+				<label class="item-label">站点图片</label>
+				<div class="controls">
+					<input type="file" id="upload_picture">
+					<input type="hidden" id="cover_id" name="cover_id" value="{$info.cover_id}"/>
+					<div class="upload-img-box">
+					<notempty name="info['cover_id']">
+						<div class="upload-pre-item"><img src="{$info.cover_id|get_cover='path'}"/></div>
+					</notempty>
+					</div>
+				</div>
+			</div>
+		</div>
+		<input type="hidden" name="id" value="{$info.id}"/>
+		<div class="form-item cf">
+			<input class="btn submit-btn hidden" type="submit" value="确 定" />
+			<input class="btn btn-return" type="reset" value="重置" />
+		</div>
+	</form>
+</block>
+<block name="script">
+<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+<script type="text/javascript">
+
+(function(){
+	var url = "{$current}";
+	$("#subnav").find("a[href='" + url + "']").parent().addClass("current");
+	
+	//上传文件
+	/* 初始化上传插件 */
+	$("#download-file").uploadify({
+        "height"          : 30,
+        "swf"             : "__STATIC__/uploadify/uploadify.swf",
+        "fileObjName"     : "download",
+        "buttonText"      : "上传文件",
+        "uploader"        : "{:U('File/upload',array('session_id'=>session_id()))}",
+        "width"           : 120,
+        'removeTimeout'   : 1,
+        "onUploadSuccess" : uploadSuccess
+    });
+
+	/* 文件上传成功回调函数 */
+    function uploadSuccess(file, data){
+    	var data = $.parseJSON(data);
+        if(data.status){
+        	$("input[name=file]").val(data.data);
+        	$("input[name=file]").parent().find('.upload-img-box').html(
+        		"<div class=\"uplaod-pre-file\">" + data.info + "</div>"
+        	);
+        } else {
+        	updateAlert(data.info);
+        }
+    }
+
+  	//上传图片
+    /* 初始化上传插件 */
+	$("#upload_picture").uploadify({
+        "height"          : 30,
+        "swf"             : "__STATIC__/uploadify/uploadify.swf",
+        "fileObjName"     : "download",
+        "buttonText"      : "上传图片",
+        "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+        "width"           : 120,
+        'removeTimeout'	  : 1,
+        'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+        "onUploadSuccess" : uploadPicture
+    });
+	function uploadPicture(file, data){
+    	var data = $.parseJSON(data);
+        if(data.status){
+        	$("#cover_id").val(data.id);
+        	$("#cover_id").parent().find('.upload-img-box').html(
+        		'<div class="upload-pre-item"><img src="' + data.path + '"/></div>'
+        	);
+        } else {
+        	updateAlert(data.info);
+        }
+    }
+})();
+</script>
+</block>

@@ -1,0 +1,120 @@
+<extend name="Public/base"/>
+
+<block name="body">
+<style type="text/css">
+.money{color: #e4393c; float: left; display: inline;font-size: 12px;}
+.app_status{float: right; display: inline; font-size: 12px;}
+.app_box{ width: 137px; height: 210px; background-color: #fff; padding: 10px; border: 1px solid #e6e6e6; float: left; margin-left: 20px; margin-top: 15px;}
+.clear_margin{ margin-left: 5px;}
+.app_title{ margin-top: 10px; margin-bottom: 5px; font-size: 12px;}
+.app_title a{color: #666666;}
+.app_list{ margin-top: 20px; width: 880px;}
+</style>
+	<div class="main-title">
+		<h2>本地应用</h2>
+	</div>
+
+	<div class="cf">
+		<a class="btn" href="{:U('app')}">本 地</a>
+		<a class="btn" href="{:U('appOnline')}">市 场</a>
+		<a class="btn" href="{:U('appUpload')}">上 传</a>
+		<!-- 高级搜索 -->
+		<div class="search-form fr cf">
+			<div class="sleft">
+				<input type="text" name="name" class="search-input" value="{:I('name')}" placeholder="请输入名称">
+				<a class="sch-btn" href="javascript:;" id="search" url="{:U('themeOffline')}"><i class="btn-search"></i></a>
+			</div>
+		</div>
+	</div>
+	<div class="data-table table-striped">
+		<div class="app_list">
+				<notempty name="list">
+				<volist name="list" id="data">
+					<div class="app_box <in name='i' value='1,6,11'>clear_margin</in>">
+						<p><a href="#"><img width="137" height="150" src="{$data.name|get_app_img=###,'app'}" ></a></p>
+						<p class="app_title"><a href="#">{$data.title}</a></p>
+						<p><span class="money">版本：{$data.version}</span><eq name="data.is_setup" value='1'><a class="app_status ajax-get" href="{:U('uninstallApp?id='.$data['id'])}">{$data.is_setup|get_app_status}</a><else/><a class="app_status setup-app" href="{:U('setupApp?id='.$data['id'])}">{$data.is_setup|get_app_status}</a></eq></p>
+					</div>
+				</volist>
+				<else/>
+				<div class="text-center"> aOh! 暂时还没有内容! </div>
+				</notempty>
+		</div>
+		<!-- 分页 -->
+	    <div class="page">
+	        {$_page}
+	    </div>
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+$(function(){
+	//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+		window.location.href = url;
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			$("#search").click();
+			return false;
+		}
+	});
+
+	$(".setup-app").click(function() {
+		var url = $(this).attr('href');
+        $.get(url,function(msg){
+            if (msg.info.status==1) {
+                objtop       = $(window.parent.document).find(".fileBox:last");
+                objleft      = $(window.parent.document).find(".fileBox:last");
+                var divheight = $(window.parent.document).find(".bodymain").css('height');
+                if (objtop.size() > 0) {
+                    var top       = objtop.css('top');
+                    var left      = objleft.css('left');
+                }else{
+                    var top       = $(window.parent.document).find(".menuDefault:last").css('top');
+                    var left      = $(window.parent.document).find(".menuDefault:last").css('left');
+                }
+                top             = top.substring(0,top.length-2);
+                left            = left.substring(0,left.length-2);
+                divheight       = divheight.substring(0,divheight.length-2);
+                inttop  = Number(top)+110;
+                intleft = Number(left);
+                intdivheight = Number(divheight)-110;
+                if (inttop>=intdivheight) {
+                    inttop  = 10;
+                    intleft = intleft+100;
+                };
+
+                var node= "<div title='"+msg.info.shortcut_name+"' data-name='"+msg.info.shortcut_name+"' data-app='"+msg.info.data_app+"' class='file fileBox menufile' number='10' style='position: absolute; left: "+intleft+"px; top: "+inttop+"px;'><div style='background-image:url("+msg.info.shortcut_img_url+")' filetype='oexe' class='ico'></div><div class='titleBox' id=''><span title='双击名称重命名' class='title'>"+msg.info.shortcut_name+"</span></div></div>";
+
+                $(window.parent.document).find(".fileList_icon").append(node);
+
+				updateAlert(msg.info.info,'alert-success');
+                setTimeout(function(){location.reload();},1500);
+
+            }else{
+                updateAlert('安装失败！');
+                setTimeout(function(){$('#top-alert').find('button').click();},1500);
+            }
+
+        });
+
+
+
+		return false;
+	})
+
+});
+</script>
+</block>

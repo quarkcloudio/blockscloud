@@ -1,0 +1,48 @@
+<volist name="tree" id="list">
+	<dl class="cate-item">
+		<dt class="cf">
+			<form action="{:U('add'.$model)}" method="post">
+				<div class="btn-toolbar opt-btn cf">
+					<a title="编辑" href="{:U('add'.$model.'?id='.$list['id'].'&pid='.$list['pid'])}">编辑</a>
+					<a title="{$list.status|show_status_op}" href="{:U('set'.$model.'Status?ids='.$list['id'].'&status='.abs(1-$list['status']))}" class="ajax-get">{$list.status|show_status_op}</a>
+					<a title="删除" href="{:U('set'.$model.'Status?ids='.$list['id'].'&status=-1')}" class="confirm ajax-get">删除</a>
+					<eq name="canMove" value="true">
+                        <a title="移动" href="{:U('operate'.$model.'?type=move&from='.$list['id'])}">移动</a>
+					</eq>
+                    <eq name="canMerge" value="true">
+                        <a title="合并" href="{:U('operate'.$model.'?type=merge&from='.$list['id'])}">合并</a>
+                    </eq>
+
+				</div>
+				<div class="fold"><i></i></div>
+				<div class="order"><input type="text" name="sort" class="text input-mini" value="{$list.sort}"></div>
+
+				<div class="name">
+					<span class="tab-sign"></span>
+					<input type="hidden" name="id" value="{$list.id}">
+					<input type="text" name="title" class="text" value="{$list.title}">
+                    <if condition="$level gt 0">
+                        <a class="add-sub-cate" title="添加子分类" href="{:U('add'.$model.'?pid='.$list['id'])}">
+                            <i class="icon-add"></i>
+                        </a>
+                    </if>
+
+					<span class="help-inline msg"></span>
+				</div>
+			</form>
+		</dt>
+        <if condition="$level gt 0">
+		<notempty name="list['_']">
+			<dd>
+                <php>
+                    $tree_list = new Admin\Builder\AdminTreeListBuilder();
+                    $tree_list->setLevel($level);
+                    $tree_list->setModel($model);
+                    $tree_list->tree($list['_']);
+                </php>
+			</dd>
+		</notempty>
+        </if>
+	</dl>
+
+</volist>

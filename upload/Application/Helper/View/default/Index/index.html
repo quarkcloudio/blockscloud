@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>网站助手</title>
+
+    <link href="__Helper_STATIC__/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__Helper_STATIC__/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="__Helper_STATIC__/css/animate.css" rel="stylesheet">
+    <link href="__Helper_STATIC__/css/plugins/codemirror/codemirror.css" rel="stylesheet">
+    <link href="__Helper_STATIC__/css/plugins/codemirror/ambiance.css" rel="stylesheet">
+    <link href="__Helper_STATIC__/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <div class="gray-bg">
+            <div class="row wrapper border-bottom white-bg page-heading" style="height: 65px;">
+                <div class="col-sm-8">
+                    <h2>网站助手</h2>
+                </div>
+                <div class="col-sm-2">
+
+                </div>
+                <div class="col-sm-2">
+                <h2>
+                    <a href="{:U('logout')}" class="btn btn-w-m btn-success" style="float: left;" type="button">退出</a>
+                </h2>
+                </div>
+            </div>
+        <div class="wrapper wrapper-content  animated fadeInRight"  style="max-width: 900px; margin: 0 auto;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <h5>网站助手 - 用命令一键配置网站</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="m-b-sm" style="height: 40px;">
+                                <div class="col-sm-8">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                        <select name="cmd" id="cmd" class="form-control">
+                                            <option selected="selected" value="1">网站基本配置</option>
+                                            <option value="2">备份数据库</option>
+                                            <option value="3">还原数据库</option>
+                                            <option value="4">创建导航</option>
+                                            <option value="5">创建分类</option>
+                                            <option value="6">根据分类生成导航</option>
+                                            <option value="7">重置用户密码</option>
+                                            <option value="8">执行sql语句</option>
+                                            <option value="9">api调试工具</option>
+                                        </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button class="btn btn-w-m btn-primary" id="exe" type="button">执行</button>
+                                    <button class="btn btn-outline btn-info" id="clear" type="button">清除</button>
+                                    <button class="btn btn-outline btn-info" id="help" type="button">帮助</button>
+                                </div>
+                            </div>
+                            <div class="apitool" style="display: none;">
+                                <div class="m-b-sm" style="height: 40px;">
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <input type="text" id="apiurl" placeholder="API地址" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                    </div>
+                                </div>
+                                <div class="m-b-sm" style="height: 40px;">
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <input type="text" id="method" placeholder="传参方法" value="post" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                    </div>
+                                </div>
+                                <div class="m-b-sm" style="height: 40px;">
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <input type="text" id="username" value="administrator" placeholder="用户名" class="form-control">
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <input type="text" id="password" value="admin" placeholder="密码" class="form-control">
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <input type="text" id="token" placeholder="生成TOKEN" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <button class="btn btn-w-m btn-primary" id="createtoken" type="button">生成TOKEN</button>
+                                    </div>
+                                </div>
+                                <div class="m-b-sm" style="height: 40px;">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <input type="text" id="data" placeholder="DATA" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="divtext" style="height: 450px;">
+                            <textarea id="code">setWS --title:网站标题 --keyword:网站关键字 --description:网站描述 --beian:网站备案号</textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+        </div>
+
+
+
+    <!-- Mainly scripts -->
+    <script src="__Helper_STATIC__/js/jquery-2.1.1.js"></script>
+    <script src="__Helper_STATIC__/js/bootstrap.min.js"></script>
+    <!-- CodeMirror -->
+    <script src="__Helper_STATIC__/js/plugins/codemirror/codemirror.js"></script>
+    <script src="__Helper_STATIC__/js/plugins/codemirror/mode/javascript/javascript.js"></script>
+
+    <script>
+         $(document).ready(function(){
+             var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+                 lineNumbers: true,
+                 matchBrackets: true,
+                 styleActiveLine: true
+             });
+             editor.setOption('lineWrapping', true);
+             editor.setSize("100%","100%");
+
+            $("#cmd").change(function(){
+                value = $("#cmd").val();
+                if (value==9) {
+                    $(".apitool").css('display','block');
+                }else{
+                    $("#divtext").css('height','450px');
+                    $(".apitool").css('display','none');
+                }
+                switch(value){
+                case "1":
+                    editor.getDoc().setValue('setWS --title:网站标题 --keyword:网站关键字 --description:网站描述 --beian:网站备案号');
+                    editor.refresh();
+                  break;
+                case "2":
+                    editor.getDoc().setValue('backupDB --filename:DB --filepath:./Data/Database');
+                    editor.refresh();
+                  break;
+                case "3":
+                    editor.getDoc().setValue('restoreDB --dbtype:mysql --dbhost:数据库地址 --dbname:数据库名称 --dbuser:用户名 --dbpassword:密码 --dbport:3306 --dbfrefix:cloud_ --filename:DB --filepath:./Data/Database');
+                    editor.refresh();
+                  break;
+                case "4":
+                    editor.getDoc().setValue("createnav --data:\ntitle:导航标题 url:导航url\ntitle:导航标题 url:导航url\n\ttitle:导航标题 url:导航url");
+                    editor.refresh();
+                  break;
+                case "5":
+                    editor.getDoc().setValue("createcate --data:\nname:唯一英文标识 title:分类标题 ti:index tl:lists td:detail\n\tname:唯一英文标识 title:分类标题 ti:index tl:lists td:detail");
+                    editor.refresh();
+                  break;
+                case "6":
+
+                $.get("{:U('getCateToNav')}",
+                   function(data){
+                     if (data.status) {
+                        editor.getDoc().setValue(data.info);
+                        editor.refresh();
+
+                     }else{
+                        editor.getDoc().setValue(data.info);
+                        editor.refresh();
+                     }
+                   }, "json");
+
+                  break;
+                case "7":
+                    editor.getDoc().setValue("resetpwd --name:username --password:123456");
+                    editor.refresh();
+                  break;
+                case "8":
+                    editor.getDoc().setValue("exesql --#truncate table cloud_channel,cloud_category");
+                    editor.refresh();
+                  break;
+                case "9":
+                    editor.getDoc().setValue("");
+                    editor.refresh();
+
+                    $("#apiurl").val('http://'+window.location.host+'__ROOT__/api.php/Article/navigation.html');
+
+                    $("#createtoken").click(function(){
+                        username = $('#username').val();
+                        password = $('#password').val();
+                        tokenurl = 'http://'+window.location.host+'__ROOT__/api.php/login/do.html';
+                        $.ajax( {    
+                          url:tokenurl,// 跳转到 action    
+                          data:{    
+                                   username :username,    
+                                   password :password, 
+                          },    
+                          type:'post',    
+                          cache:false,    
+                          dataType:'json',    
+                          success:function(data) {    
+                              if(data.status == 200 ){       
+                                  $("#token").val(data.token);
+                                  $("#data").val('uid:'+data.data.id);
+                              }else{    
+                                  alert(data.info); 
+                              }    
+                           },    
+                           error : function() {    
+                                alert('错误');    
+                           }    
+                          }); 
+
+                    })
+
+                  break;
+                default:
+                  alert('不可用');
+                }
+            });
+
+            //清除命令
+            $('#clear').click(function () {
+                editor.getDoc().setValue('');
+                editor.refresh();
+            })
+
+            //执行命令
+            $('#exe').click(function () {
+
+                value = $("#cmd").val();
+                //执行调试api方法
+                if (value==9) {
+                    do_api();
+                }else{
+                    cmd = editor.getDoc().getValue();
+                    $.post("{:U('exe')}", {"cmd":cmd},
+                       function(data){
+                         if (data.status) {
+                            alert(data.info);
+                         }else{
+                            alert(data.info);
+                         }
+                       }, "json");
+                }
+
+            })
+
+            //执行api请求
+            function do_api() {
+                url = $("#apiurl").val();
+                var data = {},
+                token = 'token';
+                gettoken = $("#token").val();
+                getdata = $("#data").val();
+                var strs = new Array(); //定义一数组
+                var strs1 = new Array(); //定义一数组
+                strs = getdata.split(","); //字符分割 
+                for (i = 0; i < strs.length; i++) {
+                    strs1 = strs[i].split(":");
+                    data[strs1[0]] = strs1[1];
+                }
+                if (gettoken) {
+                    data[token] = gettoken;
+                };
+
+                method = $("#method").val();
+                $.ajax({
+                    url: url,
+                    // 跳转到 action
+                    data: data,
+                    type: method,
+                    cache: false,
+                    dataType: 'json',
+                    success: function(data) {
+                        $("#divtext").css('height','450px');
+                        getjson=JSON.stringify(data); //将JSON对象转化为JSON字符
+                        editor.getDoc().setValue("状态:获取成功\n"+getjson);
+                        editor.refresh();
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        $("#divtext").css('height','100%');
+                        editor.getDoc().setValue("状态:错误"+XMLHttpRequest.status+"\n"+XMLHttpRequest.responseText);
+                        editor.refresh();
+                    }
+                });
+
+            }
+
+        });
+    </script>
+
+<style>
+
+</style>
+
+</body>
+
+</html>

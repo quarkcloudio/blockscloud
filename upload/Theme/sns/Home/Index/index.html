@@ -1,0 +1,50 @@
+<template file="Public/header.html" />
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <volist name="list" id="data">
+                    <in name="i" value="1,4,7"><div class="col-lg-4"></in>
+                    <div class="ibox">
+                        <div class="ibox-content">
+                            <a href="{:U('Article/detail?id='.$data['id'])}" class="btn-link">
+                                <h2>
+                                    {$data.title}
+                                </h2>
+                            </a>
+                            <div class="small m-b-xs">
+                                <strong>{$data.uid|get_username}</strong> <span class="text-muted"><i class="fa fa-clock-o"></i> {$data.create_time|date='Y-m-d H:i',###}</span>
+                            </div>
+                            <empty name="data.cover_id">
+                            {$data.id|get_article_images}
+                            <else /> 
+                            <p>
+                                <img src="{$data.cover_id|get_cover='path'}" width="100%">
+                            </p>
+                            </empty> 
+                            <p>
+                                {$data.description}
+                            </p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                        <h5>分类:</h5>
+                                        <button class="btn btn-primary btn-xs" type="button">{$data.category_id|get_category_title}</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="small text-right">
+                                        <h5>状态:</h5>
+                                        <!-- <div> <i class="fa fa-comments-o"> </i> 56 评论 </div> -->
+                                        <i class="fa fa-eye"> </i> {$data.view} 阅读
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <in name="i" value="3,6,9"></div></in>
+                </volist>
+                <!-- 当最后的总i不再3,6,9范围时，闭合标签 -->
+                <notin name="i" value="3,6,9"></div></notin>
+            </div>
+            <div class="pagination pagination-right pagination-large">
+                <article:page cate="null" listrow="9" />
+            </div>
+        </div>
+<template file="Public/footer.html" />

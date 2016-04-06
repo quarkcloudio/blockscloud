@@ -1,0 +1,164 @@
+<extend name="Base/common"/>
+
+<block name="style">
+
+</block>
+
+<block name="body">
+
+    <div class="col-xs-12">
+    <div class="btn-group">
+        <a href="{:addons_url('SyncLogin://Base/bind',array('tip'=>'new'))}" class="btn btn-default <if condition="$tip eq 'new'">active</if>">新帐号</a>
+        <a href="{:addons_url('SyncLogin://Base/bind',array('tip'=>'exist'))}" class="btn btn-default <if condition="$tip eq 'exist'">active</if>">绑定已有帐号</a>
+
+    </div>
+    </div>
+
+  <div class="col-xs-4" style="margin-top: 30px;">
+<php>  if($tip =='new'){</php>
+    <form action="{:addons_url('SyncLogin://Base/newAccount')}" method="post">
+        <div class="form-group">
+            <label for="username" class=".sr-only col-xs-12" style="display: none"></label>
+            <input type="text" id="username" onblur="setNickname(this);" class="form-control" placeholder="请输入用户名"
+                   ajaxurl="/member/checkUserNameUnique.html" errormsg="请填写1-16位用户名"
+                   nullmsg="请填写用户名"
+                   datatype="*1-16" value="" name="username">
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group">
+            <label for="nickname" class=".sr-only col-xs-12" style="display: none"></label>
+            <input type="text" id="nickname" class="form-control" placeholder="请输入昵称"
+                   ajaxurl="/member/checkNickNameUnique.html" errormsg="请填写1-16位昵称"
+                   nullmsg="请填写昵称"
+                   datatype="*1-16" value="" name="nickname">
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmail" class=".sr-only col-xs-12" style="display: none"></label>
+            <input type="text" id="inputEmail" class="form-control" placeholder="请输入电子邮件"
+                   ajaxurl="/member/checkUserEmailUnique.html" errormsg="请填写正确格式的邮箱" nullmsg="请填写邮箱"
+                   datatype="e" value="" name="email">
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="form-group">
+            <div id="password_block" class="input-group">
+                <input type="password" id="inputPassword" class="form-control" placeholder="请输入密码"
+                       errormsg="密码为6-20位" nullmsg="请填写密码" datatype="*6-20" name="password">
+
+                <div class="input-group-addon"><a style="width: 100%;height: 100%"
+                                                  href="javascript:void(0);"
+                                                  onclick="change_show(this)">show</a></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary ">提 交</button>
+        <a href="{:addons_url('SyncLogin://Base/unbind')}" class="btn btn-success ">我不想绑定，直接跳过</a>
+    </form>
+      <php>}</php>
+      <php>if($tip == 'exist'){</php>
+      <form action="{:addons_url('SyncLogin://Base/existLogin')}" method="post"  >
+          <div class="form-group">
+              <label for="inputEmail" class=".sr-only col-xs-12"></label>
+
+              <div class=" ">
+                  <input type="text" id="inputEmail" class="form-control" placeholder="请输入用户名"
+                         ajaxurl="/member/checkUserNameUnique.html" errormsg="请填写1-16位用户名"
+                         nullmsg="请填写用户名"
+                         datatype="*1-16" value="" name="username">
+              </div>
+              <div class="clearfix"></div>
+          </div>
+          <div class="form-group">
+              <label for="inputPassword" class=".sr-only col-xs-12"></label>
+
+              <div class="">
+                  <div id="password_block" class="input-group">
+                      <input type="password" id="inputPassword" class="form-control" placeholder="请输入密码"
+                             errormsg="密码为6-20位" nullmsg="请填写密码" datatype="*6-20" name="password">
+
+                      <div class="input-group-addon"><a style="width: 100%;height: 100%" href="javascript:void(0);" onclick="change_show(this)">show</a></div>
+                  </div>
+              </div>
+
+              <div class="clearfix"></div>
+          </div>
+
+          <div class="checkbox lg_lf_fm_checkbox">
+              <label>
+                  <input type="checkbox" name="remember" style="cursor:pointer;"> 记住登录
+              </label>
+          </div>
+          <button type="submit" class="btn btn-primary">登 录</button>
+          <div class="clearfix"></div>
+      </form>
+      <php>}</php>
+</div>
+
+
+</block>
+
+<block name="script">
+<script>
+    if(MID==0){
+        $(document)
+                .ajaxStart(function () {
+                    $("button:submit").addClass("log-in").attr("disabled", true);
+                })
+                .ajaxStop(function () {
+                    $("button:submit").removeClass("log-in").attr("disabled", false);
+                });
+        $("form").submit(function () {
+            var self = $(this);
+            $.post(self.attr("action"), self.serialize(), success, "json");
+            return false;
+
+            function success(data) {
+                if (data.status) {
+                    toast.success(data.info, '温馨提示');
+                    setTimeout(function () {
+                        window.location.href = data.url
+                    }, 1000);
+                } else {
+                    toast.error(data.info, '温馨提示');
+                    //self.find(".Validform_checktip").text(data.info);
+                    //刷新验证码
+                    $(".reloadverify").click();
+                }
+            }
+        });
+
+        function change_show(obj) {
+            if ($(obj).text().trim() == 'show') {
+                $('#inputPassword').attr('type','text');
+                $(obj).text('hide');
+            } else {
+                $('#inputPassword').attr('type','password');
+                $(obj).text('show');
+            }
+        }
+
+        function setNickname(obj){
+            var text=$(obj).val().trim();
+            if(text!=null&&text!=''){
+                $('#nickname').val(text);
+            }
+        }
+
+    }
+</script>
+</block>
+
+
+
+
+
+
+
+
+
+

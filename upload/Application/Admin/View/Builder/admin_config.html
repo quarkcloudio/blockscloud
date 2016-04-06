@@ -1,0 +1,218 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>{$title}</h2>
+    </div>
+    <script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+    <form action="{$savePostUrl}" method="post" class="form-horizontal">
+        <volist name="keyList" id="field">
+            <label class="item-label">{$field.title|htmlspecialchars}
+                <if condition="$field['subtitle']">
+                    <span class="check-tips">（{$field.subtitle|htmlspecialchars}）</span>
+                </if>
+            </label>
+            <if condition="$field['name'] == 'action'">
+                <p style="color: #f00;">开发人员注意：你使用了一个名称为action的字段，由于这个字段名称会与form[action]冲突，导致无法提交表单，请换用另外一个名字。</p>
+            </if>
+            <div class="controls">
+                <switch name="field.type">
+                    <case value="text">
+                        <input type="text" name="{$field.name}" value="{$field.value|htmlspecialchars}" class="text input-large"/>
+                    </case>
+                    <case value="hidden">
+                        <input type="hidden" name="{$field.name}" value="{$field.value}" class="text input-large"/>
+                    </case>
+                    <case value="readonly">
+                        <input type="text" name="{$field.name}" value="{$field.value}" class="text input-large" placeholder="无需填写" readonly/>
+                    </case>
+                    <case value="integer">
+                        <input type="text" name="{$field.name}" value="{$field.value}" class="text input-large"/>
+                    </case>
+                    <case value="uid">
+                        <input type="text" name="{$field.name}" value="{$field.value}" class="text input-large"/>
+                    </case>
+                    <case value="select">
+                        <select name="{$field.name}">
+                            <volist name="field.opt" id="option">
+                                <php>
+                                    $selected = $field['value']==$key ? 'selected' : '';
+                                </php>
+                                <option value="{$key}" {$selected}>{$option|htmlspecialchars}</option>
+                            </volist>
+                        </select>
+                    </case>
+                    <case value="radio">
+                        <volist name="field.opt" id="option">
+                            <php>
+                                $checked = $field['value']==$key ? 'checked' : '';
+                                $inputId = "id_$field[name]_$key";
+                            </php>
+                            <input id="{$inputId}" name="{$field.name}" value="{$key}" type="radio" {$checked}/>
+                            <label for="{$inputId}">{$option|htmlspecialchars}</label>
+                        </volist>
+                    </case>
+                    <case value="image">
+                        <div class="controls">
+                            <input type="file" id="upload_picture_{$field.name}">
+                            <input type="hidden" name="{$field.name}" id="cover_id_{$field.name}" value="{$field['value']}"/>
+                            <div class="upload-img-box">
+                                <notempty name="field.value">
+                                    <div class="upload-pre-item"><img src="{$field.value|get_cover='path'}"/></div>
+                                </notempty>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            //上传图片
+                            /* 初始化上传插件 */
+                            $("#upload_picture_{$field.name}").uploadify({
+                                "height"          : 30,
+                                "swf"             : "__STATIC__/uploadify/uploadify.swf",
+                                "fileObjName"     : "download",
+                                "buttonText"      : "上传图片",
+                                "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+                                "width"           : 120,
+                                'removeTimeout'	  : 1,
+                                'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+                                "onUploadSuccess" : uploadPicture{$field.name},
+                            'onFallback' : function() {
+                                alert('未检测到兼容版本的Flash.');
+                            }
+                            });
+                            function uploadPicture{$field.name}(file, data){
+                                var data = $.parseJSON(data);
+                                var src = '';
+                                if(data.status){
+                                    $("#cover_id_{$field.name}").val(data.id);
+                                    src = data.url || '__ROOT__' + data.path
+                                    $("#cover_id_{$field.name}").parent().find('.upload-img-box').html(
+                                            '<div class="upload-pre-item"><img src="' + src + '"/></div>'
+                                    );
+                                } else {
+                                    updateAlert(data.info);
+                                    setTimeout(function(){
+                                        $('#top-alert').find('button').click();
+                                        $(that).removeClass('disabled').prop('disabled',false);
+                                    },1500);
+                                }
+                            }
+                        </script>
+
+                    </case>
+                    <case value="checkbox">
+                        <php>
+                            $importCheckBox = true;
+                        </php>
+                        <php>
+                            $field['value_array'] = explode(',', $field['value']);
+                        </php>
+                        <volist name="field.opt" id="option">
+                            <php>
+                                $checked = in_array($key,$field['value_array']) ? 'checked' : '';
+                                $inputId = "id_$field[name]_$key";
+                            </php>
+                            <input type="checkbox" value="{$key}" id="{$inputId}" class="oneplus-checkbox" data-field-name="{$field.name}" {$checked}/>
+                            <label for="{$inputId}">{$option|htmlspecialchars}</label>
+                            <input type="hidden" name="{$field.name}" class="oneplus-checkbox-hidden" data-field-name="{$field.name}" value="{$field.value}"/>
+                        </volist>
+                    </case>
+                    <case value="editor">
+                        <label class="textarea">
+                            <textarea name="{$field.name}">{$field.value|htmlspecialchars}</textarea>
+                            {:hook('adminArticleEdit', array('name'=>$field['name'],'value'=>$field['value']))}
+                        </label>
+                    </case>
+                    <case value="textarea">
+                        <textarea name="{$field.name}" class="text input-large" style="height: 8em;">{$field.value|htmlspecialchars}</textarea>
+                    </case>
+                    <case value="time">
+                        <php>
+                            $importDatetimePicker = true;
+                            //默认为当前时间
+                            if(!$field['value']){
+                                $field['value'] = time();
+                            }
+                        </php>
+                        <input type="hidden" name="{$field.name}" value="{$field.value}"/>
+                        <input type="text" data-field-name="{$field.name}" class="text input-large time" value="{$field.value|time_format}" placeholder="请选择时间" />
+                    </case>
+                    <default/>
+                    <span style="color: #f00;">错误：未知字段类型 {$field.type}</span>
+                    <input type="hidden" name="{$field.name}" value="{$field.value|htmlspecialchars}"/>
+                </switch>
+            </div>
+        </volist>
+
+        <br/>
+        <div class="form-item">
+            <volist name="buttonList" id="button">
+                <button {$button.attr}>{$button.title}</button>
+            </volist>
+        </div>
+    </form>
+</block>
+
+<block name="script">
+    <if condition="$importDatetimePicker">
+        <link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+        <php>if(C('COLOR_STYLE')=='blue_color') echo '<link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">';</php>
+        <link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+        <script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+        <script>
+            $('.time').datetimepicker({
+                format: 'yyyy-mm-dd hh:ii',
+                language:"zh-CN",
+                minView:2,
+                autoclose:true
+            });
+
+            $('.time').change(function(){
+                var fieldName = $(this).attr('data-field-name');
+                var dateString = $(this).val();
+                var date = new Date(dateString);
+                var timestamp = date.getTime();
+                $('[name='+fieldName+']').val(Math.floor(timestamp/1000));
+            });
+        </script>
+    </if>
+
+    <if condition="$importCheckBox">
+        <script>
+            $(function(){
+                function implode(x, list) {
+                    var result = "";
+                    for(var i=0;i<list.length;i++){
+                        if(result == "") {
+                            result += list[i];
+                        } else {
+                            result += ',' + list[i];
+                        }
+                    }
+                    return result;
+                }
+
+                $('.oneplus-checkbox').change(function(e){
+                    var fieldName = $(this).attr('data-field-name');
+                    var checked = $('.oneplus-checkbox[data-field-name='+fieldName+']:checked');
+                    var result = [];
+                    for(var i=0;i<checked.length;i++) {
+                        var checkbox = $(checked.get(i));
+                        result.push(checkbox.attr('value'));
+                    }
+                    result = implode(',', result);
+                    $('.oneplus-checkbox-hidden[data-field-name='+fieldName+']').val(result);
+                });
+            })
+        </script>
+    </if>
+
+    <script type="text/javascript">
+        Think.setValue("type", {$info.type|default=0});
+        Think.setValue("group", {$info.group|default=0});
+        //导航高亮
+        highlight_subnav('{:U('Config/index')}');
+    </script>
+
+</block>
