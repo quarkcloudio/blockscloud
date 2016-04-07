@@ -25,7 +25,7 @@ class SmsController extends BaseController{
 
         //执行发短信
         if ($result) {
-            send_sms($mobile,'【领航信息】您的验证码为：'.$result.'，该验证码在5分钟内有效');
+            send_sms($mobile,'【积木云】您的验证码为：'.$result.'，该验证码在5分钟内有效');
         }
 
         if ($result) {
