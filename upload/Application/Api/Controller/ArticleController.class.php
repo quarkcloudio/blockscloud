@@ -163,6 +163,77 @@ class ArticleController extends BaseController{
             return $content;  
         }  
     }
+
+    /**
+     * 评论列表
+     */
+    public function commentLists_get() {
+         //评论信息
+        $page                   = I('get.page',1);
+        $num                    = I('get.num',10);
+        $where['app_type']      = I('get.appType');
+        $where['app_detail_id'] = I('get.appDetailId');
+        $where['status']        = 1;
+        $where['pid']           = 0;
+
+        $result = M('Comment')->where($where)->page("$page,$num")->order('id desc')->select();
+
+        foreach ($result as $key => $value) {
+            $result[$key]['replynum'] = M('Comment')->where(array('pid'=>$value['id'],'status'=>1))->count();
+            $result[$key]['nickname'] = M('Member')->where(array('uid'=>$value['uid']))->getField('nickname');
+            $path = M('Avatar')->where(array('uid'=>$value['uid']))->getField('path');
+            $path = str_replace('./', '/', $path);
+            $result[$key]['avatar'] = $path;
+        }
+        $return['status']=200;
+        $return['info']="获取成功！";
+        $return['data']=$result;
+        $this->response($return,'json');
+
+    }
+
+    /**
+    * 回复我的评论
+    */
+    public function replyLists_get() {
+        //获取当前登录用户
+        $id   = I('get.commentId');
+        $uid  = I('get.uid');
+        $page = I('get.page',1);
+        $num  = I('get.num',10);
+
+        if (empty($id)) {
+            $this->restError("参数错误！");
+        }
+        
+        //查询评论表
+        $result=M('Comment')->where(array('id'=>$id,'status'=>1))->find();
+        $list=M('Comment')->where(array('pid'=>$id,'status'=>1))->page("$page,$num")->select();
+        foreach ($list as $key => $value) {
+            $list[$key]['replynum'] = M('Comment')->where(array('pid'=>$value['id'],'status'=>1))->count();
+            $list[$key]['nickname'] = M('Member')->where(array('uid'=>$value['uid']))->getField('nickname');
+            $path = M('Avatar')->where(array('uid'=>$value['uid']))->getField('path');
+            $path = str_replace('./', '/', $path);
+            $list[$key]['avatar'] = $path;
+        }
+        $result['replynum'] = M('Comment')->where(array('pid'=>$result['id'],'status'=>1))->count();
+        $result['nickname'] = M('Member')->where(array('uid'=>$result['uid']))->getField('nickname');
+        $path = M('Avatar')->where(array('uid'=>$result['uid']))->getField('path');
+        $path = str_replace('./', '/', $path);
+        $result['avatar'] = $path;
+        $result['replyList'] = $list;
+
+        if($result){
+          //返回数据
+         $return['status']=200;
+         $return['info']="我的评论列表";
+         $return['data']=$result;
+         $this->response($return,'json');
+        }else{
+            $this->restError("无评论！");
+        }
+        
+    }
     
     
 }
