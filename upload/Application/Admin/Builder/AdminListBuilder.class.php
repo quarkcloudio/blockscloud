@@ -301,8 +301,8 @@ class AdminListBuilder extends AdminBuilder
 
         //uid转换成text
         $this->convertKey('uid', 'text', function ($value) {
-            $value = query_user(array('username', 'uid', 'space_url'), $value);
-            return "<a href='" . $value['space_url'] . "' target='_blank'>[{$value[uid]}]" . $value['username'] . '</a>';
+            $value = get_username($value);
+            return $value;
         });
 
         //time转换成text
@@ -402,7 +402,7 @@ class AdminListBuilder extends AdminBuilder
         $this->assign('buttonList', $this->_buttonList);
         $this->assign('pagination', $paginationHtml);
         $this->assign('list', $this->_data);
-        /*加入搜索 陈一枭*/
+        /*加入搜索*/
         $this->assign('searches', $this->_search);
         $this->assign('searchPostUrl', $this->_searchPostUrl);
         parent::display('admin_list');
