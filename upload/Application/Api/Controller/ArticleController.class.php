@@ -176,19 +176,29 @@ class ArticleController extends BaseController{
         $where['status']        = 1;
         $where['pid']           = 0;
 
-        $result = M('Comment')->where($where)->page("$page,$num")->order('id asc')->select();
+        $data = M('Comment')->where($where)->page("$page,$num")->order('id asc')->select();
 
-        foreach ($result as $key => $value) {
-            $result[$key]['replynum'] = M('Comment')->where(array('pid'=>$value['id'],'status'=>1))->count();
-            $result[$key]['nickname'] = M('Member')->where(array('uid'=>$value['uid']))->getField('nickname');
-            $path = M('Avatar')->where(array('uid'=>$value['uid']))->getField('path');
-            $path = str_replace('./', '/', $path);
-            $result[$key]['avatar'] = $path;
-            $result[$key]['create_time'] = date('Y-m-d H',$data['create_time']);
+        if (!empty($data)) {
+            foreach ($data as $key => $value) {
+                $data[$key]['replynum'] = M('Comment')->where(array('pid'=>$value['id'],'status'=>1))->count();
+                $data[$key]['nickname'] = M('Member')->where(array('uid'=>$value['uid']))->getField('nickname');
+                $path = M('Avatar')->where(array('uid'=>$value['uid']))->getField('path');
+                $path = str_replace('./', '/', $path);
+                $data[$key]['avatar'] = $path;
+                $data[$key]['create_time'] = date('Y-m-d H',$data['create_time']);
+            }
         }
-        $return['status']=200;
-        $return['info']="获取成功！";
-        $return['data']=$result;
+
+        if (!empty($data)) {
+            $return['status']=200;
+            $return['info']="获取成功！";
+            $return['data']=$data;
+        }else{
+            $return['status']=300;
+            $return['info']="无评论！";
+            $return['data']=$data;
+        }
+
         $this->response($return,'json');
 
     }
