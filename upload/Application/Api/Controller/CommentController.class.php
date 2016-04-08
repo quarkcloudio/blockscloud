@@ -30,7 +30,7 @@ class CommentController extends CommonController
                 if (strstr($data['content'], $words[$i]) !== false) {
                     $this->restError('存在敏感词汇！');
                 } else {
-                    $data['status'] = 1;
+                    $data['status'] = 2;
                     //写入Comment表
                     M('Comment')->add($data);
                     //返回数据
@@ -119,7 +119,7 @@ class CommentController extends CommonController
         }
         //验证身份
         if ($uid && $uid == UID) {
-            $result = M('Comment')->where(array('id' => $id))->setInc('like');
+            $result = M('Comment')->where(array('id'=>$id))->setInc('likes');
             //返回数据
             if ($result) {
                 $this->restSuccess('操作成功！');
