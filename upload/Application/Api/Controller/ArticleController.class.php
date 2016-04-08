@@ -209,7 +209,6 @@ class ArticleController extends BaseController{
     public function replyLists_get() {
         //获取当前登录用户
         $id   = I('get.commentId');
-        $uid  = I('get.uid');
         $page = I('get.page',1);
         $num  = I('get.num',10);
 
@@ -219,16 +218,19 @@ class ArticleController extends BaseController{
         
         //查询评论表
         $result=M('Comment')->where(array('id'=>$id,'status'=>1))->find();
+
         $list=M('Comment')->where(array('pid'=>$id,'status'=>1))->page("$page,$num")->select();
+        
         foreach ($list as $key => $value) {
             $list[$key]['replynum'] = M('Comment')->where(array('pid'=>$value['id'],'status'=>1))->count();
             $list[$key]['nickname'] = M('Member')->where(array('uid'=>$value['uid']))->getField('nickname');
             $path = M('Avatar')->where(array('uid'=>$value['uid']))->getField('path');
             $path = str_replace('./', '/', $path);
             $list[$key]['avatar'] = $path;
-            $result[$key]['create_time'] = date('Y-m-d H',$data['create_time']);
+            $list[$key]['create_time'] = date('Y-m-d H',$data['create_time']);
         }
-        $result['replynum'] = M('Comment')->where(array('pid'=>$result['id'],'status'=>1))->count();
+        $result['create_time'] = date('Y-m-d H',$result['create_time']);
+        $result['replynum'] = M('Comment')->where(array('pid'=>$id,'status'=>1))->count();
         $result['nickname'] = M('Member')->where(array('uid'=>$result['uid']))->getField('nickname');
         $path = M('Avatar')->where(array('uid'=>$result['uid']))->getField('path');
         $path = str_replace('./', '/', $path);
