@@ -16,9 +16,9 @@ class CommentController extends CommonController
         $uid = I('post.uid');
         $data['uid'] = $uid;
         $data['pid'] = I('post.pid', 0);
-        $data['app_type'] = I('post.appType','article');
-        $data['app_detail_id'] = I('post.appDetailId');
-        $data['content'] = I('post.content');
+        $data['app_type'] = I('post.appType','article','strip_tags,stripslashes');
+        $data['app_detail_id'] = I('post.appDetailId',0,'intval');
+        $data['content'] = I('post.content','','strip_tags,stripslashes');
         $data['create_time'] = time();
         //接收数据
         $badwords = C('COMMENT_BADWORDS');
@@ -108,6 +108,7 @@ class CommentController extends CommonController
             $this->restError('身份不符！');
         }
     }
+    
     //评论点赞接口
     public function like_post()
     {

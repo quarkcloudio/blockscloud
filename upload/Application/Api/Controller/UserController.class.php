@@ -41,7 +41,7 @@ class UserController extends CommonController
      * @return json
      * @author 飞马踏清秋  <442000491@qq.com>
      */
-    public function do_put() {
+    public function do_post() {
 
         //获取uid
         $uid = I('uid');
@@ -72,7 +72,7 @@ class UserController extends CommonController
      * @return json
      * @author 飞马踏清秋  <442000491@qq.com>
      */
-    public function pass_put() {
+    public function pass_post() {
 
         //获取uid
         $uid = I('uid');
