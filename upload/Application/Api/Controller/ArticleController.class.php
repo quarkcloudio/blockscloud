@@ -176,7 +176,7 @@ class ArticleController extends BaseController{
         $where['status']        = 1;
         $where['pid']           = 0;
 
-        $result = M('Comment')->where($where)->page("$page,$num")->order('id desc')->select();
+        $result = M('Comment')->where($where)->page("$page,$num")->order('id asc')->select();
 
         foreach ($result as $key => $value) {
             $result[$key]['replynum'] = M('Comment')->where(array('pid'=>$value['id'],'status'=>1))->count();
@@ -184,6 +184,7 @@ class ArticleController extends BaseController{
             $path = M('Avatar')->where(array('uid'=>$value['uid']))->getField('path');
             $path = str_replace('./', '/', $path);
             $result[$key]['avatar'] = $path;
+            $result[$key]['create_time'] = date('Y-m-d H',$data['create_time']);
         }
         $return['status']=200;
         $return['info']="获取成功！";
@@ -215,6 +216,7 @@ class ArticleController extends BaseController{
             $path = M('Avatar')->where(array('uid'=>$value['uid']))->getField('path');
             $path = str_replace('./', '/', $path);
             $list[$key]['avatar'] = $path;
+            $result[$key]['create_time'] = date('Y-m-d H',$data['create_time']);
         }
         $result['replynum'] = M('Comment')->where(array('pid'=>$result['id'],'status'=>1))->count();
         $result['nickname'] = M('Member')->where(array('uid'=>$result['uid']))->getField('nickname');
