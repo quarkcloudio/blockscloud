@@ -1,94 +1,99 @@
 <?php
 namespace Api\Controller;
-require_once APP_PATH . 'User/Conf/config.php';
+use Think\Upload;
 /**
- * 公用功能API（非登录）
+ * 图片上传功能API
  */
-class PublicController extends BaseController
+class PictureController extends BaseController
 {
-
     /**
-     * 找回密码
+     * base64图片上传
      * @return json
      * @author 飞马踏清秋  <442000491@qq.com>
      */
-    public function findPwd_post(){
+    public function uploadBase64_post(){
 
-        /*用户名*/
-        $username = I('post.username');
+        $user_id = I('post.uid',0,'int');
+        $image_code = I('post.imageCode');
 
-        $new_password  = I('post.newPassword');
+        //if ($user_id && $user_id == UID) {
+            $Picture = D('Picture');
+            $pic_driver = C('PICTURE_UPLOAD_DRIVER');
 
-        $data['password'] = think_ucenter_md5($new_password, UC_AUTH_KEY);
+            $pic = array();
 
-        /*验证码*/
-        $code         = I('post.verifyCode');
+            $pic['user_id'] = $user_id;
+            $pic['image_code'] =  base64_decode($image_code);
 
-        //判断手机号是不是正确
-        if (!$this->isMobile($username)) {
-            $this->restError('手机号格式错误！');
-        }
-
-        /*检验验证码*/
-        if (!empty($code)) {
-
-            //验证码信息
-            $VerifyCodeInfo   =   D('VerifyCode')->info($username,$code,1);
-
-            //判断验证码正确性
-            if (empty($VerifyCodeInfo)) {
-                $this->restError('验证码错误！');
+            $info = $Picture->upload(
+                $pic,
+                C('PICTURE_UPLOAD'),
+                C('PICTURE_UPLOAD_DRIVER'),
+                C("UPLOAD_{$pic_driver}_CONFIG")
+            ); 
+            if($info){
+                $return['status'] = 200;
+                $return['info'] = "图片上传成功！";
+                $return['data'] = $info;
+                $this->response($return,'json');
             }
-
-            //检验验证码有效期
-            $result_time=time()-$VerifyCodeInfo['create_time'];
-            if ($result_time>C('VERIFY_VALID')) {
-                $this->restError('验证码已过期！');
-            }
-            //检验验证码使用次数，防止爆破
-            if ($VerifyCodeInfo['times']>6) {
-                $this->restError('验证码超过验证次数！');
-            }
-
-        }else{
-            $this->restError('验证码不能为空！');
-        }
-
-        /*验证账号,密码*/
-        if (empty($username) || empty($data['password'])) {
-            $this->restError('用户名或密码不能为空！');
-        }
-
-        /*写入数据库*/
-        $uid=M('UcenterMember')->where(array('username'=>$username))->save($data);
-
-        if ($uid) {
-            $return['status'] = 200;
-            $return['info'] = "重置成功！";
-            $this->response($return,'json');
-        }else{
-            $this->restError("重置失败，请重试！");
-        }
+            $this->restError('上传失败',300);
+        //}
+        $this->restError('身份不符',404);
     }
 
+
     /**
-     * 获取当前服务器app版本,低版本提示升级
+     * 普通图片上传
      * @return json
      * @author tangtanglove  <869716224@qq.com>
      */
-    public function version_get(){
-        $get_version = I('get.version');
-        //TODO
+    public function uploadFile_post()
+    {
+
+        $setting = array(
+            'mimes'    => '', //允许上传的文件MiMe类型
+            'maxSize'  => 2*1024*1024, //上传的文件大小限制 (0-不做限制)
+            'exts'     => 'jpg,gif,png,jpeg', //允许上传的文件后缀
+            'autoSub'  => true, //自动子目录保存文件
+            'subName'  => array('date', 'Y-m-d'), //子目录创建方式，[0]-函数名，[1]-参数，多个参数使用数组
+            'rootPath' => './Uploads/Avatar/', //保存根路径
+            'savePath' => '', //保存路径
+            'saveName' => array('uniqid', ''), //上传文件命名规则，[0]-函数名，[1]-参数，多个参数使用数组
+            'saveExt'  => '', //文件保存后缀，空则使用原后缀
+            'replace'  => false, //存在同名是否覆盖
+            'hash'     => true, //是否生成hash编码
+            'callback' => false, //检测文件是否存在回调函数，如果存在返回文件信息数组
+        );
+        $upload = new \Think\Upload($setting, 'Local');// 实例化上传类
+        // 上传文件 
+        $info   =   $upload->upload($_FILES);
+        $path = $url = $setting['rootPath'].$info['file']['savepath'].$info['file']['savename'];
+        $url = str_replace('./', '/', $url);
+        $info['fullpath'] = $url;
+        if($info){
+            
+            $Picture = M('Picture');
+            $data['path'] =$path;
+            $data['create_time'] = time();
+            $data['md5'] = $info['md5'];
+            $data['sha1'] = $info['sha1'];
+            if($Picture->create($data) && ($id = $Picture->add())){
+                $data['cover_id'] = $id;
+                $return['status'] = 200;
+                $return['info'] = "图片上传成功！";
+                $return['data'] = $data;
+                $this->response($return,'json');
+            }else{
+                $this->restError('上传失败',300);
+            }
+
+        }else{
+            $this->restError('上传失败',300);
+        }
+
+
     }
 
-    /**
-     * 验证手机号是否正确
-     * @author tangtanglove
-     * @param int $mobile
-     */
-    protected function isMobile($mobile) {
-        return preg_match('#^13[\d]{9}$|^14[5,7]{1}\d{8}$|^15[^4]{1}\d{8}$|^17[0,6,7,8]{1}\d{8}$|^18[\d]{9}$#', $mobile) ? true : false;
-    }
 
-    
 }

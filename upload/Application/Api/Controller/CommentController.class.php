@@ -86,9 +86,17 @@ class CommentController extends CommonController
         $uid = I('get.uid');
         $page = I('get.page', 1);
         $num = I('get.num', 10);
+        $app_type = I('get.appType','article');
+
         if ($uid && $uid == UID) {
             //查询评论表
-            $result = M('Comment')->where(array('uid' => $uid, 'status' => 1))->page("{$page},{$num}")->select();
+            $result = M('Comment')
+            ->alias('a')
+            ->join('cloud_document b on b.id =  a.app_detail_id')
+            ->where(array('a.uid' => $uid, 'a.status' => 1,'a.app_type'=>$app_type))
+            ->page("{$page},{$num}")
+            ->field('a.*,b.title')
+            ->select();
             foreach ($result as $key => $value) {
                 $result[$key]['nickname'] = M('Member')->where(array('uid' => $value['uid']))->getField('nickname');
                 $path = M('Avatar')->where(array('uid' => $value['uid']))->getField('path');
