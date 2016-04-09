@@ -102,6 +102,8 @@ class CommentController extends CommonController
                 $path = M('Avatar')->where(array('uid' => $value['uid']))->getField('path');
                 $path = str_replace('./', '/', $path);
                 $result[$key]['avatar'] = $path;
+                $result[$key]['create_time'] = date('Y-m-d H',$value['create_time']);
+                $result[$key]['replynum'] = M('Comment')->where(array('pid'=>$value['id'],'status'=>1))->count();
             }
             if ($result) {
                 //返回数据

@@ -77,6 +77,7 @@ class PictureController extends BaseController
             $data['create_time'] = time();
             $data['md5'] = $info['file']['md5'];
             $data['sha1'] = $info['file']['sha1'];
+            $data['status'] = 1;
             if($Picture->create($data) && ($id = $Picture->add())){
                 $data['cover_id'] = $id;
                 $return['status'] = 200;
