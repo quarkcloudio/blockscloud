@@ -104,7 +104,7 @@ class ArticleController extends BaseController{
         /* 更新浏览数 */
         M('Document')->where(array('id' => $id))->setInc('view');
         $data['update_time'] = date('Y-m-d H',$data['update_time']);
-        $data['username'] = get_username($data['uid']);
+        $data['nickname'] = get_nickname($data['uid']);
         //返回数据
         if ($data) {
             //组合数据
@@ -185,7 +185,7 @@ class ArticleController extends BaseController{
                 $path = M('Avatar')->where(array('uid'=>$value['uid']))->getField('path');
                 $path = str_replace('./', '/', $path);
                 $data[$key]['avatar'] = $path;
-                $data[$key]['create_time'] = date('Y-m-d H',$data['create_time']);
+                $data[$key]['create_time'] = date('Y-m-d H:i:s',$data[$key]['create_time']);
             }
         }
 
