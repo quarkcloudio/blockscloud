@@ -68,7 +68,9 @@ class ArticleController extends BaseController{
         $data = M('Document')->where($where)->page("$page,$num")->order('level asc,id desc')->select();
 
         foreach ($data as $key => $value) {
-            $data[$key]['cover']   = get_cover($value['cover_id']);
+            $data[$key]['title']   = msubstr($data[$key]['title'],0,20,'utf-8',false);
+            $coverinfo = get_cover($value['cover_id']);
+            $data[$key]['cover']  = create_thumb('./'.$coverinfo['path'],'',200,110,3);
             $data[$key]['create_time'] = date('Y-m-d H',$value['create_time']);
             $data[$key]['update_time'] = date('Y-m-d H',$value['update_time']);
         }
@@ -97,6 +99,9 @@ class ArticleController extends BaseController{
 
         //获得内容
         $content    = M('DocumentArticle')->where(array('id'=>$id))->getField('content');
+
+        //内容图片生成适应手机图片
+        $content = create_mobile_thumb($content,350,'');
 
         //内容图片加域名
         $content    = $this->replacePicUrl($content,'http://'.$_SERVER['HTTP_HOST'].__ROOT__);
@@ -141,20 +146,22 @@ class ArticleController extends BaseController{
             if (!empty($img)) {    
                 $patterns= array();    
                 $replacements = array();    
-                foreach($img as $imgItem){    
-                    $final_imgUrl = $strUrl.$imgItem;    
-                    $replacements[] = $final_imgUrl;    
-                    $img_new = "/".preg_replace("/\//i","\/",$imgItem)."/";    
-                    $patterns[] = $img_new;    
+                foreach($img as $imgItem){
+                    $final_imgUrl = $strUrl.$imgItem;
+                    //如果不包含http://则认为为远程图片
+                    if (!(strpos($imgItem, 'http://') !== false)) {
+                        $replacements[] = $final_imgUrl;
+                        $img_new = "/".preg_replace("/\//i","\/",$imgItem)."/";
+                        $patterns[] = $img_new;
+                    }
                 }    
     
-                //让数组按照key来排序    
+                //让数组按照key来排序
                 ksort($patterns);    
                 ksort($replacements);    
     
                 //替换内容    
                 $vote_content = preg_replace($patterns, $replacements, $content);  
-          
                 return $vote_content;  
             }else {  
                 return $content;  
