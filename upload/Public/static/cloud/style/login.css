@@ -42,7 +42,7 @@ a:hover{color:#fff;}
 .inputs div input{height:33px;width: 240px;}
 .inputs .check_code{margin-bottom: 0;}
 .inputs .check_code input{width:110px;display: block;float: left;}
-.inputs .check_code img{display: block;float: left;padding-left: 10px;width: 70px;height: 32px;}	
+.inputs .check_code img{display: block;float: left;padding-left: 10px;width: 130px;height: 32px;}	
 
 .form{padding-top: 13px;}
 input,input:focus {outline: none; box-shadow: none; border: 1px solid #bbb;padding:3px 5px;}
