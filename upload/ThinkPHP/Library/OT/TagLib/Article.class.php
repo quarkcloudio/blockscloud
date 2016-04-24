@@ -71,7 +71,7 @@ class Article extends TagLib{
         $listrow = $tag['listrow'];
         $parse   = '<?php ';
         $parse  .= '$__PAGE__ = new \Think\Page(get_list_count(' . $cate . '), ' . $listrow . ');';
-        $parse  .= 'echo $__PAGE__->show();';
+        $parse  .= 'echo $__PAGE__->showFront();';
         $parse  .= ' ?>';
         return $parse;
     }
