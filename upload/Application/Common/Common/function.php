@@ -1163,17 +1163,7 @@ function send_sms($phone,$content)
 function sioo_send_sms($phone,$content) {
 
     if(preg_match("/^1[34578]\d{9}$/", $phone)){
-        //执行发短信
-        $msg  = $content;
-        $msg  = mb_convert_encoding($msg,'GBK','utf-8');
-        $uid  = '50011';
-        $auth = '3b0d540feb7cd142f32030e02426820d';
-        $va_url = "http://sms.10690221.com:9011/hy/?uid=".$uid."&auth=".$auth."&mobile=".$phone."&msg=".$msg."&expid=0"; //验证的 url 链接地址  
-        $ch = curl_init($va_url);  
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // 获取数据返回  
-        curl_setopt($ch, CURLOPT_BINARYTRANSFER, true); // 在启用 CURLOPT_RETURNTRANSFER 时候将获取数据返回  
-        $pageContents = curl_exec($ch);
-        curl_close($ch);
+
     }else{
         $this->error('手机号错误！');
     }
