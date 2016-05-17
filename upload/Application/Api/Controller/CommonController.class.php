@@ -12,6 +12,10 @@ class CommonController extends BaseController
      */
     protected function _initialize() {
 
+        /* 读取站点配置 */
+        $config = api('Config/lists');
+        C($config); //添加配置
+        
     	//判断TOKEN
     	$token = I('token');
 
