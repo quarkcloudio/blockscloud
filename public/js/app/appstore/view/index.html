@@ -1,0 +1,25 @@
+<div class="appstore-wrapper" style="padding: 20px; padding-top: 0px; font-size: 18px;">
+    <el-row>
+    <el-col :span="4" v-for="(item, index) in items" :offset="index%5 > 0 ? 1 : 0" style="margin-top: 20px;">
+        <el-card :body-style="{ padding: '0px' }">
+        <img :src="item.icon" v-on:click="appInfo(item.id)" class="image" style="width: 100%;display: block; cursor: pointer;">
+        <div style="padding: 14px;">
+            <span>{{item.title}}</span>
+            <div class="bottom clearfix" style="margin-top: 13px;line-height: 12px;clear: both">
+            <time class="time" style="font-size: 13px;color: #999;">版本{{item.version}}</time>
+            <el-button type="text" class="button appclick" :title="item.title" :app-name="item.name" :app-width=item.width :app-height=item.height style="padding: 0;float: right;">打开</el-button>
+            </div>
+        </div>
+        </el-card>
+    </el-col>
+    </el-row>
+    <div style="height: 20px;"></div>
+    <div class="block">
+        <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        layout="prev, pager, next"
+        :total=total>
+        </el-pagination>
+    </div>
+</div>

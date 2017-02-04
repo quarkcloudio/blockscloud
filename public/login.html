@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>积木云-您的私人云空间</title>
+  <!-- Bootstrap 核心 CSS 文件 -->
+  <link rel="stylesheet" href="css/app.css">
+  <!--layer样式-->
+  <link rel="stylesheet" href="js/vendor/layer/skin/default/layer.css">
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <style>
+    body{
+      background-image:url('images//wallpapers/8.jpg');
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
+    .blur {
+        filter: url(blur.svg#blur); /* FireFox, Chrome, Opera */
+        -webkit-filter: blur(10px); /* Chrome, Opera */
+        -moz-filter: blur(10px);
+        -ms-filter: blur(10px);    
+        filter: blur(10px);
+        filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false); /* IE6~IE9 */
+    }
+    .login-container {
+      position: relative;
+    }
+    .login-wallpaper{
+	    position: absolute;
+      z-index: 8;
+    }
+    .login-box{
+	    position: absolute;
+      width: 220px;
+      left:35%;
+      top:200px;
+      z-index: 10;
+    }
+    .login-box input{
+      height: 30px;
+    }
+  </style>
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?35bab0a327a4624880126b5d99e0fe5a";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-wallpaper">
+      <img src="images/wallpapers/8.jpg" width="100%" class="blur" />
+    </div>
+    <div class="login-box">
+      <form class="form-horizontal" id='form'>
+        <div style="width:100%; text-align: center; margin-bottom:60px;"><img src="images/icons/logo.png" width="73"></div>
+        <div class="form-group">
+          <label class="sr-only">用户名</label>
+          <input type="text" name='username' class="form-control" style="background:rgba(0,0,0,0.50);filter: alpha(opacity=50);color:#fff;" placeholder="输入用户名">
+        </div>
+        <div class="form-group">
+          <label class="sr-only">密码</label>
+          <input type="password" name='password' class="form-control" style="background:rgba(0,0,0,0.50);filter: alpha(opacity=50);color:#fff;" placeholder="输入密码">
+        </div>
+        <div class="form-group" style="color:#fff;">
+          <a id="forgot" style="color:#fff; font-size:12px;" href='#'>忘记密码？</a> | 
+          <a id="register" style="color:#fff; font-size:12px;" href='#'>注册账号</a>
+          <span id="tips" style="color:#fff; font-size:12px;">请按enter键登录！</span>
+        </div>
+      </form>
+    </div>
+  </div><!-- /.container -->
+  <script src="js/lang/zh-cn.js"></script>
+  <script src="js/config/config.js"></script>
+  <script src="js/vendor/jquery/1.11.3/jquery.min.js"></script>
+  <script src="js/vendor/layer/layer.js"></script>
+  <script>
+    $(document).ready(function(){  
+        //初始化高度  
+        $(".blur").height($(window).height()).width($(window).width());
+        $(".login-box").css('left',($(window).width()-185)/2);
+        //当文档窗口发生改变时 触发  
+        $(window).resize(function(){  
+          $(".blur").height($(window).height()).width($(window).width());
+        });
+        $("body").keydown(function(event) {
+          if (event.keyCode =="13"){
+            $('#tips').html(lang.loginTips);
+            $.ajax({
+              cache: true,
+              type: "POST",
+              url : config.url.login,
+              data: $('#form').serialize(),
+              async: false,
+                success: function(data) {
+                  if (data.status == 'success') {
+                    setTimeout(function () {
+                      location.href = data.url;
+                    }, 1000);
+                  } else {
+                      $('#tips').html('<span style="color:#FF9900">'+data.msg+'</span>');
+                  }
+                },
+                error: function(request) {
+                  alert("页面错误");
+                }
+            });
+          }
+        });
+        $('#register').click(function(){
+          html = '<div style="padding-left:0px;padding-right:20px;padding-top:20px;"><form id="registerForm" class="form-horizontal" role="form">\
+                    <div class="form-group">\
+                      <label class="col-sm-3 control-label">用户名</label>\
+                      <div class="col-sm-9">\
+                        <input type="text" name="username" class="form-control" id="username" placeholder="用户名">\
+                      </div>\
+                    </div>\
+                    <div class="form-group">\
+                      <label class="col-sm-3 control-label">邮箱</label>\
+                      <div class="col-sm-9">\
+                        <input type="email" name="email" class="form-control" id="email" placeholder="邮箱">\
+                      </div>\
+                    </div>\
+                    <div class="form-group">\
+                      <label class="col-sm-3 control-label">密码</label>\
+                      <div class="col-sm-9">\
+                        <input type="password" name="password" class="form-control" id="password" placeholder="密码">\
+                      </div>\
+                    </div>\
+                    <div class="form-group">\
+                      <div class="col-sm-offset-9 col-sm-3">\
+                        <a id="registerPost" class="btn btn-primary">注册</a>\
+                      </div>\
+                    </div>\
+                  </form></div>';
+
+              layer.open({
+                type: 1,
+                shade: 0.1,
+                shadeClose: true,
+                title:'用户注册',
+                area: ['360px', '280px'],
+                content: html
+              });
+        });
+
+        $(document).on("click",'#registerPost',function(event){
+            $.ajax({
+              cache: true,
+              type: "POST",
+              url : config.url.register,
+              data: $('#registerForm').serialize(),
+              async: false,
+                success: function(data) {
+                  if (data.status == 'success') {
+                    layer.msg(data.msg);
+                    setTimeout(function () {
+                      location.href = data.url;
+                    }, 1000);
+                  } else {
+                    layer.msg(data.msg, {icon: 2}, function(){});
+                  }
+                },
+                error: function(request) {
+                  alert("页面错误");
+                }
+            });
+        });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title>Tdrag</title>
+<link href="demo.css" type="text/css" rel="stylesheet">
+<link rel='stylesheet' type='text/css' href='http://tools.oschina.net/js/syntaxhighlighter_3.0.83/styles/shCoreDefault.css'/>
+</head>
+<script type="text/javascript" src="JavaScript/jquery1.7.2.js"></script>
+<script type="text/javascript" src="JavaScript/Tdrag.js"></script>
+
+<body>
+<div class="box">
+  <div class="head">
+    <h1>Tdrag</h1>
+    <h3>Tdrag属于拖拽类的一款插件，基于jquery而成，兼容1.4以上版本的jquery，兼容浏览器：chrome、firfox、IE7等以上主流浏览器</h3>
+    <div class="div1"></div>
+  </div>
+  <hr/>
+  <div class="example_one">
+    <div class="code">
+      <h2>插件加载</h2>
+      <hr class="child_hr"/>
+      
+      <div id="highlighter_654124" class="syntaxhighlighter  xml">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">script</code>&nbsp;<code class="xml color1">type</code><code class="xml plain">=</code><code class="xml string">"text/javascript"</code>&nbsp;<code class="xml color1">src</code><code class="xml plain">=</code><code class="xml string">"JavaScript/jquery1.7.2.js"</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">script</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number2 index1 alt1"><code class="xml plain">&lt;</code><code class="xml keyword">script</code>&nbsp;<code class="xml color1">type</code><code class="xml plain">=</code><code class="xml string">"text/javascript"</code>&nbsp;<code class="xml color1">src</code><code class="xml plain">=</code><code class="xml string">"JavaScript/Tdrag.js"</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">script</code><code class="xml plain">&gt;</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h4>插件调用</h4>
+      <h5>html代码:</h5>
+      
+      <div id="highlighter_103593" class="syntaxhighlighter  xml">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"div1"</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>js代码:</h5>
+      <div id="highlighter_120303" class="syntaxhighlighter  js">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="js plain">$(</code><code class="js string">".div1"</code><code class="js plain">).Tdrag();</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="example">
+      <div class="div2"></div>
+    </div>
+  </div>
+  <hr/>
+  <div class="example_one">
+    <div class="code">
+      <h2>父级限制</h2>
+      <hr class="child_hr"/>
+      <h5>html代码:</h5>
+      <div id="highlighter_824945" class="syntaxhighlighter  xml">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div>
+                <div class="line number3 index2 alt2">3</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"boxList"</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number2 index1 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"div3"</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number3 index2 alt2"><code class="xml plain">&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>js代码:</h5>
+      <div id="highlighter_364855" class="syntaxhighlighter  js">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div>
+                <div class="line number3 index2 alt2">3</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="js plain">$(</code><code class="js string">".div3"</code><code class="js plain">).Tdrag({</code></div>
+                  <div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">scope:</code><code class="js string">".boxList"</code></div>
+                  <div class="line number3 index2 alt2"><code class="js plain">});</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="example">
+      <div class="boxList">
+        <div class="one div3"></div>
+      </div>
+    </div>
+  </div>
+  <hr/>
+  <div class="example_one">
+    <div class="code">
+      <h2>拖拽规范网格</h2>
+      <hr class="child_hr"/>
+      <h5>html代码:</h5>
+      <div id="highlighter_824945" class="syntaxhighlighter  xml">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div>
+                <div class="line number3 index2 alt2">3</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"boxList"</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number2 index1 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"div4"</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number3 index2 alt2"><code class="xml plain">&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>js代码:</h5>
+      <div id="highlighter_135300" class="syntaxhighlighter  js">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div>
+                <div class="line number3 index2 alt2">3</div>
+                <div class="line number4 index3 alt1">4</div>
+                <div class="line number5 index4 alt2">5</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="js plain">$(</code><code class="js string">".div4"</code><code class="js plain">).Tdrag({</code></div>
+                  <div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;</code><code class="js plain">scope:</code><code class="js string">".boxList"</code><code class="js plain">,</code></div>
+                  <div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;</code><code class="js plain">grid:[50,50]</code></div>
+                  <div class="line number4 index3 alt1"><code class="js plain">});</code></div>
+                  <div class="line number5 index4 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;</code>&nbsp;</div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="example">
+      <div class="boxList">
+        <div class="one div4"></div>
+      </div>
+    </div>
+  </div>
+  <hr/>
+  <div class="example_one">
+    <div class="code">
+      <h2>X轴拖拽或者Y轴拖拽</h2>
+      <hr class="child_hr"/>
+      <h5>html代码:</h5>
+      <div id="highlighter_280749" class="syntaxhighlighter  xml">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div>
+                <div class="line number3 index2 alt2">3</div>
+                <div class="line number4 index3 alt1">4</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"boxList"</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number2 index1 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;onlyX"</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number3 index2 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;onlyY"</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number4 index3 alt1"><code class="xml plain">&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>js代码:</h5>
+      <div id="highlighter_179701" class="syntaxhighlighter  js">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div>
+                <div class="line number3 index2 alt2">3</div>
+                <div class="line number4 index3 alt1">4</div>
+                <div class="line number5 index4 alt2">5</div>
+                <div class="line number6 index5 alt1">6</div>
+                <div class="line number7 index6 alt2">7</div>
+                <div class="line number8 index7 alt1">8</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="js plain">$(</code><code class="js string">".onlyX"</code><code class="js plain">).Tdrag({</code></div>
+                  <div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">scope:</code><code class="js string">".boxList"</code><code class="js plain">,</code></div>
+                  <div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">axis:</code><code class="js string">"x"</code></div>
+                  <div class="line number4 index3 alt1"><code class="js plain">});</code></div>
+                  <div class="line number5 index4 alt2"><code class="js plain">$(</code><code class="js string">".onlyY"</code><code class="js plain">).Tdrag({</code></div>
+                  <div class="line number6 index5 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">scope:</code><code class="js string">".boxList"</code><code class="js plain">,</code></div>
+                  <div class="line number7 index6 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">axis:</code><code class="js string">"y"</code></div>
+                  <div class="line number8 index7 alt1"><code class="js plain">});</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="example">
+      <div class="boxList">
+        <div class="one onlyX"></div>
+        <div class="one onlyY"></div>
+      </div>
+    </div>
+  </div>
+  <hr/>
+  <div class="example_one">
+    <div class="code">
+      <h2>记住位置</h2>
+      <hr class="child_hr"/>
+      <h5>html代码:</h5>
+      <div id="highlighter_143523" class="syntaxhighlighter  xml">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="xml spaces">&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div5"</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>js代码:</h5>
+      <div id="highlighter_453333" class="syntaxhighlighter  js">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div>
+                <div class="line number3 index2 alt2">3</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="js plain">$(</code><code class="js string">".div5"</code><code class="js plain">).Tdrag({</code></div>
+                  <div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">pos:</code><code class="js keyword">true</code></div>
+                  <div class="line number3 index2 alt2"><code class="js plain">});</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="example">
+      <div class="one div5"></div>
+    </div>
+  </div>
+  <hr/>
+  <div class="example_one">
+    <div class="code">
+      <h2>拖拽块内指定区域</h2>
+      <hr class="child_hr"/>
+      <h5>html代码:</h5>
+      <div id="highlighter_441384" class="syntaxhighlighter  xml">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div>
+                <div class="line number3 index2 alt2">3</div>
+                <div class="line number4 index3 alt1">4</div>
+                <div class="line number5 index4 alt2">5</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"boxList"</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number2 index1 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div6"</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number3 index2 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;title&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number4 index3 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number5 index4 alt2"><code class="xml plain">&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>js代码:</h5>
+      <div id="highlighter_2053" class="syntaxhighlighter  js">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div>
+                <div class="line number3 index2 alt2">3</div>
+                <div class="line number4 index3 alt1">4</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="js plain">$(</code><code class="js string">".div6"</code><code class="js plain">).Tdrag({</code></div>
+                  <div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">scope:</code><code class="js string">".boxList"</code><code class="js plain">,</code></div>
+                  <div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">handle:</code><code class="js string">".title"</code></div>
+                  <div class="line number4 index3 alt1"><code class="js plain">});</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="example">
+      <div class="boxList">
+        <div class="one div6">
+          <div class="title">title</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr/>
+  <div class="example_one">
+    <div class="code">
+      <h2>点住、移动、结束时的回调函数</h2>
+      <hr class="child_hr"/>
+      <h5>html代码:</h5>
+      <div id="highlighter_182086" class="syntaxhighlighter  xml">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div>
+                <div class="line number3 index2 alt2">3</div>
+                <div class="line number4 index3 alt1">4</div>
+                <div class="line number5 index4 alt2">5</div>
+                <div class="line number6 index5 alt1">6</div>
+                <div class="line number7 index6 alt2">7</div>
+                <div class="line number8 index7 alt1">8</div>
+                <div class="line number9 index8 alt2">9</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"boxList"</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number2 index1 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div7"</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number3 index2 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number4 index3 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number5 index4 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">start:&lt;</code><code class="xml keyword">p</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"start"</code><code class="xml plain">&gt;0&lt;/</code><code class="xml keyword">p</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number6 index5 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">move:&lt;</code><code class="xml keyword">p</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"move"</code><code class="xml plain">&gt;0&lt;/</code><code class="xml keyword">p</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number7 index6 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">end:&lt;</code><code class="xml keyword">p</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"end"</code><code class="xml plain">&gt;0&lt;/</code><code class="xml keyword">p</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number8 index7 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number9 index8 alt2"><code class="xml plain">&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>js代码:</h5>
+      <div id="highlighter_706534" class="syntaxhighlighter  js">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div>
+                <div class="line number3 index2 alt2">3</div>
+                <div class="line number4 index3 alt1">4</div>
+                <div class="line number5 index4 alt2">5</div>
+                <div class="line number6 index5 alt1">6</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="js plain">$(</code><code class="js string">".div7"</code><code class="js plain">).Tdrag({</code></div>
+                  <div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">scope:</code><code class="js string">".boxList"</code><code class="js plain">,</code></div>
+                  <div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">cbStart:</code><code class="js keyword">function</code><code class="js plain">(){$(</code><code class="js string">".start"</code><code class="js plain">).html(Number($(</code><code class="js string">".start"</code><code class="js plain">).html())+1)},</code><code class="js comments">//移动前的回调函数</code></div>
+                  <div class="line number4 index3 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">cbMove:</code><code class="js keyword">function</code><code class="js plain">(){$(</code><code class="js string">".move"</code><code class="js plain">).html(Number($(</code><code class="js string">".move"</code><code class="js plain">).html())+1)},</code><code class="js comments">//移动中的回调函数</code></div>
+                  <div class="line number5 index4 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">cbEnd:</code><code class="js keyword">function</code><code class="js plain">(){$(</code><code class="js string">".end"</code><code class="js plain">).html(Number($(</code><code class="js string">".end"</code><code class="js plain">).html())+1)}</code><code class="js comments">//移动结束时候的回调函数</code></div>
+                  <div class="line number6 index5 alt1"><code class="js plain">});</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="example">
+      <div class="boxList">
+        <div class="one div7"> </div>
+        <div> start:
+          <p class="start">0</p>
+          move:
+          <p class="move">0</p>
+          end:
+          <p class="end">0</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr/>
+  <div class="example_one">
+    <div class="code">
+      <h2>多个块换位拖拽</h2>
+      <hr class="child_hr"/>
+      <h5>html代码:</h5>
+      <div id="highlighter_287610" class="syntaxhighlighter  xml">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div>
+                <div class="line number3 index2 alt2">3</div>
+                <div class="line number4 index3 alt1">4</div>
+                <div class="line number5 index4 alt2">5</div>
+                <div class="line number6 index5 alt1">6</div>
+                <div class="line number7 index6 alt2">7</div>
+                <div class="line number8 index7 alt1">8</div>
+                <div class="line number9 index8 alt2">9</div>
+                <div class="line number10 index9 alt1">10</div>
+                <div class="line number11 index10 alt2">11</div>
+                <div class="line number12 index11 alt1">12</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"boxList"</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number2 index1 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div8"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;1&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number3 index2 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div8"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;2&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number4 index3 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div8"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;3&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number5 index4 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div8"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;4&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number6 index5 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div8"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;5&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number7 index6 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div8"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;6&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number8 index7 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div8"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;7&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number9 index8 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div8"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;8&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number10 index9 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div8"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;9&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number11 index10 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div8"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;10&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number12 index11 alt1"><code class="xml plain">&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>js代码:</h5>
+      <div id="highlighter_694452" class="syntaxhighlighter  js">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div>
+                <div class="line number3 index2 alt2">3</div>
+                <div class="line number4 index3 alt1">4</div>
+                <div class="line number5 index4 alt2">5</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="js plain">$(</code><code class="js string">".div8"</code><code class="js plain">).Tdrag({</code></div>
+                  <div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">scope:</code><code class="js string">".boxList"</code><code class="js plain">,</code></div>
+                  <div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">pos:</code><code class="js keyword">true</code><code class="js plain">,</code></div>
+                  <div class="line number4 index3 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">dragChange:</code><code class="js keyword">true</code></div>
+                  <div class="line number5 index4 alt2"><code class="js plain">});</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="example">
+      <div class="boxList">
+        <div class="one div8">
+          <div class="title">1</div>
+        </div>
+        <div class="one div8">
+          <div class="title">2</div>
+        </div>
+        <div class="one div8">
+          <div class="title">3</div>
+        </div>
+        <div class="one div8">
+          <div class="title">4</div>
+        </div>
+        <div class="one div8">
+          <div class="title">5</div>
+        </div>
+        <div class="one div8">
+          <div class="title">6</div>
+        </div>
+        <div class="one div8">
+          <div class="title">7</div>
+        </div>
+        <div class="one div8">
+          <div class="title">8</div>
+        </div>
+        <div class="one div8">
+          <div class="title">9</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr/>
+  <div class="example_one">
+    <div class="code">
+      <h2>排序换位拖拽</h2>
+      <hr class="child_hr"/>
+      <h5>html代码:</h5>
+      <div id="highlighter_290358" class="syntaxhighlighter  xml">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div>
+                <div class="line number3 index2 alt2">3</div>
+                <div class="line number4 index3 alt1">4</div>
+                <div class="line number5 index4 alt2">5</div>
+                <div class="line number6 index5 alt1">6</div>
+                <div class="line number7 index6 alt2">7</div>
+                <div class="line number8 index7 alt1">8</div>
+                <div class="line number9 index8 alt2">9</div>
+                <div class="line number10 index9 alt1">10</div>
+                <div class="line number11 index10 alt2">11</div>
+                <div class="line number12 index11 alt1">12</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"boxList"</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number2 index1 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div9"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;1&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number3 index2 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div9"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;2&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number4 index3 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div9"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;3&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number5 index4 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div9"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;4&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number6 index5 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div9"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;5&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number7 index6 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div9"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;6&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number8 index7 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div9"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;7&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number9 index8 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div9"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;8&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number10 index9 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div9"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;9&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number11 index10 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div9"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;10&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number12 index11 alt1"><code class="xml plain">&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>js代码:</h5>
+      <div id="highlighter_243418" class="syntaxhighlighter  js">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div>
+                <div class="line number3 index2 alt2">3</div>
+                <div class="line number4 index3 alt1">4</div>
+                <div class="line number5 index4 alt2">5</div>
+                <div class="line number6 index5 alt1">6</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="js plain">$(</code><code class="js string">".div9"</code><code class="js plain">).Tdrag({</code></div>
+                  <div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">scope:</code><code class="js string">".boxList"</code><code class="js plain">,</code></div>
+                  <div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">pos:</code><code class="js keyword">true</code><code class="js plain">,</code></div>
+                  <div class="line number4 index3 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">dragChange:</code><code class="js keyword">true</code><code class="js plain">,</code></div>
+                  <div class="line number5 index4 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">changeMode:</code><code class="js string">"sort"</code></div>
+                  <div class="line number6 index5 alt1"><code class="js plain">});</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="example">
+      <div class="boxList">
+        <div class="one div9">
+          <div class="title">1</div>
+        </div>
+        <div class="one div9">
+          <div class="title">2</div>
+        </div>
+        <div class="one div9">
+          <div class="title">3</div>
+        </div>
+        <div class="one div9">
+          <div class="title">4</div>
+        </div>
+        <div class="one div9">
+          <div class="title">5</div>
+        </div>
+        <div class="one div9">
+          <div class="title">6</div>
+        </div>
+        <div class="one div9">
+          <div class="title">7</div>
+        </div>
+        <div class="one div9">
+          <div class="title">8</div>
+        </div>
+        <div class="one div9">
+          <div class="title">9</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr/>
+  <div class="example_one">
+    <div class="code">
+      <h2>排序换位拖拽</h2>
+      <hr class="child_hr"/>
+      <h5>在移动过程中每两个块相触碰时所添加的class</h5>
+      <h5>html代码:</h5>
+      <div id="highlighter_334009" class="syntaxhighlighter  xml">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div>
+                <div class="line number3 index2 alt2">3</div>
+                <div class="line number4 index3 alt1">4</div>
+                <div class="line number5 index4 alt2">5</div>
+                <div class="line number6 index5 alt1">6</div>
+                <div class="line number7 index6 alt2">7</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"boxList"</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number2 index1 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div10"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;1&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number3 index2 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div10"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;2&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number4 index3 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div10"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;3&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number5 index4 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div10"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;4&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number6 index5 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div10"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;5&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number7 index6 alt2"><code class="xml plain">&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>js代码:</h5>
+      <div id="highlighter_961973" class="syntaxhighlighter  js">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div>
+                <div class="line number3 index2 alt2">3</div>
+                <div class="line number4 index3 alt1">4</div>
+                <div class="line number5 index4 alt2">5</div>
+                <div class="line number6 index5 alt1">6</div>
+                <div class="line number7 index6 alt2">7</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="js plain">$(</code><code class="js string">".div10"</code><code class="js plain">).Tdrag({</code></div>
+                  <div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">scope:</code><code class="js string">".boxList"</code><code class="js plain">,</code></div>
+                  <div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">pos:</code><code class="js keyword">true</code><code class="js plain">,</code></div>
+                  <div class="line number4 index3 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">dragChange:</code><code class="js keyword">true</code><code class="js plain">,</code></div>
+                  <div class="line number5 index4 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">changeMode:</code><code class="js string">"sort"</code><code class="js plain">,</code></div>
+                  <div class="line number6 index5 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">moveClass:</code><code class="js string">"abc"</code></div>
+                  <div class="line number7 index6 alt2"><code class="js plain">});</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="example">
+      <div class="boxList">
+        <div class="one div10">
+          <div class="title">1</div>
+        </div>
+        <div class="one div10">
+          <div class="title">2</div>
+        </div>
+        <div class="one div10">
+          <div class="title">3</div>
+        </div>
+        <div class="one div10">
+          <div class="title">4</div>
+        </div>
+        <div class="one div10">
+          <div class="title">5</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr/>
+  <div class="example_one h800">
+    <div class="code">
+      <h2>随机变化位置</h2>
+      <hr class="child_hr"/>
+      <h5>random属性属于加载时自动随机，randomInput属于给按钮加上事件，而我们也为随机数增加一种randomfn()方法，方便调用。</h5>
+      <h5>html代码:</h5>
+      <div id="highlighter_507471" class="syntaxhighlighter  xml">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div>
+                <div class="line number3 index2 alt2">3</div>
+                <div class="line number4 index3 alt1">4</div>
+                <div class="line number5 index4 alt2">5</div>
+                <div class="line number6 index5 alt1">6</div>
+                <div class="line number7 index6 alt2">7</div>
+                <div class="line number8 index7 alt1">8</div>
+                <div class="line number9 index8 alt2">9</div>
+                <div class="line number10 index9 alt1">10</div>
+                <div class="line number11 index10 alt2">11</div>
+                <div class="line number12 index11 alt1">12</div>
+                <div class="line number13 index12 alt2">13</div>
+                <div class="line number14 index13 alt1">14</div>
+                <div class="line number15 index14 alt2">15</div>
+                <div class="line number16 index15 alt1">16</div>
+                <div class="line number17 index16 alt2">17</div>
+                <div class="line number18 index17 alt1">18</div>
+                <div class="line number19 index18 alt2">19</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">input</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"plug_random"</code>&nbsp;<code class="xml color1">type</code><code class="xml plain">=</code><code class="xml string">"button"</code>&nbsp;<code class="xml color1">value</code><code class="xml plain">=</code><code class="xml string">"通过插件随机"</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number2 index1 alt1"><code class="xml plain">&lt;</code><code class="xml keyword">input</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"fn_random"</code>&nbsp;<code class="xml color1">type</code><code class="xml plain">=</code><code class="xml string">"button"</code>&nbsp;<code class="xml color1">value</code><code class="xml plain">=</code><code class="xml string">"通过函数随机"</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number3 index2 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"boxList"</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number4 index3 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div11"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;1&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number5 index4 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div11"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;2&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number6 index5 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div11"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;3&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number7 index6 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div11"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;4&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number8 index7 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div11"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;5&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number9 index8 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div11"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;6&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number10 index9 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div11"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;7&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number11 index10 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div11"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;8&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number12 index11 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div11"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;9&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number13 index12 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div11"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;10&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number14 index13 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div11"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;11&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number15 index14 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div11"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;12&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number16 index15 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div11"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;13&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number17 index16 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div11"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;14&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number18 index17 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div11"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;15&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number19 index18 alt2"><code class="xml plain">&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>js代码:</h5>
+      <div id="highlighter_45838" class="syntaxhighlighter  js">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div>
+                <div class="line number3 index2 alt2">3</div>
+                <div class="line number4 index3 alt1">4</div>
+                <div class="line number5 index4 alt2">5</div>
+                <div class="line number6 index5 alt1">6</div>
+                <div class="line number7 index6 alt2">7</div>
+                <div class="line number8 index7 alt1">8</div>
+                <div class="line number9 index8 alt2">9</div>
+                <div class="line number10 index9 alt1">10</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="js plain">$(</code><code class="js string">".div11"</code><code class="js plain">).Tdrag({</code></div>
+                  <div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">scope:</code><code class="js string">".boxList"</code><code class="js plain">,</code></div>
+                  <div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">pos:</code><code class="js keyword">true</code><code class="js plain">,</code></div>
+                  <div class="line number4 index3 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">dragChange:</code><code class="js keyword">true</code><code class="js plain">,</code></div>
+                  <div class="line number5 index4 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">random:</code><code class="js keyword">true</code><code class="js plain">,</code></div>
+                  <div class="line number6 index5 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">randomInput:</code><code class="js string">".plug_random"</code></div>
+                  <div class="line number7 index6 alt2"><code class="js plain">});</code></div>
+                  <div class="line number8 index7 alt1"><code class="js plain">$(</code><code class="js string">".fn_random"</code><code class="js plain">).on(</code><code class="js string">"click"</code><code class="js plain">,</code><code class="js keyword">function</code><code class="js plain">(){</code></div>
+                  <div class="line number9 index8 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">$.randomfn(</code><code class="js string">".div11"</code><code class="js plain">)</code></div>
+                  <div class="line number10 index9 alt1"><code class="js plain">})</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="example ">
+      <input class="plug_random" type="button" value="通过插件随机">
+      <input class="fn_random" type="button" value="通过函数随机">
+      <div class="boxList">
+        <div class="one div11">
+          <div class="title">1</div>
+        </div>
+        <div class="one div11">
+          <div class="title">2</div>
+        </div>
+        <div class="one div11">
+          <div class="title">3</div>
+        </div>
+        <div class="one div11">
+          <div class="title">4</div>
+        </div>
+        <div class="one div11">
+          <div class="title">5</div>
+        </div>
+        <div class="one div11">
+          <div class="title">6</div>
+        </div>
+        <div class="one div11">
+          <div class="title">7</div>
+        </div>
+        <div class="one div11">
+          <div class="title">8</div>
+        </div>
+        <div class="one div11">
+          <div class="title">9</div>
+        </div>
+        <div class="one div11">
+          <div class="title">10</div>
+        </div>
+        <div class="one div11">
+          <div class="title">11</div>
+        </div>
+        <div class="one div11">
+          <div class="title">12</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr/>
+  <div class="example_one  h800">
+    <div class="code">
+      <h2>变化位置时动画参数</h2>
+      <hr class="child_hr"/>
+      <h5>duration是每次运动的总用时，easing是运动的方法：ease-out、ease-in、linear</h5>
+      <h5>html代码:</h5>
+      
+      <div id="highlighter_213552" class="syntaxhighlighter  xml">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div>
+                <div class="line number3 index2 alt2">3</div>
+                <div class="line number4 index3 alt1">4</div>
+                <div class="line number5 index4 alt2">5</div>
+                <div class="line number6 index5 alt1">6</div>
+                <div class="line number7 index6 alt2">7</div>
+                <div class="line number8 index7 alt1">8</div>
+                <div class="line number9 index8 alt2">9</div>
+                <div class="line number10 index9 alt1">10</div>
+                <div class="line number11 index10 alt2">11</div>
+                <div class="line number12 index11 alt1">12</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"boxList"</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number2 index1 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div12"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;1&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number3 index2 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div12"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;2&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number4 index3 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div12"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;3&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number5 index4 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div12"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;4&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number6 index5 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div12"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;5&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number7 index6 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div12"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;6&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number8 index7 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div12"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;7&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number9 index8 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div12"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;8&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number10 index9 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div12"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;9&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number11 index10 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div12"</code><code class="xml plain">&gt;&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"title"</code><code class="xml plain">&gt;10&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number12 index11 alt1"><code class="xml plain">&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>js代码:</h5>
+      
+      <div id="highlighter_285970" class="syntaxhighlighter  js">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div>
+                <div class="line number3 index2 alt2">3</div>
+                <div class="line number4 index3 alt1">4</div>
+                <div class="line number5 index4 alt2">5</div>
+                <div class="line number6 index5 alt1">6</div>
+                <div class="line number7 index6 alt2">7</div>
+                <div class="line number8 index7 alt1">8</div>
+                <div class="line number9 index8 alt2">9</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="js plain">$(</code><code class="js string">".div12"</code><code class="js plain">).Tdrag({</code></div>
+                  <div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">scope:</code><code class="js string">".boxList"</code><code class="js plain">,</code></div>
+                  <div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">pos:</code><code class="js keyword">true</code><code class="js plain">,</code></div>
+                  <div class="line number4 index3 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">dragChange:</code><code class="js keyword">true</code><code class="js plain">,</code></div>
+                  <div class="line number5 index4 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">animation_options:{</code></div>
+                  <div class="line number6 index5 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">duration:200,</code><code class="js comments">//每次动画的事件</code></div>
+                  <div class="line number7 index6 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">easing:</code><code class="js string">"ease-in"</code><code class="js comments">//动画特效&nbsp;ease-out、ease-in、linear</code></div>
+                  <div class="line number8 index7 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">}</code></div>
+                  <div class="line number9 index8 alt2"><code class="js plain">});</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="example">
+      <div class="boxList">
+        <div class="one div12">
+          <div class="title">1</div>
+        </div>
+        <div class="one div12">
+          <div class="title">2</div>
+        </div>
+        <div class="one div12">
+          <div class="title">3</div>
+        </div>
+        <div class="one div12">
+          <div class="title">4</div>
+        </div>
+        <div class="one div12">
+          <div class="title">5</div>
+        </div>
+        <div class="one div12">
+          <div class="title">6</div>
+        </div>
+        <div class="one div12">
+          <div class="title">7</div>
+        </div>
+        <div class="one div12">
+          <div class="title">8</div>
+        </div>
+        <div class="one div12">
+          <div class="title">9</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr/>
+  <div class="example_one">
+    <div class="code">
+      <h2>禁止拖拽</h2>
+      <hr class="child_hr"/>
+      <h5>disable属性属于加载时自动禁止拖拽，randomInput属于给按钮加上事件，点击时如果是禁止的，就是开启。反而如果时开启的，点击就是禁止而我们也为随机数增加两种disable方法，一个只能开启拖拽：disable_open()，一个只能禁止拖拽：disable_cloose(),方便调用。</h5>
+      <h5>html代码:</h5>
+      
+      <div id="highlighter_903309" class="syntaxhighlighter  xml">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div>
+                <div class="line number3 index2 alt2">3</div>
+                <div class="line number4 index3 alt1">4</div>
+                <div class="line number5 index4 alt2">5</div>
+                <div class="line number6 index5 alt1">6</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">input</code>&nbsp;<code class="xml color1">type</code><code class="xml plain">=</code><code class="xml string">"button"</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"disable"</code>&nbsp;<code class="xml color1">value</code><code class="xml plain">=</code><code class="xml string">"插件按钮"</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number2 index1 alt1"><code class="xml plain">&lt;</code><code class="xml keyword">input</code>&nbsp;<code class="xml color1">type</code><code class="xml plain">=</code><code class="xml string">"button"</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"disable_open"</code>&nbsp;<code class="xml color1">value</code><code class="xml plain">=</code><code class="xml string">"函数开启拖拽"</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number3 index2 alt2"><code class="xml plain">&lt;</code><code class="xml keyword">input</code>&nbsp;<code class="xml color1">type</code><code class="xml plain">=</code><code class="xml string">"button"</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"disable_cloose"</code>&nbsp;<code class="xml color1">value</code><code class="xml plain">=</code><code class="xml string">"函数禁止拖拽"</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number4 index3 alt1"><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"boxList"</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number5 index4 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="xml plain">&lt;</code><code class="xml keyword">div</code>&nbsp;<code class="xml color1">class</code><code class="xml plain">=</code><code class="xml string">"one&nbsp;div13"</code><code class="xml plain">&gt;&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                  <div class="line number6 index5 alt1"><code class="xml plain">&lt;/</code><code class="xml keyword">div</code><code class="xml plain">&gt;</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h5>js代码:</h5>
+      
+      <div id="highlighter_500646" class="syntaxhighlighter  js">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td class="gutter"><div class="line number1 index0 alt2">1</div>
+                <div class="line number2 index1 alt1">2</div>
+                <div class="line number3 index2 alt2">3</div>
+                <div class="line number4 index3 alt1">4</div>
+                <div class="line number5 index4 alt2">5</div>
+                <div class="line number6 index5 alt1">6</div>
+                <div class="line number7 index6 alt2">7</div>
+                <div class="line number8 index7 alt1">8</div>
+                <div class="line number9 index8 alt2">9</div>
+                <div class="line number10 index9 alt1">10</div>
+                <div class="line number11 index10 alt2">11</div>
+                <div class="line number12 index11 alt1">12</div>
+                <div class="line number13 index12 alt2">13</div></td>
+              <td class="code"><div class="container">
+                  <div class="line number1 index0 alt2"><code class="js plain">$(</code><code class="js string">".div13"</code><code class="js plain">).Tdrag({</code></div>
+                  <div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">scope:</code><code class="js string">".boxList"</code><code class="js plain">,</code></div>
+                  <div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">disable:</code><code class="js keyword">true</code><code class="js plain">,</code></div>
+                  <div class="line number4 index3 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">disableInput:</code><code class="js string">".disable"</code></div>
+                  <div class="line number5 index4 alt2"><code class="js plain">});</code></div>
+                  <div class="line number6 index5 alt1"><code class="js comments">//禁止</code></div>
+                  <div class="line number7 index6 alt2"><code class="js plain">$(</code><code class="js string">".disable_cloose"</code><code class="js plain">).on(</code><code class="js string">"click"</code><code class="js plain">,</code><code class="js keyword">function</code><code class="js plain">(){</code></div>
+                  <div class="line number8 index7 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">$.disable_cloose()</code></div>
+                  <div class="line number9 index8 alt2"><code class="js plain">});</code></div>
+                  <div class="line number10 index9 alt1"><code class="js comments">//开启</code></div>
+                  <div class="line number11 index10 alt2"><code class="js plain">$(</code><code class="js string">".disable_open"</code><code class="js plain">).on(</code><code class="js string">"click"</code><code class="js plain">,</code><code class="js keyword">function</code><code class="js plain">(){</code></div>
+                  <div class="line number12 index11 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">$.disable_open()</code></div>
+                  <div class="line number13 index12 alt2"><code class="js plain">});</code></div>
+                </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="example">
+      <input type="button" class="disable" value="插件按钮">
+      <input type="button" class="disable_open" value="函数开启拖拽">
+      <input type="button" class="disable_cloose" value="函数禁止拖拽">
+      <div class="boxList">
+        <div class="one div13"></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <h2>另附一份插件参数初始值</h2>
+    <hr class="child_hr"/>
+    
+    <div id="highlighter_477100" class="syntaxhighlighter  js">
+      <table border="0" cellpadding="0" cellspacing="0">
+        <tbody>
+          <tr>
+            <td class="gutter"><div class="line number1 index0 alt2">1</div>
+              <div class="line number2 index1 alt1">2</div>
+              <div class="line number3 index2 alt2">3</div>
+              <div class="line number4 index3 alt1">4</div>
+              <div class="line number5 index4 alt2">5</div>
+              <div class="line number6 index5 alt1">6</div>
+              <div class="line number7 index6 alt2">7</div>
+              <div class="line number8 index7 alt1">8</div>
+              <div class="line number9 index8 alt2">9</div>
+              <div class="line number10 index9 alt1">10</div>
+              <div class="line number11 index10 alt2">11</div>
+              <div class="line number12 index11 alt1">12</div>
+              <div class="line number13 index12 alt2">13</div>
+              <div class="line number14 index13 alt1">14</div>
+              <div class="line number15 index14 alt2">15</div>
+              <div class="line number16 index15 alt1">16</div>
+              <div class="line number17 index16 alt2">17</div>
+              <div class="line number18 index17 alt1">18</div>
+              <div class="line number19 index18 alt2">19</div>
+              <div class="line number20 index19 alt1">20</div>
+              <div class="line number21 index20 alt2">21</div></td>
+            <td class="code"><div class="container">
+                <div class="line number1 index0 alt2"><code class="js keyword">var</code>&nbsp;<code class="js plain">call&nbsp;=&nbsp;{</code></div>
+                <div class="line number2 index1 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">scope:&nbsp;</code><code class="js keyword">null</code><code class="js plain">,</code><code class="js comments">//父级</code></div>
+                <div class="line number3 index2 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">grid:&nbsp;</code><code class="js keyword">null</code><code class="js plain">,</code><code class="js comments">//网格</code></div>
+                <div class="line number4 index3 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">axis:</code><code class="js string">"all"</code><code class="js plain">,</code><code class="js comments">//上下或者左右</code></div>
+                <div class="line number5 index4 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">pos:</code><code class="js keyword">false</code><code class="js plain">,</code><code class="js comments">//是否记住位置</code></div>
+                <div class="line number6 index5 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">handle:</code><code class="js keyword">null</code><code class="js plain">,</code><code class="js comments">//手柄</code></div>
+                <div class="line number7 index6 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">moveClass:</code><code class="js string">"tezml"</code><code class="js plain">,</code><code class="js comments">//移动时不换位加的class</code></div>
+                <div class="line number8 index7 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">dragChange:</code><code class="js keyword">false</code><code class="js plain">,</code><code class="js comments">//是否开启拖拽换位</code></div>
+                <div class="line number9 index8 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">changeMode:</code><code class="js string">"point"</code><code class="js plain">,</code><code class="js comments">//point&nbsp;&amp;&nbsp;sort</code></div>
+                <div class="line number10 index9 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">cbStart:</code><code class="js keyword">function</code><code class="js plain">(){},</code><code class="js comments">//移动前的回调函数</code></div>
+                <div class="line number11 index10 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">cbMove:</code><code class="js keyword">function</code><code class="js plain">(){},</code><code class="js comments">//移动中的回调函数</code></div>
+                <div class="line number12 index11 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">cbEnd:</code><code class="js keyword">function</code><code class="js plain">(){},</code><code class="js comments">//移动结束时候的回调函数</code></div>
+                <div class="line number13 index12 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">random:</code><code class="js keyword">false</code><code class="js plain">,</code><code class="js comments">//是否自动随机排序</code></div>
+                <div class="line number14 index13 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">randomInput:</code><code class="js keyword">null</code><code class="js plain">,</code><code class="js comments">//点击随机排序的按钮</code></div>
+                <div class="line number15 index14 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">animation_options:{</code><code class="js comments">//运动时的参数</code></div>
+                <div class="line number16 index15 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">duration:800,</code><code class="js comments">//每次运动的时间</code></div>
+                <div class="line number17 index16 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">easing:</code><code class="js string">"ease-out"</code><code class="js comments">//移动时的特效，ease-out、ease-in、linear</code></div>
+                <div class="line number18 index17 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">},</code></div>
+                <div class="line number19 index18 alt2"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">disable:</code><code class="js keyword">false</code><code class="js plain">,</code><code class="js comments">//禁止拖拽</code></div>
+                <div class="line number20 index19 alt1"><code class="js spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="js plain">disableInput:</code><code class="js keyword">null</code><code class="js comments">//禁止拖拽的按钮</code></div>
+                <div class="line number21 index20 alt2"><code class="js plain">};</code></div>
+              </div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</body>
+<script>
+jQuery(function(){
+    //顶部的拖拽
+    $(".div1").Tdrag();
+    //第一个例子的拖拽
+    $(".div2").Tdrag();
+    //第二个例子的拖拽
+    $(".div3").Tdrag({
+        scope:".boxList"
+    });
+    //第三个例子的拖拽
+    $(".div4").Tdrag({
+        scope:".boxList",
+        grid:[50,50]
+    });
+
+    //第四个例子的拖拽
+    $(".onlyX").Tdrag({
+        scope:".boxList",
+        axis:"x"
+    });
+    $(".onlyY").Tdrag({
+        scope:".boxList",
+        axis:"y"
+    });
+    //第五个例子的拖拽
+    $(".div5").Tdrag({
+        pos:true
+    });
+    //第六个例子的拖拽
+    $(".div6").Tdrag({
+        scope:".boxList",
+        handle:".title"
+    });
+    //第七个例子的拖拽
+    $(".div7").Tdrag({
+        scope:".boxList",
+        cbStart:function(){$(".start").html(Number($(".start").html())+1)},//移动前的回调函数
+        cbMove:function(){$(".move").html(Number($(".move").html())+1)},//移动中的回调函数
+        cbEnd:function(){$(".end").html(Number($(".end").html())+1)}//移动结束时候的回调函数
+    });
+    //第八个例子的拖拽
+    $(".div8").Tdrag({
+        scope:".boxList",
+        pos:true,
+        dragChange:true
+    });
+    //第八个例子的拖拽
+    $(".div9").Tdrag({
+        scope:".boxList",
+        pos:true,
+        dragChange:true,
+        changeMode:"sort"
+    });
+    //第九个例子的拖拽
+    $(".div10").Tdrag({
+        scope:".boxList",
+        pos:true,
+        dragChange:true,
+        changeMode:"sort",
+        moveClass:"abc"
+    });
+    //第十个例子的拖拽
+    $(".div11").Tdrag({
+        scope:".boxList",
+        pos:true,
+        dragChange:true,
+        random:true,
+        randomInput:".plug_random"
+    });
+    $(".fn_random").on("click",function(){
+        $.randomfn(".div11")
+    });
+    //第十一个例子的拖拽
+    $(".div12").Tdrag({
+        scope:".boxList",
+        pos:true,
+        dragChange:true,
+        animation_options:{
+            duration:200,//每次动画的事件
+            easing:"ease-in"//动画特效 ease-out、ease-in、linear
+        }
+    });
+    //第十一个例子的拖拽
+    $(".div13").Tdrag({
+        scope:".boxList",
+        disable:true,
+        disableInput:".disable"
+    });
+    //禁止
+    $(".disable_cloose").on("click",function(){
+        $.disable_cloose()
+    });
+    //开启
+    $(".disable_open").on("click",function(){
+        $.disable_open()
+    });
+
+})
+</script>
+</html>

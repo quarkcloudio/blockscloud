@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>积木云-您的私人云空间</title>
+  <script src="js/vendor/loading/loading.js"></script>
+  <!-- Bootstrap 核心 CSS 文件 -->
+  <link rel="stylesheet" href="css/app.css">
+  <!--layui样式-->
+  <link rel="stylesheet" href="js/vendor/layer/skin/default/layer.css">
+  <link rel="stylesheet" href="js/vendor/element/index.css">
+  <!-- style CSS 文件 -->
+  <link rel="stylesheet" href="css/desktop.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="fonts/fontawesome-webfont.svg">
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?35bab0a327a4624880126b5d99e0fe5a";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+</head>
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle glyphicon glyphicon-home" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+          <ul class="dropdown-menu">
+            <li><a class="appclick" title="关于本机" app-name="about" app-width=450 app-height=450 href="#">关于本机</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a class="appclick" title="系统偏好设置" app-name="setting" app-width=800 app-height=450 href="#">系统偏好设置</a></li>
+            <li><a class="appclick" title="应用市场" app-name="appstore" app-width=800 app-height=500 href="#">App Store</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a onclick="lockScreen()" href="#">锁屏</a></li>
+            <li><a onclick="logout()" href="#">退出</a></li>
+          </ul>
+        </li>
+          <!--<li><a class="appclick" title="demo" app-name="demo" app-width=600 app-height=450 href="#">实例</a></li>-->
+        </ul>
+        <ul class="nav navbar-nav navbar-nav-right">
+          <li><a class="glyphicon glyphicon-volume-up" aria-hidden="true" href="#"></a></li>
+          <li><a class="glyphicon glyphicon-eject" aria-hidden="true" href="#"></a></li>
+          <li><a class="currentTime" id="currentTime" href="#"></a></li>
+          <li><a class="glyphicon glyphicon-search" aria-hidden="true" href="#"></a></li>
+          <li><a class="glyphicon glyphicon-list" id="showRight" aria-hidden="true" href="#"></a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-nav-right taskbar-nav">
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+  <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu" style="margin-top:30px;">
+    <h3>7月9日星期六</h3>
+    <a href="#">天气预报</a>
+    <a href="#">最新资讯</a>
+    <a href="#">热点股市</a>
+    <h3>每天一个笑话</h3>
+    <a href="#">小明的故事书</a>
+  </nav>
+  <div class="container desktop" id="desktop" current-path="">
+    <div class='app-list'>
+    </div><!-- /.container -->
+  <div id="dock"></div>
+  <!--引入插件样式开始-->
+  <link rel="stylesheet" href="js/vendor/dock/dockmenu.css">
+  <link rel="stylesheet" href="js/vendor/context/css/context.standalone.css">
+  <link rel="stylesheet" href="js/vendor/sidebar/css/component.css" />
+  <link rel="stylesheet" href="js/vendor/jPlayer/dist/skin/blue.monday/css/jplayer.blue.monday.min.css" />
+  <!--引入插件样式结束-->
+  <script src="js/vendor/sea.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

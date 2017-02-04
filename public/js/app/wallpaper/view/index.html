@@ -1,0 +1,12 @@
+<div class="wallpaper-wrapper" style="padding: 20px; padding-top: 0px; font-size: 18px;">
+    <el-row>
+    <el-col :span="5" v-for="(item, index) in items" :offset="index%4 > 0 ? 1 : 0" style="margin-top: 20px;">
+        <el-card :body-style="{ padding: '0px' }" style="cursor: pointer;">
+        <img :src="item.cover_path" class="image" v-on:click="setWallpaper(item.id,item.cover_path)" style="width: 100%;display: block;">
+        <div v-on:click="setWallpaper(item.id,item.cover_path)" style="padding: 10px;">
+            <span>{{item.title}}</span>
+        </div>
+        </el-card>
+    </el-col>
+    </el-row>
+</div>

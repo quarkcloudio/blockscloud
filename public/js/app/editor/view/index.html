@@ -1,0 +1,51 @@
+<div class="editor-wrapper">
+    <input id="file-path" type="hidden" >
+    <div class="topbar">
+        <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">文件</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">新建文件</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">打开文件</a></li>
+            <li><a href="#">打开文件夹</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#" onclick="saveFile()">保存</a></li>
+            <li><a href="#">另存为</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">退出</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">编辑</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">撤销</a></li>
+            <li><a href="#">恢复</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">查找</a></li>
+            <li><a href="#">替换</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">选择</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">全选</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">查看</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">字体</a></li>
+          </ul>
+        </li>
+          <li><a class="appclick" title="帮助" app-name="help" app-width=500 app-height=400 href="#">帮助</a></li>
+        </ul>
+    </div>
+    <div class="main">
+        <div class="content">
+            <pre id="editor">
+
+            </pre>
+        </div>
+    </div>
+</div>

@@ -1,1 +1,0 @@
-DROP TABLE IF EXISTS `onethink_message_board`;

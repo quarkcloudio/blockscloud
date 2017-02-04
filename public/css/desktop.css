@@ -1,0 +1,398 @@
+* {
+	font-size: 12px;
+}
+body {
+	padding-top: 30px;
+	padding-bottom: 20px;
+	background-repeat:no-repeat;
+	background-attachment:fixed;
+	background-repeat:no-repeat;
+	background-size:cover;
+	-moz-background-size:cover;
+	-webkit-background-size:cover;
+	overflow: hidden;
+}
+a:focus {
+	outline:none;
+}
+.navbar-nav>li>a {
+	padding-top: 6px;
+	padding-bottom: 6px;
+	font-size: 12px;
+	height: 30px;
+}
+.navbar {
+	min-height: 30px;
+	height: 30px;
+}
+.navbar-toggle {
+	margin-top: 6px;
+	margin-bottom: 6px;
+	height: 30px;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+	background-color: #167fe8;
+	color: #fff;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:focus, .navbar-default .navbar-nav > .open > a:hover {
+	background-color: #167fe8;
+	color: #fff;
+}
+.navbar-nav-right {
+	float:right;
+}
+.navbar-nav-right li a {
+	padding-left:5px;
+	padding-right:5px;
+}
+.navbar-nav-right li a img {
+	width: 18px;
+	height: 18px;
+}
+.navbar-nav-home {
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+.desktop {
+	position: relative;
+	left:0;
+	padding: 0px;
+	overflow: hidden;
+}
+.desktop ,.desktop a {
+	width:100%;
+	color: #fff;
+}
+.app-list {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+.clear {
+	clear: both;
+}
+.trash-wrapper .main .content .active,.finder-wrapper .main .content .active,.desktop .active {
+	background-image: url(../images/app_active_bg.png);
+}
+.trash-wrapper .main .content .hover,.finder-wrapper .main .content .hover,.desktop .hover {
+	background-image: url(../images/app_hover_bg.png);
+}
+.trash-wrapper .main .content .app-box,.finder-wrapper .main .content .app-box,.desktop .app-box {
+	text-align: center;
+	-moz-border-radius: 3px;
+	/* Gecko browsers*/
+	-webkit-border-radius: 3px;
+	/* Webkit browsers*/
+	border-radius:3px;
+	/* W3C syntax*/
+	z-index: 999;
+}
+.desktop .middle {
+	position:absolute;
+	width: 80px;
+	height: 100px;
+}
+.trash-wrapper .main .content .middle,.finder-wrapper .main .content .middle {
+	width: 80px;
+	height: 100px;
+}
+.trash-wrapper .main .content .middle,.finder-wrapper .main .content .middle {
+	float: left;
+	margin-left: 30px;
+	margin-top: 10px;
+}
+.desktop .middle img {
+	width: 60px;
+	margin-top: 5px;
+	margin-left: 10px;
+}
+.trash-wrapper .main .content .middle img,.finder-wrapper .main .content .middle img {
+	width: 60px;
+	margin-top: 5px;
+}
+.trash-wrapper .main .content .middle,.finder-wrapper .main .content .middle,.desktop .middle .app-icon {
+	float: left;
+}
+.desktop .middle .app-name {
+	font-size: 12px;
+	float: left;
+	background: rgba(0, 0, 0, 0.2) none repeat scroll 0 0;
+	border-radius: 18px;
+	line-height: 1.7em;
+	margin-top: 6px;
+	padding-top: 1px;
+	transition: none 0s ease 0s ;
+	width: 80px;
+	color: #fff;
+	/*text-shadow: 0 0 0 #fff, 0 0 2px #000, 0 0 4px #000;*/
+	writing-mode: horizontal-tb;
+	display:block;/*内联对象需加*/
+	word-break:keep-all;/* 不换行 */
+	white-space:nowrap;/* 不换行 */
+	overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+	text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+}
+.trash-wrapper .main .content .middle .app-name,.finder-wrapper .main .content .middle .app-name {
+	font-size: 12px;
+	float: left;
+	/*background: rgba(0, 0, 0, 0.2) none repeat scroll 0 0;
+	border-radius: 18px;*/
+	line-height: 1.7em;
+	margin-top: 6px;
+	padding-top: 1px;
+	transition: none 0s ease 0s ;
+	width: 80px;
+	color: #333;
+	/*text-shadow: 0 0 0 #fff, 0 0 2px #000, 0 0 4px #000;*/
+	writing-mode: horizontal-tb;
+	display:block;/*内联对象需加*/
+	word-break:keep-all;/* 不换行 */
+	white-space:nowrap;/* 不换行 */
+	overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+	text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+}
+.trash-wrapper .main .content .active,.finder-wrapper .main .content .active {
+	background-image: url(../images/finder_app_active_bg.png);
+}
+.trash-wrapper .main .content .hover,.finder-wrapper .main .content .hover {
+	background-image: url(../images/finder_app_hover_bg.png);
+}
+.editor-wrapper,.trash-wrapper,.finder-wrapper {
+	width: 100%;
+	height: 100%;
+}
+.trash-wrapper .topbar,.finder-wrapper .topbar {
+	width: 100%;
+	height: 30px;
+	background: #f6f6f6;
+	border-bottom: 1px solid #9a9a9a;
+	margin-top: 0px;
+}
+
+.editor-wrapper .topbar{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	background: #e6e6e6;
+	border-bottom: 1px solid #9a9a9a;
+}
+.trash-wrapper .topbar .next-prev-box,.finder-wrapper .topbar .next-prev-box {
+	float: left;
+	background: url(../images/next_prev.png) no-repeat;
+	width: 53px;
+	height: 24px;
+	margin-left: 5px;
+	margin-top:2px;
+	cursor: pointer;
+}
+.trash-wrapper .topbar .sortstyle-box,.finder-wrapper .topbar .sortstyle-box {
+	float: left;
+	background: url(../images/sortstyle.png) no-repeat;
+	width: 58px;
+	height: 24px;
+	margin-left: 105px;
+	cursor: pointer;
+}
+.trash-wrapper .topbar .config-button,.finder-wrapper .topbar .config-button {
+	float: left;
+	background: url(../images/config.png) no-repeat;
+	width: 40px;
+	height: 24px;
+	margin-left: 10px;
+	cursor: pointer;
+}
+.trash-wrapper .topbar .higher-button,.finder-wrapper .topbar .higher-button {
+	float: left;
+	background: url(../images/higher.png) no-repeat;
+	width: 40px;
+	height: 24px;
+	margin-left: 10px;
+	cursor: pointer;
+}
+.trash-wrapper .topbar .collection-button,.finder-wrapper .topbar .collection-button {
+	float: left;
+	background: url(../images/collection.png) no-repeat;
+	width: 40px;
+	height: 24px;
+	margin-left: 10px;
+	cursor: pointer;
+}
+.trash-wrapper .topbar .search-box,.finder-wrapper .topbar .search-box {
+	float: right;
+	background: url(../images/search.png) no-repeat;
+	width: 234px;
+	height: 24px;
+	margin-right: 5px;
+	margin-top:2px;
+}
+.trash-wrapper .main,.finder-wrapper .main {
+	width: 100%;
+	height: calc(100% - 30px);
+	background: #fff;
+}
+.trash-wrapper .main .sidebar,.finder-wrapper .main .sidebar {
+	width: 148px;
+	height: 100%;
+	background: #f6f6f6;
+	float: left;
+	border-right: 1px solid #dfdfdf;
+}
+.trash-wrapper .main .content,.finder-wrapper .main .content {
+	width: 80%;
+	width:-moz-calc(100% - 150px);
+	width:-webkit-calc(100% - 150px);
+	width: calc(100% - 150px);
+	height: 100%;
+	float: left;
+	overflow-y: auto;
+}
+.trash-wrapper .main .sidebar ul,.finder-wrapper .main .sidebar ul {
+	width: 148px;
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
+	padding-top: 5px;
+}
+.trash-wrapper .main .sidebar ul .title,.finder-wrapper .main .sidebar ul .title {
+	width: 100%;
+	padding-left: 5px;
+}
+.trash-wrapper .main .sidebar ul li,.finder-wrapper .main .sidebar ul li {
+	width: 100%;
+	float: left;
+}
+.trash-wrapper .main .sidebar ul li a,.finder-wrapper .main .sidebar ul li a {
+	display: block;
+	color:#444444;
+	text-decoration: none;
+	width: 148px;
+	height: 30px;
+	line-height: 30px;
+	clear: both;
+}
+.trash-wrapper .main .sidebar ul li a .name,.finder-wrapper .main .sidebar ul li a .name {
+	display: block;
+	float: left;
+	margin-left: 5px;
+	font-size: 14px;
+}
+.trash-wrapper .main .sidebar ul li a .home-icon,.finder-wrapper .main .sidebar ul li a .home-icon {
+	display: block;
+	background-image: url(../images/icons/SidebarHomeFolder_16x16.png);
+	width: 16px;
+	height: 16px;
+	float: left;
+	margin-left: 15px;
+	margin-top: 7px;
+}
+.trash-wrapper .main .sidebar ul li a .desktop-icon,.finder-wrapper .main .sidebar ul li a .desktop-icon {
+	display: block;
+	background-image: url(../images/icons/SidebarDesktopFolder_16x16.png);
+	width: 16px;
+	height: 16px;
+	float: left;
+	margin-left: 15px;
+	margin-top: 7px;
+}
+.trash-wrapper .main .sidebar ul li a .documents-icon,.finder-wrapper .main .sidebar ul li a .documents-icon {
+	display: block;
+	background-image: url(../images/icons/SidebarDocumentsFolder_16x16.png);
+	width: 16px;
+	height: 16px;
+	float: left;
+	margin-left: 15px;
+	margin-top: 7px;
+}
+.trash-wrapper .main .sidebar ul li a .downloads-icon,.finder-wrapper .main .sidebar ul li a .downloads-icon {
+	display: block;
+	background-image: url(../images/icons/SidebarDownloadsFolder_16x16.png);
+	width: 16px;
+	height: 16px;
+	float: left;
+	margin-left: 15px;
+	margin-top: 7px;
+}
+.trash-wrapper .main .sidebar ul li a .movies-icon,.finder-wrapper .main .sidebar ul li a .movies-icon {
+	display: block;
+	background-image: url(../images/icons/SidebarMoviesFolder_16x16.png);
+	width: 16px;
+	height: 16px;
+	float: left;
+	margin-left: 15px;
+	margin-top: 7px;
+}
+.trash-wrapper .main .sidebar ul li a .music-icon,.finder-wrapper .main .sidebar ul li a .music-icon {
+	display: block;
+	background-image: url(../images/icons/SidebarMusicFolder_16x16.png);
+	width: 16px;
+	height: 16px;
+	float: left;
+	margin-left: 15px;
+	margin-top: 7px;
+}
+.trash-wrapper .main .sidebar ul li a .pictures-icon,.finder-wrapper .main .sidebar ul li a .pictures-icon {
+	display: block;
+	background-image: url(../images/icons/SidebarPicturesFolder_16x16.png);
+	width: 16px;
+	height: 16px;
+	float: left;
+	margin-left: 15px;
+	margin-top: 7px;
+}
+.trash-wrapper .main .sidebar ul li a .cloud-icon,.finder-wrapper .main .sidebar ul li a .cloud-icon {
+	display: block;
+	background-image: url(../images/icons/SidebariCloud_16x16.png);
+	width: 16px;
+	height: 16px;
+	float: left;
+	margin-left: 15px;
+	margin-top: 7px;
+}
+.trash-wrapper .main .sidebar ul li a .network-icon,.finder-wrapper .main .sidebar ul li a .network-icon {
+	display: block;
+	background-image: url(../images/icons/SidebarNetwork_16x16.png);
+	width: 16px;
+	height: 16px;
+	float: left;
+	margin-left: 15px;
+	margin-top: 7px;
+}
+.trash-wrapper .main .sidebar ul li a .trash-icon,.finder-wrapper .main .sidebar ul li a .trash-icon {
+	display: block;
+	background-image: url(../images/icons/StatusBarTrashIcon_16x16.png);
+	width: 16px;
+	height: 16px;
+	float: left;
+	margin-left: 15px;
+	margin-top: 7px;
+}
+.trash-wrapper .main .sidebar ul li .on,.finder-wrapper .main .sidebar ul li .on {
+	background: #cecece;
+}
+.trash-wrapper .topbar .next-prev-box .prev,.finder-wrapper .topbar .next-prev-box .prev {
+	float: left;
+	display: block;
+	width: 25px;
+	height: 22px;
+}
+.trash-wrapper  .topbar .next-prev-box .next, .finder-wrapper .topbar .next-prev-box .next {
+	float: right;
+	display: block;
+	width: 25px;
+	height: 22px;
+}
+.rename{
+	border: 0px;
+	width: 60px;
+	height: 18px;
+	background: none;
+	text-align: center;
+}
+#editor {
+	margin: 0;
+	position: absolute;
+	top: 30px;
+	bottom: 2px;
+	left: 2px;
+	right: 2px;
+}

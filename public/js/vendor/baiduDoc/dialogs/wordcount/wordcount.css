@@ -1,0 +1,19 @@
+#statistical{
+	position: relative;
+    margin: 18px;
+}
+#statistical-content{
+}
+.statistical-name, .statistical-count{
+    float: left;
+	display: block;
+	width: 120px;
+}
+.statistical-row{
+    height: 24px;
+    line-height: 24px;
+    border-bottom: 1px dotted #EEE;
+}
+#statistical-title, #statistical-content{
+	padding: 0 10px;
+}

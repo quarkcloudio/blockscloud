@@ -1,0 +1,215 @@
+/* === Clear and fix === */
+#dock-menu-wrapper .clearfix:after{clear:both;content:".";display:block;font-size:0;height:0;line-height:0;visibility:hidden}
+#dock-menu-wrapper .clearfix{zoom:1}
+
+/* === General styles === */
+#dock-menu-wrapper .hide{ display: none; }
+#dock-menu-wrapper .show{ display: block; }
+
+/* === Dockmenu wrapper === */
+#dock-menu-wrapper li, 
+#dock-menu-wrapper a, 
+#dock-menu-wrapper a:focus, 
+#dock-menu-wrapper a:visited, 
+#dock-menu-wrapper a:link, 
+#dock-menu-wrapper a:hover, 
+#dock-menu-wrapper img 
+{outline: none;}
+
+#dock-menu-wrapper.tb
+{
+  position: fixed;
+}
+
+#dock-menu-wrapper.lr
+{
+	top: 0;
+	width: 100px;
+}
+
+/* === Dockmenu perspective board === */
+#dock-menu-wrapper .menu-perspective
+{
+	-webkit-perspective:260;
+	-moz-perspective:260;
+	perspective:260px;
+}
+
+#dock-menu-wrapper.lr .menu-perspective{ display: none; }
+
+/* === Dockmenu board === */
+#dock-menu-wrapper.tb .menu-board
+{
+	width: 40%;
+	height: 70px;
+	margin: 0 30%;
+	position: relative;
+  border-top-left-radius:6px;
+  border-top-right-radius:6px;
+	-webkit-box-shadow: 0px 7px 25px -7px rgba(0, 0, 0, .8);
+	-mox-box-shadow: 0px 7px 25px -7px rgba(0, 0, 0, .8);
+	box-shadow: 0px 7px 25px -7px rgba(0, 0, 0, .8);
+	-webkit-transform: rotateX(0deg);
+	-moz-transform: rotateX(0deg);
+	transform: rotateX(0deg);
+  filter: alpha(opacity=45);
+  opacity:0.45;
+}
+
+/* === Dockmenu list styles (ul) === */
+#dock-menu-wrapper.tb #dock-menu-list
+{
+  width: 100%;
+  margin: 0;
+  padding: 0px;
+  position: relative;
+  list-style: none;
+  text-align: center;
+  white-space: nowrap;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+#dock-menu-wrapper.lr #dock-menu-list
+{
+  width: 100px;
+  margin: 0;
+  padding: 0px;
+  position: relative;
+  list-style: none;
+  text-align: center;
+  white-space: nowrap;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#dock-menu-wrapper .no-board #dock-menu-list { margin:0; }
+
+#dock-menu-wrapper.tb #dock-menu-list li
+{ 
+  position: relative;
+  z-index: 10;
+  display: inline-block;
+  vertical-align: bottom;
+  white-space: nowrap;
+  overflow: visible;
+  margin: 0 3px;
+}
+
+#dock-menu-wrapper.lr #dock-menu-list li
+{
+  position: relative;
+  z-index: 10;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: visible;
+  margin: 0 3px;
+}
+
+#dock-menu-wrapper.tb #dock-menu-list .ui-effects-wrapper 
+{ 
+	width: 106px;
+	height: 96px;
+	display: inline-block;
+	float: left;
+}
+
+#dock-menu-wrapper.tb #dock-menu-list li a
+{
+  width: 54px;
+  height: 116px;
+  position: relative;
+  display: inline-block;
+  vertical-align: bottom;
+  text-decoration: none;
+  white-space: normal;
+  letter-spacing: normal;
+  color: #000;
+  text-align: center;
+  -webkit-transition: all .4s ease-in-out;
+  -moz-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+#dock-menu-wrapper.lr #dock-menu-list li a
+{
+  width: 54px;
+  height: 74px;
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  white-space: normal;
+  letter-spacing: normal;
+  color: #000;
+  text-align: center;
+  -webkit-transition: all .4s ease-in-out;
+  -moz-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+#dock-menu-wrapper #dock-menu-list li a:hover,
+#dock-menu-wrapper #dock-menu-list .ui-effects-wrapper  li a
+{
+  width: 72px;
+  height: 72px;
+  margin-bottom:10px;
+}
+
+#dock-menu-wrapper #dock-menu-list li a img 
+{ 
+	width:100%; 
+	height: auto;
+	position: absolute;
+	left: 0px;
+	bottom: 10px;
+	text-align: center;
+	border: 0px none;
+	/* margin-bottom: 15px;*/
+	-webkit-box-reflect: below 0 -webkit-linear-gradient(top, transparent 70%, rgba(255,255,255,.1) 85%, rgba(0,0,0,.4) 100%);
+}
+
+#dock-menu-wrapper #dock-menu-list li a:hover span:after {
+	display: block;
+	height: 9px;
+	width: 100%;
+	background: rgba(0, 0, 0, 0) url(../dock/span.png) 50% 0 no-repeat;
+	position: absolute;
+	right:0;
+	content: "";
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+
+#dock-menu-wrapper.tb #dock-menu-list .nearby a,
+#dock-menu-wrapper.lr #dock-menu-list .nearby a
+{
+  width: 62px;
+  height: 62px;
+}
+
+#dock-menu-wrapper #dock-menu-list li span
+{
+  position: relative;
+  line-height: 1.3em;
+  display: none;
+  text-align: center;
+  font-weight: bold;
+  font-size: 80%;
+  padding: 4px 8px;
+  background-color: #ccc;
+  margin: 0px auto;
+  top: -50px;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  white-space: nowrap;
+}
+
+/* === Dockmenu board metal effect background === */
+#dock-menu-wrapper .metal-gradient
+{
+  background: -webkit-radial-gradient(center, circle farthest-corner, rgba(255,255,255,0) 50%, rgba(200,200,200,1)), -webkit-radial-gradient(center, circle, rgba(255,255,255,.35), rgba(255,255,255,0) 20%, rgba(255,255,255,0) 21%), -webkit-radial-gradient(center, circle, rgba(0,0,0,.2), rgba(0,0,0,0) 20%, rgba(0,0,0,0) 21%), -webkit-radial-gradient(center, circle farthest-corner, #f0f0f0, #c0c0c0);
+  background: -moz-radial-gradient(center, circle farthest-corner, rgba(255,255,255,0) 50%, rgba(200,200,200,1)), -moz-radial-gradient(center, circle, rgba(255,255,255,.35), rgba(255,255,255,0) 20%, rgba(255,255,255,0) 21%), -moz-radial-gradient(center, circle, rgba(0,0,0,.2), rgba(0,0,0,0) 20%, rgba(0,0,0,0) 21%), -moz-radial-gradient(center, circle farthest-corner, #f0f0f0, #c0c0c0);   
+  background: -ms-radial-gradient(center, circle farthest-corner, rgba(255,255,255,0) 50%, rgba(200,200,200,1)), -ms-radial-gradient(center, circle, rgba(255,255,255,.35), rgba(255,255,255,0) 20%, rgba(255,255,255,0) 21%), -ms-radial-gradient(center, circle, rgba(0,0,0,.2), rgba(0,0,0,0) 20%, rgba(0,0,0,0) 21%), -ms-radial-gradient(center, circle farthest-corner, #f0f0f0, #c0c0c0); 
+}

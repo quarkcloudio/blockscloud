@@ -1,0 +1,207 @@
+/* common */
+body{
+    margin: 0;
+    padding: 0;
+    background: #f7f7f7;
+}
+a {
+    color: #4486C4;
+    text-decoration: none;
+    cursor: pointer;
+}
+a:hover {
+    text-decoration: un;
+}
+
+/* content */
+.left{
+    float: left;
+}
+
+.right{
+    float: right;
+}
+
+/* header */
+.header{
+    height: 45px;
+    overflow: hidden;
+    background-color: #6dc3ea;
+}
+.guide{
+    float:left;
+    padding: 0 20px;
+    height: 45px;
+    line-height: 45px;
+    font-size: 16px;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+}
+.guide.logo{
+    font-size: 0;
+    margin: 0 0 0 10px;
+    padding: 0;
+    width: 137px;
+    height: 45px;
+    vertical-align: middle;
+    background-image: url("../images/logo-wendang.png?v=1414653207252");
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+.guide.logo-wenku{
+    font-size: 0;
+    padding: 0;
+    margin: 0;
+    width: 89px;
+    height: 45px;
+    vertical-align: middle;
+    background-image: url("../images/logo-wenku.png?v=1414653207252");
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+/*.beta:after{*/
+    /*content: 'Beta';*/
+    /*font-size: 14px;*/
+    /*display: block;*/
+    /*left: 263px;*/
+    /*top: 0;*/
+    /*position: absolute;*/
+    /*line-height: 24px;*/
+/*}*/
+.guide.logo:hover,
+.guide.logo-wenku:hover{
+    background-color: transparent;
+}
+.guide.active,
+.guide:hover{
+    background-color: #4ba7d1;
+}
+.header .center::selection{
+    background: #fff;
+}
+.header .center{
+    font-size: 14px;
+    height: 45px;
+    line-height: 45px;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: normal;
+    color: #FFF;
+}
+.header .left,
+.header .right{
+    -moz-user-select: none; /*火狐*/
+    -webkit-user-select: none;  /*webkit浏览器*/
+    -ms-user-select: none;   /*IE10*/
+    -khtml-user-select: none; /*早期浏览器*/
+    user-select: none;
+}
+.header .right a {
+    float:left;
+    padding: 0 10px;
+    height: 45px;
+    line-height: 50px;
+    font-size: 14px;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+}
+.header .right a:hover {
+    color: #acdbff;
+}
+.header .right a.upload{
+    padding: 0;
+    height: 20px;
+    line-height: 20px;
+}
+.header .useravatar {
+    display: block;
+    float: left;
+    background-size: contain;
+    background-image: url("../images/avater.jpg");
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    border: 2px solid #F7F7F7;
+    margin: 3px 3px 3px 0;
+}
+
+.header .useravatar,
+.header .username,
+.header .userlogout{
+    display: none;
+}
+
+/* footer */
+.footer{
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+    margin: 20px 0;
+}
+
+/* main */
+.main {
+    text-align: center;
+}
+.main .container {
+    margin: 10px auto;
+    width:900px;
+    text-align: left;
+    background: #fefefe;
+    padding: 0;
+}
+.main .container.editor {
+    box-shadow: none;
+    border-radius: 3px;
+    clear: both;
+}
+.main .edui-editor-toolbarbox {
+    position: absolute;
+}
+body.loading:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    top: 45px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 12;
+    background: rgba(128, 130, 140, 0.75);
+}
+
+body.loading:after{
+    content: ' ';
+    width: 40px;
+    height: 40px;
+    border: 4px solid;
+    border-color: #FFF rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    box-shadow: 0 0 35px #FFF;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -24px;
+    margin-top: -2px;
+    z-index: 12;
+    border-radius: 100%;
+    -webkit-animation: rotate 1.33s ease infinite;
+    animation:rotate 1.33s ease infinite;
+}
+@-webkit-keyframes rotate {
+    from { transform: rotate(0); }
+    to { transform: rotate(360deg); }
+}
+@-moz-keyframes rotate {
+    from { transform: rotate(0); }
+    to { transform: rotate(360deg); }
+}
+@-ms-keyframes rotate {
+    from { transform: rotate(0); }
+    to { transform: rotate(360deg); }
+}
+@keyframes rotate {
+    from { transform: rotate(0); }
+    to { transform: rotate(360deg); }
+}

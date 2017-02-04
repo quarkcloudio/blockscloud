@@ -1,0 +1,16 @@
+<div class="account-wrapper" style="padding: 20px; font-size: 18px;">
+    <el-form  :label-position="labelPosition" label-width="80px" class="demo-ruleForm">
+        <el-form-item label="当前账号">
+            {{username}}
+        </el-form-item>
+        <el-form-item label="原密码">
+            <el-input type="password" v-model="form.oldPassword" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="新密码">
+            <el-input type="password" v-model="form.newPassword" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item>
+            <el-button style="float: right;" type="primary" @click="submitForm()">提交</el-button>
+        </el-form-item>
+    </el-form>
+</div>
