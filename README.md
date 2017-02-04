@@ -20,9 +20,9 @@
 
 积木云QQ群：4110211
 
-coding地址:https://git.coding.net/tangtanglove/blockscloud.git
-
 github地址:https://github.com/tangtanglove/blockscloud
+
+coding地址:https://git.coding.net/tangtanglove/blockscloud.git
 
 开发社区：http://www.cloudblocks.cn
 
