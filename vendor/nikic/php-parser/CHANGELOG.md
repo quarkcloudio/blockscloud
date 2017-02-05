@@ -1,14 +1,37 @@
-Version 3.0.3-dev
+Version 3.0.4-dev
 -----------------
 
 Nothing yet.
+
+Version 3.0.3 (2017-02-03)
+--------------------------
+
+### Fixed
+
+* In `"$foo[0]"` the `0` is now parsed as an `LNumber` rather than `String`. (#325)
+* Ensure integers and floats are always pretty printed preserving semantics, even if the particular
+  value can only be manually constructed.
+* Throw a `LogicException` when trying to pretty-print an `Error` node. Previously this resulted in
+  an undefined method exception or fatal error.
+
+### Added
+
+* [PHP 7.1] Added support for negative interpolated offsets: `"$foo[-1]"`
+* Added `preserveOriginalNames` option to `NameResolver`. If this option is enabled, an
+  `originalName` attribute, containing the unresolved name, will be added to each resolved name.
+* Added `php-parse --with-positions` option, which dumps nodes with position information.
+
+### Deprecated
+
+* The XML serializer has been deprecated. In particular, the classes `Serializer\XML`,
+  `Unserializer\XML`, as well as the interfaces `Serializer` and `Unserializer` are deprecated.
 
 Version 3.0.2 (2016-12-06)
 --------------------------
 
 ### Fixed
 
-* Fixed name resolution of nullable types.
+* Fixed name resolution of nullable types. (#324)
 * Fixed pretty-printing of nullable types.
 
 Version 3.0.1 (2016-12-01)
@@ -18,7 +41,7 @@ Version 3.0.1 (2016-12-01)
 
 * Fixed handling of nested `list()`s: If the nested list was unkeyed, it was directly included in
   the list items. If it was keyed, it was wrapped in `ArrayItem`. Now nested `List_` nodes are
-  always wrapped in `ArrayItem`s.
+  always wrapped in `ArrayItem`s. (#321)
 
 Version 3.0.0 (2016-11-30)
 --------------------------

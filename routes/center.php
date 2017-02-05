@@ -57,5 +57,11 @@ Route::group(['prefix' => 'center','middleware' => ['web','auth:center'],'namesp
     Route::get('appstore/getLists', 'AppstoreController@getLists');
     Route::get('appstore/addToDesktop', 'AppstoreController@addToDesktop');
     Route::get('appstore/addToDock', 'AppstoreController@addToDock');
+    Route::get('authManger/createRole', 'AuthMangerController@createRole');
+    Route::get('authManger/userAddRole', 'AuthMangerController@userAddRole');
+    Route::get('authManger/createPermission', 'AuthMangerController@createPermission');
+    Route::get('authManger/permissionAddRole', 'AuthMangerController@permissionAddRole');
+    Route::get('authManger/test', 'AuthMangerController@test');
+    
 });
 Route::get('center/finder/openFileWithBrowser', 'Center\FinderController@openFileWithBrowser');
