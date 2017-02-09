@@ -15,6 +15,17 @@ body {
 a:focus {
 	outline:none;
 }
+#overlay.visible{
+  visibility: visible;
+  opacity: 0.85;
+  transition-delay: 10s;
+  transition: opacity 0.5s linear;
+}
+#overlay.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.5s, opacity 0.5s linear;
+}
 .navbar-nav>li>a {
 	padding-top: 6px;
 	padding-bottom: 6px;
