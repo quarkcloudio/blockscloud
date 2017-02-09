@@ -10,6 +10,7 @@ function office(appObject) {
 		,minButton: true
 		,maxButton: true
 		,taskbar:true
+		,moveOut: true
 		,content: filePath
 		,zIndex: layer.zIndex //重点1
 		,success: function(layero){

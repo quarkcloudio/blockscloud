@@ -1,0 +1,129 @@
+<div class="user-wrapper" style="height:100%;">
+    <el-row style="height:100%;">
+    <el-col :span="4" style="height:100%;">
+        <el-menu default-active="1-1" class="el-menu-vertical-demo" style="height:100%;" @open="handleOpen" @close="handleClose" theme="light">
+        <el-submenu index="1">
+            <template slot="title">用户管理</template>
+            <el-menu-item index="1-1">用户列表</el-menu-item>
+            <el-menu-item index="1-2">添加用户</el-menu-item>
+        </el-submenu>
+        <el-submenu index="2">
+            <template slot="title">用户组管理</template>
+            <el-menu-item index="2-1">用户组列表</el-menu-item>
+        </el-submenu>
+        <el-submenu index="3">
+            <template slot="title">权限管理</template>
+            <el-menu-item index="3-1">权限列表</el-menu-item>
+        </el-submenu>
+        </el-menu>
+    </el-col>
+    <el-col :span="20" style="padding:10px;padding-top: 20px;">
+        <el-row>
+            <el-col :span="5">
+                <el-form style="margin: 0px;" :inline="true" :model="formInline">
+                <el-form-item style="margin-bottom: 0px;margin-top:4px;width: 80px;">
+                    <el-select size="small" v-model="formInline.region" placeholder="操作">
+                    <el-option label="禁用" value="shanghai"></el-option>
+                    <el-option label="删除" value="beijing"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item >
+                    <el-button size="small" :plain="true" type="info" @click="onSubmit">应用</el-button>
+                </el-form-item>
+                </el-form>
+            </el-col>
+            <el-col :span="15">
+                <el-form style="margin: 0px;" :inline="true" :model="formInline">
+                <el-form-item style="margin-bottom: 0px;margin-top:4px;">
+                    <el-input size="small" v-model="formInline.user" placeholder="用户名"></el-input>
+                </el-form-item>
+                <el-form-item >
+                    <el-button size="small" :plain="true" type="info" @click="onSubmit">查询</el-button>
+                </el-form-item>
+                </el-form>
+            </el-col>
+            <el-col :span="4">
+                <el-form style="margin: 0px;" :inline="true" :model="formInline" style="float:right; ">
+                <el-form-item >
+                    <el-button size="small" type="primary" @click="onSubmit">添加用户</el-button>
+                </el-form-item>
+                </el-form>
+            </el-col>
+        </el-row>
+        <el-row>
+            <el-col :span="24">
+                <template>
+                <el-table
+                    :data="tableData"
+                    stripe
+                    style="width: 100%">
+                    <el-table-column
+                    type="selection"
+                    width="55">
+                    </el-table-column>
+                    <el-table-column
+                    prop="name"
+                    label="姓名"
+                    width="180">
+                    </el-table-column>
+                    <el-table-column
+                    prop="address"
+                    label="地址">
+                    </el-table-column>
+                    <el-table-column
+                    prop="date"
+                    label="日期"
+                    width="180">
+                    </el-table-column>
+                    <el-table-column
+                    label="操作"
+                    width="150">
+                    <template scope="scope">
+                        <el-button
+                        @click.native.prevent="deleteRow(scope.$index, tableData4)"
+                        type="text"
+                        size="small">
+                        编辑
+                        </el-button>
+                        <el-button
+                        @click.native.prevent="deleteRow(scope.$index, tableData4)"
+                        type="text"
+                        size="small">
+                        禁用
+                        </el-button>
+                        <el-button
+                        @click.native.prevent="deleteRow(scope.$index, tableData4)"
+                        type="text"
+                        size="small">
+                        删除
+                        </el-button>
+                    </template>
+                    </el-table-column>
+                </el-table>
+                </template>
+            </el-col>
+        </el-row>
+        <el-row style="margin-top: 20px;">
+            <el-col :span="5">
+                <el-form :inline="true" :model="formInline">
+                <el-form-item  style="margin-bottom: 0px;width: 80px;">
+                    <el-select size="small" v-model="formInline.region" placeholder="操作">
+                    <el-option label="禁用" value="shanghai"></el-option>
+                    <el-option label="删除" value="beijing"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item style="margin-top:-4px;">
+                    <el-button size="small" :plain="true" type="info" @click="onSubmit">应用</el-button>
+                </el-form-item>
+                </el-form>
+            </el-col>
+            <el-col :span="19" style="text-align: right">
+                <el-pagination
+                    layout="prev, pager, next"
+                    :total="50">
+                </el-pagination>
+            </el-col>
+        </el-row>
+    </el-col>
+    </el-row>
+</div>

@@ -8,6 +8,7 @@ function trash(appObject) {
 		,minButton: false
 		,maxButton: false
 		,taskbar:true
+		,moveOut: true
 		,content: render('index.html')
 		,zIndex: layer.zIndex //重点1
 		,success: function(layero){

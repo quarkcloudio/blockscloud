@@ -9,6 +9,7 @@ function account(appObject) {
 		,minButton: false
 		,maxButton: false
 		,taskbar:true
+		,moveOut: true
 		,content: '<div id="app-content"></div>'
 		,zIndex: layer.zIndex //重点1
 		,success: function(layero){

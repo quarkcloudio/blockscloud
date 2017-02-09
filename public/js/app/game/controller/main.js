@@ -8,6 +8,7 @@ function game(appObject) {
 		,minButton: true
 		,maxButton: true
 		,taskbar:true
+		,moveOut: true
 		,content: 'http://www.ixiaoquan.com/play/hexfrvr/index.html'
 		,zIndex: layer.zIndex //重点1
 		,success: function(layero){

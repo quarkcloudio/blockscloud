@@ -8,6 +8,7 @@ function word(appObject) {
 		,minButton: true
 		,maxButton: true
 		,taskbar:true
+		,moveOut: true
 		,content: './js/vendor/baiduDoc/index.html'
 		,zIndex: layer.zIndex //重点1
 		,success: function(layero){
