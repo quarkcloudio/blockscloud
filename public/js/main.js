@@ -1,10 +1,10 @@
 seajs.config({
     base: "./js/",
-    preload: ["vendor/jquery/1.11.3/jquery.min","config/config","lang/zh-cn","vendor/ace/src-min-noconflict/ace"],
+    preload: ["vendor/jquery/1.11.3/jquery.min","config/config","lang/zh-cn","vendor/ace/src-min-noconflict/ace","vendor/vue/2.0/vue.min"],
     alias: {
     "jquery": "vendor/jquery/1.11.3/jquery.min.js",
     "bootstrap": "vendor/bootstrap/bootstrap.min.js",
-    "vue": "vendor/vue/2.0/vue.min.js",
+    "vue-router": "vendor/vue/2.0/vue-router.js",
     "jquery-ui": "vendor/jquery/1.11.3/jquery-ui.min.js",
     "context": "vendor/context/js/context.js",
     "sidebar-modernizr": "vendor/sidebar/js/modernizr.custom.js",
@@ -21,7 +21,7 @@ seajs.config({
     }
 });
 seajs.use("bootstrap");
-seajs.use("vue");
+seajs.use("vue-router");
 seajs.use("layer");
 seajs.use("vendor/blockscloud/core");
 seajs.use("vendor/blockscloud/region");
