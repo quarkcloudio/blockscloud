@@ -34,6 +34,11 @@ Route::group(['prefix' => 'center','middleware' => ['web','auth:center'],'namesp
     Route::get('index/index', 'IndexController@index');
     Route::get('user/getUserInfo', 'UserController@getUserInfo');
     Route::post('user/changePassword', 'UserController@changePassword');
+    Route::get('user/getLists', 'UserController@getLists');
+    Route::post('user/setStatus', 'UserController@setStatus');
+    Route::get('user/addUser', 'UserController@addUser');
+    Route::get('user/editUser', 'UserController@editUser');
+    Route::post('user/editUser', 'UserController@editUser');
     Route::get('finder/index', 'FinderController@index');
     Route::get('finder/sidebar', 'FinderController@sidebar');
     Route::get('finder/openPath', 'FinderController@openPath');

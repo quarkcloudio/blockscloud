@@ -18,6 +18,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'administrator',
             'email' => 'admin@admin.com',
             'password' => bcrypt('admin'),
+            'status' => 1,
         ]);
     }
 }

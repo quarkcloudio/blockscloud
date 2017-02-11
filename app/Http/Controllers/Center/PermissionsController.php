@@ -7,31 +7,8 @@ use App\Permission;
 use App\Role;
 use App\User;
 
-class AuthMangerController extends Controller
+class PermissionsController extends Controller
 {
-    // 创建用户组
-    public function createRole()
-    {
-        $name = 'editor'; // 角色名称
-        $displayName = '编辑'; // 展示名称
-        $description = '网站的编辑人员'; // 角色描述
-
-        $role = new Role();
-        $role->name         = $name;
-        $role->display_name = $displayName; // optional
-        $role->description  = $description; // optional
-        $role->save();
-    }
-
-    // 将用户给予用户组
-    public function userAddRole()
-    {
-        $roleId = 1; // 角色id
-        $username = 'administrator';
-        $user = User::where('name',$username)->first();
-        $user->roles()->attach($roleId);
-    }
-
     // 创建权限规则
     public function createPermission()
     {

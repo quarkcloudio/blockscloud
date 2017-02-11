@@ -1,19 +1,18 @@
 <div class="user-wrapper" id="userapp" style="height:100%;">
     <el-row style="height:100%;">
         <el-col :span="4" style="height:100%;">
-            <el-menu router="true" default-active="1-1" class="el-menu-vertical-demo" style="height:100%;" @open="handleOpen" @close="handleClose" theme="light">
+            <el-menu router="true" default-active="userlist" class="el-menu-vertical-demo" style="height:100%;" @open="handleOpen" @close="handleClose" theme="light">
             <el-submenu index="1">
                 <template slot="title">用户管理</template>
-                <el-menu-item route="/userlist" index="1-1">用户列表</el-menu-item>
-                <el-menu-item route="/adduser" index="1-2">添加用户</el-menu-item>
+                <el-menu-item index="userlist">用户列表</el-menu-item>
             </el-submenu>
             <el-submenu index="2">
                 <template slot="title">用户组管理</template>
-                <el-menu-item index="2-1">用户组列表</el-menu-item>
+                <el-menu-item index="rolelist">用户组列表</el-menu-item>
             </el-submenu>
             <el-submenu index="3">
                 <template slot="title">权限管理</template>
-                <el-menu-item index="3-1">权限列表</el-menu-item>
+                <el-menu-item index="permissionlist">权限列表</el-menu-item>
             </el-submenu>
             </el-menu>
         </el-col>
@@ -28,9 +27,10 @@
         <el-col :span="5">
             <el-form style="margin: 0px;" :inline="true" :model="formInline">
             <el-form-item style="margin-bottom: 0px;margin-top:4px;width: 80px;">
-                <el-select size="small" v-model="formInline.region" placeholder="操作">
-                <el-option label="禁用" value="shanghai"></el-option>
-                <el-option label="删除" value="beijing"></el-option>
+                <el-select size="small" v-model="formInline.status" placeholder="操作">
+                <el-option label="启用" value="1"></el-option>
+                <el-option label="禁用" value="-2"></el-option>
+                <el-option label="删除" value="-1"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item >
@@ -41,17 +41,17 @@
         <el-col :span="15">
             <el-form style="margin: 0px;" :inline="true" :model="formInline">
             <el-form-item style="margin-bottom: 0px;margin-top:4px;">
-                <el-input size="small" v-model="formInline.user" placeholder="用户名"></el-input>
+                <el-input size="small" v-model="formInline.name" placeholder="用户名"></el-input>
             </el-form-item>
             <el-form-item >
-                <el-button size="small" :plain="true" type="info" @click="onSubmit">查询</el-button>
+                <el-button size="small" :plain="true" type="info" @click="onSearch">查询</el-button>
             </el-form-item>
             </el-form>
         </el-col>
         <el-col :span="4">
             <el-form style="margin: 0px;" :inline="true" :model="formInline" style="float:right; ">
             <el-form-item >
-                <el-button size="small" type="primary" @click="onSubmit">添加用户</el-button>
+                <el-button size="small" type="primary" @click="addDialog">添加用户</el-button>
             </el-form-item>
             </el-form>
         </el-col>
@@ -62,7 +62,8 @@
             <el-table
                 :data="tableData"
                 stripe
-                style="width: 100%">
+                style="width: 100%"
+                @selection-change="handleSelectionChange">
                 <el-table-column
                 type="selection"
                 width="55">
@@ -73,32 +74,49 @@
                 width="180">
                 </el-table-column>
                 <el-table-column
-                prop="address"
-                label="地址">
+                prop="email"
+                label="邮箱">
                 </el-table-column>
                 <el-table-column
-                prop="date"
-                label="日期"
+                prop="created_at"
+                label="注册日期"
                 width="180">
+                </el-table-column>
+                <el-table-column
+                label="状态"
+                width="80">
+                <template scope="scope">
+                    <div v-if="tableData[scope.$index]['status'] === 1">
+                        启用中
+                    </div>
+                    <div v-else>
+                        已禁用
+                    </div>
+                </template>
                 </el-table-column>
                 <el-table-column
                 label="操作"
                 width="150">
                 <template scope="scope">
                     <el-button
-                    @click.native.prevent="deleteRow(scope.$index, tableData4)"
+                    @click.native.prevent="editDialog(scope.$index, tableData)"
                     type="text"
                     size="small">
                     编辑
                     </el-button>
                     <el-button
-                    @click.native.prevent="deleteRow(scope.$index, tableData4)"
+                    @click.native.prevent="forbidRow(scope.$index, tableData)"
                     type="text"
                     size="small">
-                    禁用
+                    <div v-if="tableData[scope.$index]['status'] === 1">
+                        禁用
+                    </div>
+                    <div v-else>
+                        启用
+                    </div>
                     </el-button>
                     <el-button
-                    @click.native.prevent="deleteRow(scope.$index, tableData4)"
+                    @click.native.prevent="deleteRow(scope.$index, tableData)"
                     type="text"
                     size="small">
                     删除
@@ -113,9 +131,10 @@
         <el-col :span="5">
             <el-form :inline="true" :model="formInline">
             <el-form-item  style="margin-bottom: 0px;width: 80px;">
-                <el-select size="small" v-model="formInline.region" placeholder="操作">
-                <el-option label="禁用" value="shanghai"></el-option>
-                <el-option label="删除" value="beijing"></el-option>
+                <el-select size="small" v-model="formInline.status" placeholder="操作">
+                <el-option label="启用" value="1"></el-option>
+                <el-option label="禁用" value="-2"></el-option>
+                <el-option label="删除" value="-1"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item style="margin-top:-4px;">
@@ -124,14 +143,18 @@
             </el-form>
         </el-col>
         <el-col :span="19" style="text-align: right">
-            <el-pagination
+            <div class="block">
+                <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
                 layout="prev, pager, next"
-                :total="50">
-            </el-pagination>
+                :total=total>
+                </el-pagination>
+            </div>
         </el-col>
     </el-row>
     </div>
 </template>
-<template id='adduser'>  
+<template id='rolelist'>  
     <div>This is Foo</div>  
 </template>  
