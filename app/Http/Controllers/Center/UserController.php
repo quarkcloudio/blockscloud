@@ -12,12 +12,7 @@ use DB;
 
 class UserController extends Controller
 {
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
+
     protected function validator(array $data)
     {
         $messages = [
@@ -36,8 +31,34 @@ class UserController extends Controller
         ],$messages);
     }
 
-    // 获取登录的用户信息
-    public function getUserInfo()
+    // 获取列表
+    public function index(Request $request)
+    {
+        // 获取当前页码
+        $page      = $request->input('page');
+        $name      = $request->input('name');
+
+        $query = User::query();
+        $query = $query->skip(($page-1)*10)->take(10)->where('status', '<>', -1);
+        $totalQuery = $query->where('status', '<>', -1);
+        if($name) {
+            $query = $query->where('name',$name);
+            $totalQuery = $totalQuery->where('name',$name);
+        }
+        $userLists = $query->get();
+        $total     = $totalQuery->count();
+
+        if($userLists) {
+            $data['lists'] = $userLists;
+            $data['total'] = $total;
+            return Helper::jsonSuccess('获取成功！','',$data);
+        } else {
+            return Helper::jsonSuccess('获取失败！');
+        }
+    }
+
+    // 获取信息
+    public function info()
     {
         // 获取当前用户登录的信息
         $userInfo  = Auth::user();
@@ -51,38 +72,8 @@ class UserController extends Controller
         }
     }
 
-    // 设置用户状态
-    public function setStatus(Request $request)
-    {
-        $id = $request->input('id');
-        $status = $request->input('status');
-        if(empty($id)) {
-            $selection = $request->input('selection');
-            foreach ($selection as $key => $value) {
-                $ids[] = $value['id'];
-            }
-            if($status == -1) {
-                $result = User::whereIn('id',$ids)->delete();
-            } else {
-                $result = User::whereIn('id',$ids)->update(['status'=>$status]);
-            }
-        } else {
-            if($status == -1) {
-                $result = User::where('id',$id)->delete();
-            } else {
-                $result = User::where('id',$id)->update(['status'=>$status]);
-            }
-        }
-
-        if ($result) {
-            return Helper::jsonSuccess('操作成功！');
-        } else {
-            return Helper::jsonError('操作失败！');
-        }
-    }
-
-    // 添加用户信息
-    public function addUser(Request $request)
+    // 添加信息
+    public function store(Request $request)
     {
         $data['name'] = $request->input('name');
         $data['email'] = $request->input('email');
@@ -144,58 +135,65 @@ class UserController extends Controller
         }
     }
 
-    // 编辑用户信息
-    public function editUser(Request $request)
+    // 编辑信息
+    public function edit(Request $request)
     {
         $id = $request->input('id');
-        if ($request->isMethod('get')) {
-            $result = User::where('id',$id)->first();
-            if ($result) {
-                return Helper::jsonSuccess('获取成功！','',$result);
-            } else {
-                return Helper::jsonError('获取失败，请重试！');
-            }
-        } elseif ($request->isMethod('post')) {
-            $data['name'] = $request->input('name');
-            $data['email'] = $request->input('email');
-            $password = $request->input('password');
-
-            if(!empty($password)) {
-                $data['password'] = bcrypt($password);
-            }
-
-            $result = User::where('id',$id)->update($data);
-            if ($result) {
-                return Helper::jsonSuccess('操作成功！');
-            } else {
-                return Helper::jsonError('操作失败！');
-            }
+        $result = User::where('id',$id)->first();
+        if ($result) {
+            return Helper::jsonSuccess('获取成功！','',$result);
+        } else {
+            return Helper::jsonError('获取失败，请重试！');
         }
     }
 
-    // 获取用户列表
-    public function getLists(Request $request)
+    // 执行编辑信息
+    public function update(Request $request)
     {
-        // 获取当前页码
-        $page      = $request->input('page');
-        $name      = $request->input('name');
+        $id = $request->input('id');
+        $data['name'] = $request->input('name');
+        $data['email'] = $request->input('email');
+        $password = $request->input('password');
 
-        $query = User::query();
-        $query = $query->skip(($page-1)*10)->take(10)->where('status', '<>', -1);
-        $totalQuery = $query->where('status', '<>', -1);
-        if($name) {
-            $query = $query->where('name',$name);
-            $totalQuery = $totalQuery->where('name',$name);
+        if(!empty($password)) {
+            $data['password'] = bcrypt($password);
         }
-        $userLists = $query->get();
-        $total     = $totalQuery->count();
 
-        if($userLists) {
-            $data['lists'] = $userLists;
-            $data['total'] = $total;
-            return Helper::jsonSuccess('获取成功！','',$data);
+        $result = User::where('id',$id)->update($data);
+        if ($result) {
+            return Helper::jsonSuccess('操作成功！');
         } else {
-            return Helper::jsonSuccess('获取失败！');
+            return Helper::jsonError('操作失败！');
+        }
+    }
+
+    // 设置状态
+    public function setStatus(Request $request)
+    {
+        $id = $request->input('id');
+        $status = $request->input('status');
+        if(empty($id)) {
+            $selection = $request->input('selection');
+            foreach ($selection as $key => $value) {
+                $ids[] = $value['id'];
+            }
+            if($status == -1) {
+                $result = User::whereIn('id',$ids)->delete();
+            } else {
+                $result = User::whereIn('id',$ids)->update(['status'=>$status]);
+            }
+        } else {
+            if($status == -1) {
+                $result = User::where('id',$id)->delete();
+            } else {
+                $result = User::where('id',$id)->update(['status'=>$status]);
+            }
+        }
+
+        if ($result) {
+            return Helper::jsonSuccess('操作成功！');
+        } else {
+            return Helper::jsonError('操作失败！');
         }
     }
 
@@ -221,5 +219,14 @@ class UserController extends Controller
                 return Helper::jsonError('修改失败，请重试！');
             }
         }
+    }
+
+    // 将用户给予用户组
+    public function userAssignRole()
+    {
+        $roleId = 1; // 角色id
+        $username = 'administrator';
+        $user = User::where('name',$username)->first();
+        $user->roles()->attach($roleId);
     }
 }

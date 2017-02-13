@@ -11,7 +11,33 @@ use App\Models\Docks;
 
 class AppstoreController extends Controller
 {
-    public function getInfo(Request $request)
+
+    public function index(Request $request)
+    {
+        // 获取当前页码
+        $page      = $request->input('page');
+        $appsLists = Apps::skip(($page-1)*10)->take(10)->get();
+        $total     = Apps::count();
+        foreach ($appsLists as $key => $value) {
+            $result[$key]['id']         = $value->id;
+            $result[$key]['title']      = $value->title;
+            $result[$key]['name']       = $value->name;
+            $result[$key]['icon']       = $value->icon;
+            $result[$key]['width']      = $value->width;
+            $result[$key]['height']     = $value->height;
+            $result[$key]['version']    = $value->version;
+        }
+
+        if($result) {
+            $data['lists'] = $result;
+            $data['total'] = $total;
+            return Helper::jsonSuccess('获取成功！','',$data);
+        } else {
+            return Helper::jsonSuccess('获取失败！');
+        }
+    }
+
+    public function info(Request $request)
     {
         // 获取当前页码
         $id      = $request->input('id');
@@ -37,31 +63,6 @@ class AppstoreController extends Controller
                 $data['desktop'] = false;
             }
             $data['appInfo'] = $appInfo;
-            return Helper::jsonSuccess('获取成功！','',$data);
-        } else {
-            return Helper::jsonSuccess('获取失败！');
-        }
-    }
-
-    public function getLists(Request $request)
-    {
-        // 获取当前页码
-        $page      = $request->input('page');
-        $appsLists = Apps::skip(($page-1)*10)->take(10)->get();
-        $total     = Apps::count();
-        foreach ($appsLists as $key => $value) {
-            $result[$key]['id']         = $value->id;
-            $result[$key]['title']      = $value->title;
-            $result[$key]['name']       = $value->name;
-            $result[$key]['icon']       = $value->icon;
-            $result[$key]['width']      = $value->width;
-            $result[$key]['height']     = $value->height;
-            $result[$key]['version']    = $value->version;
-        }
-
-        if($result) {
-            $data['lists'] = $result;
-            $data['total'] = $total;
             return Helper::jsonSuccess('获取成功！','',$data);
         } else {
             return Helper::jsonSuccess('获取失败！');

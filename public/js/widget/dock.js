@@ -155,7 +155,7 @@ define("widget/dock", ["jquery-ui"], function(require) {
 
 		// ajax请求后台数据
 		$.ajax({
-			url:config.url.dockLists,
+			url:config.url.dockIndex,
 			type:'GET', // GET
 			async:false, // 是否异步
 			data:{

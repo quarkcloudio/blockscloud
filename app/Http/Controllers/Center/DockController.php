@@ -12,7 +12,7 @@ use App\Models\Docks;
 use App\Models\Apps;
 class DockController extends Controller
 {
-    public function getLists(Request $request)
+    public function index(Request $request)
     {
         // 获取当前用户登录的信息
         $userInfo  = Auth::user();

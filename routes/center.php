@@ -32,13 +32,20 @@ Route::group(['prefix' => 'center','middleware' => ['web','auth:center'],'namesp
 {
     Route::get('index/', 'IndexController@index');
     Route::get('index/index', 'IndexController@index');
-    Route::get('user/getUserInfo', 'UserController@getUserInfo');
+    Route::get('user/info', 'UserController@info');
     Route::post('user/changePassword', 'UserController@changePassword');
-    Route::get('user/getLists', 'UserController@getLists');
+    Route::get('user/index', 'UserController@index');
     Route::post('user/setStatus', 'UserController@setStatus');
-    Route::get('user/addUser', 'UserController@addUser');
-    Route::get('user/editUser', 'UserController@editUser');
-    Route::post('user/editUser', 'UserController@editUser');
+    Route::get('user/store', 'UserController@store');
+    Route::get('user/edit', 'UserController@edit');
+    Route::post('user/update', 'UserController@update');
+    Route::get('permission/index', 'PermissionController@index');
+    Route::get('permission/userAddRole', 'AuthMangerController@userAddRole');
+    Route::get('permission/createPermission', 'AuthMangerController@createPermission');
+    Route::get('permission/permissionAddRole', 'AuthMangerController@permissionAddRole');
+    Route::get('permission/test', 'AuthMangerController@test');
+    Route::get('role/index', 'RoleController@index');
+
     Route::get('finder/index', 'FinderController@index');
     Route::get('finder/sidebar', 'FinderController@sidebar');
     Route::get('finder/openPath', 'FinderController@openPath');
@@ -54,19 +61,14 @@ Route::group(['prefix' => 'center','middleware' => ['web','auth:center'],'namesp
     Route::post('finder/uploadFile', 'FinderController@uploadFile');
     Route::get('finder/callbackMovePath', 'FinderController@callbackMovePath');
     Route::get('finder/downloadFile', 'FinderController@downloadFile');
-    Route::get('dock/getLists', 'DockController@getLists');
-    Route::get('wallpaper/getInfo', 'WallpaperController@getInfo');
-    Route::get('wallpaper/getLists', 'WallpaperController@getLists');
+    Route::get('dock/index', 'DockController@index');
+    Route::get('wallpaper/info', 'WallpaperController@info');
+    Route::get('wallpaper/index', 'WallpaperController@index');
     Route::get('wallpaper/setting', 'WallpaperController@setting');
-    Route::get('appstore/getInfo', 'AppstoreController@getInfo');
-    Route::get('appstore/getLists', 'AppstoreController@getLists');
+    Route::get('appstore/info', 'AppstoreController@info');
+    Route::get('appstore/index', 'AppstoreController@index');
     Route::get('appstore/addToDesktop', 'AppstoreController@addToDesktop');
     Route::get('appstore/addToDock', 'AppstoreController@addToDock');
-    Route::get('authManger/createRole', 'AuthMangerController@createRole');
-    Route::get('authManger/userAddRole', 'AuthMangerController@userAddRole');
-    Route::get('authManger/createPermission', 'AuthMangerController@createPermission');
-    Route::get('authManger/permissionAddRole', 'AuthMangerController@permissionAddRole');
-    Route::get('authManger/test', 'AuthMangerController@test');
     
 });
 Route::get('center/finder/openFileWithBrowser', 'Center\FinderController@openFileWithBrowser');

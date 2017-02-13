@@ -56,7 +56,7 @@ function showTime(){
 function userInfoInit() {
 	var self;
 	$.ajax({
-		url:config.url.getUserInfo,
+		url:config.url.userInfo,
 		type:'GET', // GET
 		async:false, // 是否异步
 		dataType:'json',

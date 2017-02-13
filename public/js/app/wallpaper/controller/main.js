@@ -52,7 +52,7 @@ function wallpaper(appObject) {
 			// ajax请求后台数据
 			var vueObject = this;
 			$.ajax({
-				url:config.url.wallpaperLists,
+				url:config.url.wallpaperIndex,
 				type:'GET', // GET
 				async:false, // 是否异步
 				data:{

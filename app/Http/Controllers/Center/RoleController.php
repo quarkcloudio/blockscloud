@@ -7,29 +7,30 @@ use Illuminate\Support\Facades\Auth;
 use App\Services\Helper;
 use Illuminate\Http\Request;
 use App\User;
+use App\Role;
 
 class RoleController extends Controller
 {
 
-    // 获取用户列表
-    public function getLists(Request $request)
+    // 获取列表
+    public function index(Request $request)
     {
         // 获取当前页码
         $page      = $request->input('page');
         $name      = $request->input('name');
 
-        $query = User::query();
-        $query = $query->skip(($page-1)*10)->take(10)->where('status', '<>', -1);
-        $totalQuery = $query->where('status', '<>', -1);
+        $query = Role::query();
+        $query = $query->skip(($page-1)*10)->take(10);
+        $totalQuery = $query;
         if($name) {
             $query = $query->where('name',$name);
             $totalQuery = $totalQuery->where('name',$name);
         }
-        $userLists = $query->get();
-        $total     = $totalQuery->count();
+        $lists = $query->get();
+        $total = $totalQuery->count();
 
-        if($userLists) {
-            $data['lists'] = $userLists;
+        if($lists) {
+            $data['lists'] = $lists;
             $data['total'] = $total;
             return Helper::jsonSuccess('获取成功！','',$data);
         } else {
@@ -38,7 +39,7 @@ class RoleController extends Controller
     }
 
     // 创建用户组
-    public function createRole()
+    public function create()
     {
         $name = 'editor'; // 角色名称
         $displayName = '编辑'; // 展示名称
@@ -51,13 +52,13 @@ class RoleController extends Controller
         $role->save();
     }
 
-    // 将用户给予用户组
-    public function userAddRole()
+    // 将权限规则给予用户组
+    public function permissionAssignRole()
     {
-        $roleId = 1; // 角色id
-        $username = 'administrator';
-        $user = User::where('name',$username)->first();
-        $user->roles()->attach($roleId);
+        $permissionId = 1; // 权限id
+        $roleId = 1; // 用户组id
+        $role = Role::findOrFail($roleId);
+        $role->perms()->sync(array($permissionId));
     }
 
 }

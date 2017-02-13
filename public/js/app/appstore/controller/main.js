@@ -34,7 +34,7 @@ function appstore(appObject) {
 				// ajax请求后台数据
 				var vueObject = this;
 				$.ajax({
-					url:config.url.appLists,
+					url:config.url.appstoreIndex,
 					type:'GET', // GET
 					async:false, // 是否异步
 					data:{
@@ -62,7 +62,7 @@ function appstore(appObject) {
 			// ajax请求后台数据
 			var vueObject = this;
 			$.ajax({
-				url:config.url.appLists,
+				url:config.url.appstoreIndex,
 				type:'GET', // GET
 				async:false, // 是否异步
 				data:{
