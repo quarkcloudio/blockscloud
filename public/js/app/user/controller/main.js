@@ -36,7 +36,7 @@ function user(appObject) {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
-					url:config.url.userSetStatus,
+					url:config.url.userSetAllStatus,
 					type:'POST',
 					data:{
 						status:_self.formInline.status,
@@ -96,7 +96,7 @@ function user(appObject) {
 							var _subSelf = this;
 							$.ajax({
 								url:config.url.userStore,
-								type:'GET', // GET
+								type:'POST', // GET
 								async:false, // 是否异步
 								data:{
 									name:_subSelf.form.name,
@@ -125,6 +125,105 @@ function user(appObject) {
 					}
 				});
 
+			},
+			roleuserDialog(index, rows) {
+				var id = rows[index]['id'];
+				var _self = this;
+				// 打开对话框
+				var index = layer.open({
+					type: 1 
+					,title: '用户组'
+					,area: ['400px', '380px']
+					,shade: 0
+					,minButton: true
+					,maxButton: true
+					,taskbar:true
+					,moveOut: true
+					,content: render('roleuser.html')
+					,zIndex: layer.zIndex //重点1
+					,success: function(layero){
+						layer.setTop(layero); //重点2
+					}
+				});
+				new Vue({
+					el: '#roleuser',
+					data : {
+						form:{
+							name:'',
+							email:'',
+							password:'',
+						},
+						checkAll: true,
+						checkedCities: [],
+						cities: ['上海', '北京', '广州', '深圳'],
+						isIndeterminate: false
+					},
+					methods: {
+						submitForm(formName) {
+							// ajax请求后台数据
+							var _subSelf = this;
+							$.ajax({
+								url:config.url.userUpdate,
+								type:'POST', // GET
+								async:false, // 是否异步
+								data:{
+									id:_subSelf.form.id,
+									name:_subSelf.form.name,
+									email:_subSelf.form.email,
+									password:_subSelf.form.password,
+								},
+								dataType:'json',
+								success:function(data,textStatus,jqXHR){
+									if (data.status == 'success') {
+										_self.showData();
+										_self.$message({
+											message: data.msg,
+											type: 'success'
+										});
+										layer.close(index);
+									} else {
+										_self.$message.error(data.msg);
+									}
+								},
+								error:function(xhr,textStatus){
+									console.log('错误')
+								}
+							});
+
+						},
+						handleCheckAllChange(event) {
+							this.checkedCities = event.target.checked ? cityOptions : [];
+							this.isIndeterminate = false;
+						},
+						handleCheckedCitiesChange(value) {
+							let checkedCount = value.length;
+							this.checkAll = checkedCount === this.cities.length;
+							this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
+						}
+					},
+					mounted: function () {
+						var _subSelf = this;
+						$.ajax({
+							url:config.url.userEdit,
+							type:'GET', // GET
+							async:false, // 是否异步
+							data:{
+								id:id
+							},
+							dataType:'json',
+							success:function(data,textStatus,jqXHR){
+								if (data.status == 'success') {
+									_subSelf.form = data.data;
+								} else {
+									_self.$message.error(data.msg);
+								}
+							},
+							error:function(xhr,textStatus){
+								console.log('错误')
+							}
+						});
+					}
+				});
 			},
 			editDialog(index, rows) {
 				var id = rows[index]['id'];
@@ -261,7 +360,7 @@ function user(appObject) {
 				var _self = this;
 				$.ajax({
 					url:config.url.userSetStatus,
-					type:'POST', // GET
+					type:'GET', // GET
 					async:false, // 是否异步
 					data:{
 						id:id,
@@ -309,7 +408,7 @@ function user(appObject) {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
-					url:config.url.setRoleStatus,
+					url:config.url.roleSetAllStatus,
 					type:'POST',
 					data:{
 						status:_self.formInline.status,
@@ -359,8 +458,8 @@ function user(appObject) {
 					data : {
 						form:{
 							name:'',
-							email:'',
-							password:'',
+							display_name:'',
+							description:'',
 						}
 					},
 					methods: {
@@ -368,13 +467,13 @@ function user(appObject) {
 							// ajax请求后台数据
 							var _subSelf = this;
 							$.ajax({
-								url:config.url.addUser,
-								type:'GET', // GET
+								url:config.url.roleStore,
+								type:'POST', // GET
 								async:false, // 是否异步
 								data:{
 									name:_subSelf.form.name,
-									email:_subSelf.form.email,
-									password:_subSelf.form.password,
+									display_name:_subSelf.form.display_name,
+									description:_subSelf.form.description,
 								},
 								dataType:'json',
 								success:function(data,textStatus,jqXHR){
@@ -398,6 +497,105 @@ function user(appObject) {
 					}
 				});
 
+			},
+			permissionroleDialog(index, rows) {
+				var id = rows[index]['id'];
+				var _self = this;
+				// 打开对话框
+				var index = layer.open({
+					type: 1 
+					,title: '用户组授权'
+					,area: ['600px', '500px']
+					,shade: 0
+					,minButton: true
+					,maxButton: true
+					,taskbar:true
+					,moveOut: true
+					,content: render('permissionrole.html')
+					,zIndex: layer.zIndex //重点1
+					,success: function(layero){
+						layer.setTop(layero); //重点2
+					}
+				});
+				new Vue({
+					el: '#permissionrole',
+					data : {
+						form:{
+							name:'',
+							display_name:'',
+							description:'',
+						},
+						checkAll: true,
+						checkedCities: [],
+						cities: ['上海', '北京', '广州', '深圳'],
+						isIndeterminate: false
+					},
+					methods: {
+						submitForm(formName) {
+							// ajax请求后台数据
+							var _subSelf = this;
+							$.ajax({
+								url:config.url.roleUpdate,
+								type:'POST', // GET
+								async:false, // 是否异步
+								data:{
+									id:_subSelf.form.id,
+									name:_subSelf.form.name,
+									display_name:_subSelf.form.display_name,
+									description:_subSelf.form.description,
+								},
+								dataType:'json',
+								success:function(data,textStatus,jqXHR){
+									if (data.status == 'success') {
+										_self.showData();
+										_self.$message({
+											message: data.msg,
+											type: 'success'
+										});
+										layer.close(index);
+									} else {
+										_self.$message.error(data.msg);
+									}
+								},
+								error:function(xhr,textStatus){
+									console.log('错误')
+								}
+							});
+
+						},
+						handleCheckAllChange(event) {
+							this.checkedCities = event.target.checked ? cityOptions : [];
+							this.isIndeterminate = false;
+						},
+						handleCheckedCitiesChange(value) {
+							let checkedCount = value.length;
+							this.checkAll = checkedCount === this.cities.length;
+							this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
+						}
+					},
+					mounted: function () {
+						var _subSelf = this;
+						$.ajax({
+							url:config.url.roleEdit,
+							type:'GET', // GET
+							async:false, // 是否异步
+							data:{
+								id:id
+							},
+							dataType:'json',
+							success:function(data,textStatus,jqXHR){
+								if (data.status == 'success') {
+									_subSelf.form = data.data;
+								} else {
+									_self.$message.error(data.msg);
+								}
+							},
+							error:function(xhr,textStatus){
+								console.log('错误')
+							}
+						});
+					}
+				});
 			},
 			editDialog(index, rows) {
 				var id = rows[index]['id'];
@@ -423,8 +621,8 @@ function user(appObject) {
 					data : {
 						form:{
 							name:'',
-							email:'',
-							password:'',
+							display_name:'',
+							description:'',
 						}
 					},
 					methods: {
@@ -432,14 +630,14 @@ function user(appObject) {
 							// ajax请求后台数据
 							var _subSelf = this;
 							$.ajax({
-								url:config.url.editUser,
+								url:config.url.roleUpdate,
 								type:'POST', // GET
 								async:false, // 是否异步
 								data:{
 									id:_subSelf.form.id,
 									name:_subSelf.form.name,
-									email:_subSelf.form.email,
-									password:_subSelf.form.password,
+									display_name:_subSelf.form.display_name,
+									description:_subSelf.form.description,
 								},
 								dataType:'json',
 								success:function(data,textStatus,jqXHR){
@@ -464,7 +662,7 @@ function user(appObject) {
 					mounted: function () {
 						var _subSelf = this;
 						$.ajax({
-							url:config.url.editUser,
+							url:config.url.roleEdit,
 							type:'GET', // GET
 							async:false, // 是否异步
 							data:{
@@ -533,8 +731,8 @@ function user(appObject) {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
-					url:config.url.setUserStatus,
-					type:'POST', // GET
+					url:config.url.roleSetStatus,
+					type:'GET', // GET
 					async:false, // 是否异步
 					data:{
 						id:id,
@@ -582,7 +780,7 @@ function user(appObject) {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
-					url:config.url.setUserStatus,
+					url:config.url.permissionSetAllStatus,
 					type:'POST',
 					data:{
 						status:_self.formInline.status,
@@ -632,8 +830,8 @@ function user(appObject) {
 					data : {
 						form:{
 							name:'',
-							email:'',
-							password:'',
+							display_name:'',
+							description:'',
 						}
 					},
 					methods: {
@@ -641,13 +839,13 @@ function user(appObject) {
 							// ajax请求后台数据
 							var _subSelf = this;
 							$.ajax({
-								url:config.url.addUser,
-								type:'GET', // GET
+								url:config.url.permissionStore,
+								type:'POST', // GET
 								async:false, // 是否异步
 								data:{
 									name:_subSelf.form.name,
-									email:_subSelf.form.email,
-									password:_subSelf.form.password,
+									display_name:_subSelf.form.display_name,
+									description:_subSelf.form.description,
 								},
 								dataType:'json',
 								success:function(data,textStatus,jqXHR){
@@ -696,8 +894,8 @@ function user(appObject) {
 					data : {
 						form:{
 							name:'',
-							email:'',
-							password:'',
+							display_name:'',
+							description:'',
 						}
 					},
 					methods: {
@@ -705,14 +903,14 @@ function user(appObject) {
 							// ajax请求后台数据
 							var _subSelf = this;
 							$.ajax({
-								url:config.url.editUser,
+								url:config.url.permissionUpdate,
 								type:'POST', // GET
 								async:false, // 是否异步
 								data:{
 									id:_subSelf.form.id,
 									name:_subSelf.form.name,
-									email:_subSelf.form.email,
-									password:_subSelf.form.password,
+									display_name:_subSelf.form.display_name,
+									description:_subSelf.form.description,
 								},
 								dataType:'json',
 								success:function(data,textStatus,jqXHR){
@@ -737,7 +935,7 @@ function user(appObject) {
 					mounted: function () {
 						var _subSelf = this;
 						$.ajax({
-							url:config.url.editUser,
+							url:config.url.permissionEdit,
 							type:'GET', // GET
 							async:false, // 是否异步
 							data:{
@@ -806,8 +1004,8 @@ function user(appObject) {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
-					url:config.url.setUserStatus,
-					type:'POST', // GET
+					url:config.url.permissionSetStatus,
+					type:'GET', // GET
 					async:false, // 是否异步
 					data:{
 						id:id,

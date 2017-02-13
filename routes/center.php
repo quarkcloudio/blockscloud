@@ -32,19 +32,30 @@ Route::group(['prefix' => 'center','middleware' => ['web','auth:center'],'namesp
 {
     Route::get('index/', 'IndexController@index');
     Route::get('index/index', 'IndexController@index');
+
     Route::get('user/info', 'UserController@info');
     Route::post('user/changePassword', 'UserController@changePassword');
     Route::get('user/index', 'UserController@index');
-    Route::post('user/setStatus', 'UserController@setStatus');
-    Route::get('user/store', 'UserController@store');
+    Route::get('user/setStatus', 'UserController@setStatus');
+    Route::post('user/setAllStatus', 'UserController@setAllStatus');
+    Route::post('user/store', 'UserController@store');
     Route::get('user/edit', 'UserController@edit');
     Route::post('user/update', 'UserController@update');
-    Route::get('permission/index', 'PermissionController@index');
-    Route::get('permission/userAddRole', 'AuthMangerController@userAddRole');
-    Route::get('permission/createPermission', 'AuthMangerController@createPermission');
-    Route::get('permission/permissionAddRole', 'AuthMangerController@permissionAddRole');
-    Route::get('permission/test', 'AuthMangerController@test');
+
     Route::get('role/index', 'RoleController@index');
+    Route::get('role/setStatus', 'RoleController@setStatus');
+    Route::post('role/setAllStatus', 'RoleController@setAllStatus');
+    Route::post('role/store', 'RoleController@store');
+    Route::get('role/edit', 'RoleController@edit');
+    Route::post('role/update', 'RoleController@update');
+
+    Route::get('permission/index', 'PermissionController@index');
+    Route::get('permission/setStatus', 'PermissionController@setStatus');
+    Route::post('permission/setAllStatus', 'PermissionController@setAllStatus');
+    Route::post('permission/store', 'PermissionController@store');
+    Route::get('permission/edit', 'PermissionController@edit');
+    Route::post('permission/update', 'PermissionController@update');
+    Route::get('permission/test', 'PermissionController@test');
 
     Route::get('finder/index', 'FinderController@index');
     Route::get('finder/sidebar', 'FinderController@sidebar');
@@ -62,9 +73,11 @@ Route::group(['prefix' => 'center','middleware' => ['web','auth:center'],'namesp
     Route::get('finder/callbackMovePath', 'FinderController@callbackMovePath');
     Route::get('finder/downloadFile', 'FinderController@downloadFile');
     Route::get('dock/index', 'DockController@index');
+
     Route::get('wallpaper/info', 'WallpaperController@info');
     Route::get('wallpaper/index', 'WallpaperController@index');
     Route::get('wallpaper/setting', 'WallpaperController@setting');
+
     Route::get('appstore/info', 'AppstoreController@info');
     Route::get('appstore/index', 'AppstoreController@index');
     Route::get('appstore/addToDesktop', 'AppstoreController@addToDesktop');

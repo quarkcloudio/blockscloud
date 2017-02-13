@@ -71,7 +71,7 @@
                 <el-table-column
                 prop="name"
                 label="姓名"
-                width="180">
+                width="120">
                 </el-table-column>
                 <el-table-column
                 prop="email"
@@ -96,8 +96,14 @@
                 </el-table-column>
                 <el-table-column
                 label="操作"
-                width="150">
+                width="180">
                 <template scope="scope">
+                    <el-button
+                    @click.native.prevent="roleuserDialog(scope.$index, tableData)"
+                    type="text"
+                    size="small">
+                    用户组
+                    </el-button>
                     <el-button
                     @click.native.prevent="editDialog(scope.$index, tableData)"
                     type="text"
@@ -222,8 +228,14 @@
                 </el-table-column>
                 <el-table-column
                 label="操作"
-                width="150">
+                width="180">
                 <template scope="scope">
+                    <el-button
+                    @click.native.prevent="permissionroleDialog(scope.$index, tableData)"
+                    type="text"
+                    size="small">
+                    授予权限
+                    </el-button>
                     <el-button
                     @click.native.prevent="editDialog(scope.$index, tableData)"
                     type="text"

@@ -19,9 +19,8 @@ class RoleController extends Controller
         $page      = $request->input('page');
         $name      = $request->input('name');
 
-        $query = Role::query();
-        $query = $query->skip(($page-1)*10)->take(10);
-        $totalQuery = $query;
+        $query = Role::query()->skip(($page-1)*10)->take(10)->orderBy('created_at', 'desc');
+        $totalQuery = Role::query();
         if($name) {
             $query = $query->where('name',$name);
             $totalQuery = $totalQuery->where('name',$name);
@@ -39,21 +38,98 @@ class RoleController extends Controller
     }
 
     // 创建用户组
-    public function create()
+    public function store(Request $request)
     {
-        $name = 'editor'; // 角色名称
-        $displayName = '编辑'; // 展示名称
-        $description = '网站的编辑人员'; // 角色描述
+
+        $name      = $request->input('name');
+        $displayName = $request->input('display_name');
+        $description = $request->input('description');
 
         $role = new Role();
         $role->name         = $name;
         $role->display_name = $displayName; // optional
         $role->description  = $description; // optional
-        $role->save();
+        $result = $role->save();
+
+        if ($result) {
+            return Helper::jsonSuccess('操作成功！');
+        } else {
+            return Helper::jsonError('操作失败，请重试！');
+        }
+    }
+
+    // 编辑信息
+    public function edit(Request $request)
+    {
+        $id = $request->input('id');
+        $result = Role::where('id',$id)->first();
+        if ($result) {
+            return Helper::jsonSuccess('获取成功！','',$result);
+        } else {
+            return Helper::jsonError('获取失败，请重试！');
+        }
+    }
+
+    // 更新编辑信息
+    public function update(Request $request)
+    {
+        $id = $request->input('id');
+        $data['name'] = $request->input('name');
+        $data['display_name'] = $request->input('display_name');
+        $data['description'] = $request->input('description');
+
+        $result = Role::where('id',$id)->update($data);
+        if ($result) {
+            return Helper::jsonSuccess('操作成功！');
+        } else {
+            return Helper::jsonError('操作失败！');
+        }
+    }
+
+    // 设置状态
+    public function setStatus(Request $request)
+    {
+        $id = $request->input('id');
+        $status = $request->input('status');
+
+        if($status == -1) {
+            $result = Role::where('id',$id)->delete();
+        } else {
+            $result = Role::where('id',$id)->update(['status'=>$status]);
+        }
+
+        if ($result) {
+            return Helper::jsonSuccess('操作成功！');
+        } else {
+            return Helper::jsonError('操作失败！');
+        }
+    }
+
+    // 设置多选状态
+    public function setAllStatus(Request $request)
+    {
+        $status = $request->input('status');
+        $selection = $request->input('selection');
+
+        foreach ($selection as $key => $value) {
+            $ids[] = $value['id'];
+        }
+
+        if($status == -1) {
+            $result = Role::whereIn('id',$ids)->delete();
+        } else {
+            $result = Role::whereIn('id',$ids)->update(['status'=>$status]);
+        }
+
+        if ($result) {
+            return Helper::jsonSuccess('操作成功！');
+        } else {
+            return Helper::jsonError('操作失败！');
+        }
     }
 
     // 将权限规则给予用户组
-    public function permissionAssignRole()
+    public function permissionAssignRole(Request $request)
     {
         $permissionId = 1; // 权限id
         $roleId = 1; // 用户组id

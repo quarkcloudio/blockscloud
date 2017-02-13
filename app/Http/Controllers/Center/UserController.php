@@ -38,9 +38,8 @@ class UserController extends Controller
         $page      = $request->input('page');
         $name      = $request->input('name');
 
-        $query = User::query();
-        $query = $query->skip(($page-1)*10)->take(10)->where('status', '<>', -1);
-        $totalQuery = $query->where('status', '<>', -1);
+        $query = User::query()->skip(($page-1)*10)->take(10)->where('status', '<>', -1)->orderBy('created_at', 'desc');
+        $totalQuery = User::query()->where('status', '<>', -1);
         if($name) {
             $query = $query->where('name',$name);
             $totalQuery = $totalQuery->where('name',$name);
@@ -172,22 +171,34 @@ class UserController extends Controller
     {
         $id = $request->input('id');
         $status = $request->input('status');
-        if(empty($id)) {
-            $selection = $request->input('selection');
-            foreach ($selection as $key => $value) {
-                $ids[] = $value['id'];
-            }
-            if($status == -1) {
-                $result = User::whereIn('id',$ids)->delete();
-            } else {
-                $result = User::whereIn('id',$ids)->update(['status'=>$status]);
-            }
+
+        if($status == -1) {
+            $result = User::where('id',$id)->delete();
         } else {
-            if($status == -1) {
-                $result = User::where('id',$id)->delete();
-            } else {
-                $result = User::where('id',$id)->update(['status'=>$status]);
-            }
+            $result = User::where('id',$id)->update(['status'=>$status]);
+        }
+
+        if ($result) {
+            return Helper::jsonSuccess('操作成功！');
+        } else {
+            return Helper::jsonError('操作失败！');
+        }
+    }
+
+    // 设置多选状态
+    public function setAllStatus(Request $request)
+    {
+        $status = $request->input('status');
+        $selection = $request->input('selection');
+
+        foreach ($selection as $key => $value) {
+            $ids[] = $value['id'];
+        }
+
+        if($status == -1) {
+            $result = User::whereIn('id',$ids)->delete();
+        } else {
+            $result = User::whereIn('id',$ids)->update(['status'=>$status]);
         }
 
         if ($result) {

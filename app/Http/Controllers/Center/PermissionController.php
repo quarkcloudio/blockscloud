@@ -18,9 +18,8 @@ class PermissionController extends Controller
         $page      = $request->input('page');
         $name      = $request->input('name');
 
-        $query = Permission::query();
-        $query = $query->skip(($page-1)*10)->take(10);
-        $totalQuery = $query;
+        $query = Permission::query()->skip(($page-1)*10)->take(10)->orderBy('created_at', 'desc');
+        $totalQuery = Permission::query();
         if($name) {
             $query = $query->where('name',$name);
             $totalQuery = $totalQuery->where('name',$name);
@@ -37,45 +36,52 @@ class PermissionController extends Controller
         }
     }
 
-    // 创建权限规则
-    public function create()
+    // 创建用户组
+    public function store(Request $request)
     {
-        $name = 'create-post'; // 规则名称
-        $displayName = '创建文章'; // 展示名称
-        $description = '创建文章的规则'; // 规则描述
+
+        $name      = $request->input('name');
+        $displayName = $request->input('display_name');
+        $description = $request->input('description');
+
         $permission = new Permission();
         $permission->name         = $name;
         $permission->display_name = $displayName; // optional
         $permission->description  = $description; // optional
-        $permission->save();
+        $result = $permission->save();
+
+        if ($result) {
+            return Helper::jsonSuccess('操作成功！');
+        } else {
+            return Helper::jsonError('操作失败，请重试！');
+        }
     }
 
-    // 编辑用户信息
-    public function editUser(Request $request)
+    // 编辑信息
+    public function edit(Request $request)
     {
         $id = $request->input('id');
-        if ($request->isMethod('get')) {
-            $result = User::where('id',$id)->first();
-            if ($result) {
-                return Helper::jsonSuccess('获取成功！','',$result);
-            } else {
-                return Helper::jsonError('获取失败，请重试！');
-            }
-        } elseif ($request->isMethod('post')) {
-            $data['name'] = $request->input('name');
-            $data['email'] = $request->input('email');
-            $password = $request->input('password');
+        $result = Permission::where('id',$id)->first();
+        if ($result) {
+            return Helper::jsonSuccess('获取成功！','',$result);
+        } else {
+            return Helper::jsonError('获取失败，请重试！');
+        }
+    }
 
-            if(!empty($password)) {
-                $data['password'] = bcrypt($password);
-            }
+    // 更新编辑信息
+    public function update(Request $request)
+    {
+        $id = $request->input('id');
+        $data['name'] = $request->input('name');
+        $data['display_name'] = $request->input('display_name');
+        $data['description'] = $request->input('description');
 
-            $result = User::where('id',$id)->update($data);
-            if ($result) {
-                return Helper::jsonSuccess('操作成功！');
-            } else {
-                return Helper::jsonError('操作失败！');
-            }
+        $result = Permission::where('id',$id)->update($data);
+        if ($result) {
+            return Helper::jsonSuccess('操作成功！');
+        } else {
+            return Helper::jsonError('操作失败！');
         }
     }
 
@@ -84,22 +90,34 @@ class PermissionController extends Controller
     {
         $id = $request->input('id');
         $status = $request->input('status');
-        if(empty($id)) {
-            $selection = $request->input('selection');
-            foreach ($selection as $key => $value) {
-                $ids[] = $value['id'];
-            }
-            if($status == -1) {
-                $result = User::whereIn('id',$ids)->delete();
-            } else {
-                $result = User::whereIn('id',$ids)->update(['status'=>$status]);
-            }
+
+        if($status == -1) {
+            $result = Permission::where('id',$id)->delete();
         } else {
-            if($status == -1) {
-                $result = User::where('id',$id)->delete();
-            } else {
-                $result = User::where('id',$id)->update(['status'=>$status]);
-            }
+            $result = Permission::where('id',$id)->update(['status'=>$status]);
+        }
+
+        if ($result) {
+            return Helper::jsonSuccess('操作成功！');
+        } else {
+            return Helper::jsonError('操作失败！');
+        }
+    }
+
+    // 设置多选状态
+    public function setAllStatus(Request $request)
+    {
+        $status = $request->input('status');
+        $selection = $request->input('selection');
+
+        foreach ($selection as $key => $value) {
+            $ids[] = $value['id'];
+        }
+
+        if($status == -1) {
+            $result = Permission::whereIn('id',$ids)->delete();
+        } else {
+            $result = Permission::whereIn('id',$ids)->update(['status'=>$status]);
         }
 
         if ($result) {
