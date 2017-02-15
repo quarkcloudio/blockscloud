@@ -232,6 +232,19 @@ class UserController extends Controller
         }
     }
 
+    // 获取列表
+    public function roles(Request $request)
+    {
+
+        $lists = Role::query()->orderBy('created_at', 'asc')->get();
+        if($lists) {
+            $data['lists'] = $lists;
+            return Helper::jsonSuccess('获取成功！','',$data);
+        } else {
+            return Helper::jsonSuccess('获取失败！');
+        }
+    }
+
     // 将用户给予用户组
     public function userAssignRole()
     {

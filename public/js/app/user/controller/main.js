@@ -17,6 +17,8 @@ function user(appObject) {
 		}
 	});
 
+	const cityOptions = ['上海', '北京', '广州', '深圳'];
+
 	// 定义组件
 	var userindex = Vue.extend({
 		template: '#userindex',
@@ -150,12 +152,10 @@ function user(appObject) {
 					data : {
 						form:{
 							name:'',
-							email:'',
-							password:'',
 						},
-						checkAll: true,
+						checkAll: false,
 						checkedCities: [],
-						cities: ['上海', '北京', '广州', '深圳'],
+						cities: cityOptions,
 						isIndeterminate: false
 					},
 					methods: {
@@ -169,8 +169,6 @@ function user(appObject) {
 								data:{
 									id:_subSelf.form.id,
 									name:_subSelf.form.name,
-									email:_subSelf.form.email,
-									password:_subSelf.form.password,
 								},
 								dataType:'json',
 								success:function(data,textStatus,jqXHR){
@@ -525,9 +523,9 @@ function user(appObject) {
 							display_name:'',
 							description:'',
 						},
-						checkAll: true,
+						checkAll: false,
 						checkedCities: [],
-						cities: ['上海', '北京', '广州', '深圳'],
+						cities: cityOptions,
 						isIndeterminate: false
 					},
 					methods: {
