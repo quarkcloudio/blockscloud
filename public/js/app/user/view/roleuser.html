@@ -6,8 +6,8 @@
         <el-form-item label="用户组列表">
             <template>
             <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-            <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-                <el-checkbox v-for="city in cities" :label="city">{{city}}</el-checkbox>
+            <el-checkbox-group v-model="checkedRoles" @change="handleCheckedChange">
+                <el-checkbox v-for="role in roles" :label="role">{{role}}</el-checkbox>
             </el-checkbox-group>
             </template>
         </el-form-item>

@@ -41,6 +41,8 @@ Route::group(['prefix' => 'center','middleware' => ['web','auth:center'],'namesp
     Route::post('user/store', 'UserController@store');
     Route::get('user/edit', 'UserController@edit');
     Route::post('user/update', 'UserController@update');
+    Route::get('user/roles', 'UserController@roles');
+    Route::post('user/assignRole', 'UserController@assignRole');
 
     Route::get('role/index', 'RoleController@index');
     Route::get('role/setStatus', 'RoleController@setStatus');
@@ -48,6 +50,8 @@ Route::group(['prefix' => 'center','middleware' => ['web','auth:center'],'namesp
     Route::post('role/store', 'RoleController@store');
     Route::get('role/edit', 'RoleController@edit');
     Route::post('role/update', 'RoleController@update');
+    Route::get('role/permissions', 'RoleController@permissions');
+    Route::post('role/assignPermission', 'RoleController@assignPermission');
 
     Route::get('permission/index', 'PermissionController@index');
     Route::get('permission/setStatus', 'PermissionController@setStatus');

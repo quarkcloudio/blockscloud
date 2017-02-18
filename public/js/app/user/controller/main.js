@@ -130,6 +130,7 @@ function user(appObject) {
 			},
 			roleuserDialog(index, rows) {
 				var id = rows[index]['id'];
+				var name = rows[index]['name'];
 				var _self = this;
 				// 打开对话框
 				var index = layer.open({
@@ -154,8 +155,8 @@ function user(appObject) {
 							name:'',
 						},
 						checkAll: false,
-						checkedCities: [],
-						cities: cityOptions,
+						checkedRoles: [],
+						roles: [],
 						isIndeterminate: false
 					},
 					methods: {
@@ -163,12 +164,12 @@ function user(appObject) {
 							// ajax请求后台数据
 							var _subSelf = this;
 							$.ajax({
-								url:config.url.userUpdate,
+								url:config.url.userAssignRole,
 								type:'POST', // GET
 								async:false, // 是否异步
 								data:{
-									id:_subSelf.form.id,
-									name:_subSelf.form.name,
+									id:id,
+									roles:_subSelf.checkedRoles,
 								},
 								dataType:'json',
 								success:function(data,textStatus,jqXHR){
@@ -190,19 +191,20 @@ function user(appObject) {
 
 						},
 						handleCheckAllChange(event) {
-							this.checkedCities = event.target.checked ? cityOptions : [];
+							this.checkedRoles = event.target.checked ? this.roles : [];
 							this.isIndeterminate = false;
 						},
-						handleCheckedCitiesChange(value) {
+						handleCheckedChange(value) {
 							let checkedCount = value.length;
-							this.checkAll = checkedCount === this.cities.length;
-							this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
+							this.checkAll = checkedCount === this.roles.length;
+							this.isIndeterminate = checkedCount > 0 && checkedCount < this.roles.length;
 						}
 					},
 					mounted: function () {
 						var _subSelf = this;
+						this.form.name = name;
 						$.ajax({
-							url:config.url.userEdit,
+							url:config.url.userRoles,
 							type:'GET', // GET
 							async:false, // 是否异步
 							data:{
@@ -211,7 +213,8 @@ function user(appObject) {
 							dataType:'json',
 							success:function(data,textStatus,jqXHR){
 								if (data.status == 'success') {
-									_subSelf.form = data.data;
+									_subSelf.roles = data.data.lists;
+									_subSelf.checkedRoles = data.data.checkedRoles;
 								} else {
 									_self.$message.error(data.msg);
 								}
@@ -498,6 +501,7 @@ function user(appObject) {
 			},
 			permissionroleDialog(index, rows) {
 				var id = rows[index]['id'];
+				var display_name = rows[index]['display_name'];
 				var _self = this;
 				// 打开对话框
 				var index = layer.open({
@@ -519,13 +523,11 @@ function user(appObject) {
 					el: '#permissionrole',
 					data : {
 						form:{
-							name:'',
 							display_name:'',
-							description:'',
 						},
 						checkAll: false,
-						checkedCities: [],
-						cities: cityOptions,
+						checkedPermissions: [],
+						permissions: [],
 						isIndeterminate: false
 					},
 					methods: {
@@ -533,14 +535,12 @@ function user(appObject) {
 							// ajax请求后台数据
 							var _subSelf = this;
 							$.ajax({
-								url:config.url.roleUpdate,
+								url:config.url.roleAssignPermission,
 								type:'POST', // GET
 								async:false, // 是否异步
 								data:{
-									id:_subSelf.form.id,
-									name:_subSelf.form.name,
-									display_name:_subSelf.form.display_name,
-									description:_subSelf.form.description,
+									id:id,
+									permissions:_subSelf.checkedPermissions,
 								},
 								dataType:'json',
 								success:function(data,textStatus,jqXHR){
@@ -562,19 +562,20 @@ function user(appObject) {
 
 						},
 						handleCheckAllChange(event) {
-							this.checkedCities = event.target.checked ? cityOptions : [];
+							this.checkedPermissions = event.target.checked ? this.permissions : [];
 							this.isIndeterminate = false;
 						},
-						handleCheckedCitiesChange(value) {
+						handleCheckedChange(value) {
 							let checkedCount = value.length;
-							this.checkAll = checkedCount === this.cities.length;
-							this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
+							this.checkAll = checkedCount === this.permissions.length;
+							this.isIndeterminate = checkedCount > 0 && checkedCount < this.permissions.length;
 						}
 					},
 					mounted: function () {
 						var _subSelf = this;
+						this.form.display_name = display_name;
 						$.ajax({
-							url:config.url.roleEdit,
+							url:config.url.rolePermissions,
 							type:'GET', // GET
 							async:false, // 是否异步
 							data:{
@@ -583,7 +584,8 @@ function user(appObject) {
 							dataType:'json',
 							success:function(data,textStatus,jqXHR){
 								if (data.status == 'success') {
-									_subSelf.form = data.data;
+									_subSelf.permissions = data.data.lists;
+									_subSelf.checkedPermissions = data.data.checkedPermissions;
 								} else {
 									_self.$message.error(data.msg);
 								}

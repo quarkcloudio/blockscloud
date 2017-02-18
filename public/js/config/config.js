@@ -14,6 +14,8 @@ var config = {
 			'userEdit'					: './center/user/edit',
 			'userUpdate'				: './center/user/update',
 			'userChangePassword'		: './center/user/changePassword',
+			'userRoles'					: './center/user/roles',
+			'userAssignRole'			: './center/user/assignRole',
 
 			'roleIndex'					: './center/role/index',
 			'roleSetStatus'				: './center/role/setStatus',
@@ -21,6 +23,8 @@ var config = {
 			'roleStore'					: './center/role/store',
 			'roleEdit'					: './center/role/edit',
 			'roleUpdate'				: './center/role/update',
+			'rolePermissions'			: './center/role/permissions',
+			'roleAssignPermission'		: './center/role/assignPermission',
 
 			'permissionIndex'			: './center/permission/index',
 			'permissionSetStatus'		: './center/permission/setStatus',

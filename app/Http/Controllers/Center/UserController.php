@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Services\Helper;
 use Illuminate\Http\Request;
 use App\User;
+use App\Role;
+use App\RoleUser;
 use Validator;
 use DB;
 
@@ -235,10 +237,20 @@ class UserController extends Controller
     // 获取列表
     public function roles(Request $request)
     {
-
-        $lists = Role::query()->orderBy('created_at', 'asc')->get();
+        $userId = $request->input('id');
+        $checkedRoles = [];
+        $roleLists = Role::query()->orderBy('created_at', 'asc')->get();
+        $roleUser = RoleUser::query()->where('user_id',$userId)->get();
+        foreach ($roleLists as $key => $value) {
+            $lists[] = $value['display_name'];
+        }
+        foreach ($roleUser as $key => $value) {
+            $roleInfo = Role::query()->where('id',$value['role_id'])->orderBy('created_at', 'asc')->first();
+            $checkedRoles[] = $roleInfo->display_name;
+        }
         if($lists) {
             $data['lists'] = $lists;
+            $data['checkedRoles'] = $checkedRoles;
             return Helper::jsonSuccess('获取成功！','',$data);
         } else {
             return Helper::jsonSuccess('获取失败！');
@@ -246,11 +258,23 @@ class UserController extends Controller
     }
 
     // 将用户给予用户组
-    public function userAssignRole()
+    public function assignRole(Request $request)
     {
-        $roleId = 1; // 角色id
-        $username = 'administrator';
-        $user = User::where('name',$username)->first();
-        $user->roles()->attach($roleId);
+        $id = $request->input('id');
+        $roles = $request->input('roles');
+
+        // 先清除
+        RoleUser::where('user_id',$id)->delete();
+        $user = User::where('id',$id)->first();
+
+        if($roles) {
+            foreach ($roles as $key => $value) {
+                $roleInfo = Role::query()->where('display_name',$value)->first();
+                $userResult = $user->roles()->attach($roleInfo->id);
+            }
+        }
+
+        return Helper::jsonSuccess('操作成功！');
+
     }
 }

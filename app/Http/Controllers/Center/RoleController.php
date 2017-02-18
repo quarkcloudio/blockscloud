@@ -8,6 +8,8 @@ use App\Services\Helper;
 use Illuminate\Http\Request;
 use App\User;
 use App\Role;
+use App\Permission;
+use App\PermissionRole;
 
 class RoleController extends Controller
 {
@@ -128,13 +130,58 @@ class RoleController extends Controller
         }
     }
 
-    // 将权限规则给予用户组
-    public function permissionAssignRole(Request $request)
+
+    // 获取列表
+    public function permissions(Request $request)
     {
-        $permissionId = 1; // 权限id
-        $roleId = 1; // 用户组id
-        $role = Role::findOrFail($roleId);
-        $role->perms()->sync(array($permissionId));
+        $id = $request->input('id');
+        $checkedRoles = [];
+        $lists = [];
+        $checkedPermissions = [];
+        $permissionLists = Permission::query()->orderBy('created_at', 'asc')->get();
+        $permissionRole = PermissionRole::query()->where('role_id',$id)->get();
+
+        if(!empty($permissionLists)) {
+            foreach ($permissionLists as $key => $value) {
+                $lists[] = $value['display_name'];
+            }
+        }
+        if(!empty($permissionRole)) {
+            foreach ($permissionRole as $key => $value) {
+                $permissionInfo = Permission::query()->where('id',$value['permission_id'])->first();
+                if(!empty($permissionInfo)) {
+                    $checkedPermissions[] = $permissionInfo->display_name;
+                }
+            }
+        }
+
+        if(!empty($lists)) {
+            $data['lists'] = $lists;
+            $data['checkedPermissions'] = $checkedPermissions;
+            return Helper::jsonSuccess('获取成功！','',$data);
+        } else {
+            return Helper::jsonSuccess('获取失败！');
+        }
+    }
+
+    // 将权限规则给予用户组
+    public function assignPermission(Request $request)
+    {
+        $id = $request->input('id');
+        $permissions = $request->input('permissions');
+
+        $role = Role::findOrFail($id);
+        // 先清除
+        PermissionRole::where('role_id',$id)->delete();
+
+        if($permissions) {
+            foreach ($permissions as $key => $value) {
+                $permissionInfo = Permission::query()->where('display_name',$value)->first();
+                $role->perms()->sync(array($permissionInfo->id));
+            }
+        }
+
+        return Helper::jsonSuccess('操作成功！');
     }
 
 }
