@@ -7,7 +7,7 @@ use App\Services\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class EditorController extends Controller
+class EditorController extends CommonController
 {
 
 	/**

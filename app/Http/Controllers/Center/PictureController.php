@@ -7,7 +7,7 @@ use App\Services\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class PictureController extends Controller
+class PictureController extends CommonController
 {
 
     public function open(Request $request)

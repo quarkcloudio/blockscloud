@@ -12,7 +12,7 @@ use App\RoleUser;
 use Validator;
 use DB;
 
-class UserController extends Controller
+class UserController extends CommonController
 {
 
     protected function validator(array $data)

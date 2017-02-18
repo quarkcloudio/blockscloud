@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\SystemFileInfos;
 use App\Models\Apps;
 
-class FinderController extends Controller
+class FinderController extends CommonController
 {
 
 	/**

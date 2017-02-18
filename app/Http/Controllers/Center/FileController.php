@@ -7,7 +7,7 @@ use App\Services\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class FileController extends Controller
+class FileController extends CommonController
 {
     /**
      * 文件上传

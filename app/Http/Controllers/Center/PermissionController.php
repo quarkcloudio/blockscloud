@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use App\Permission;
 use App\User;
 use App\Services\Helper;
+use Illuminate\Support\Facades\Auth;
+use Entrust;
 
-class PermissionController extends Controller
+class PermissionController extends CommonController
 {
 
     // 获取列表
@@ -129,9 +131,7 @@ class PermissionController extends Controller
 
     public function test()
     {
-        $username = 'administrator';
-        $user = User::where('name',$username)->first();
-        dump($user->can('create-post'));
+        dump(Entrust::can('post'));
     }
 
 }

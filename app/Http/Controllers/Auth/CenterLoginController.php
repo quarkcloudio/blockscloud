@@ -53,7 +53,6 @@ class CenterLoginController extends Controller
             $username = $request->input('username');
             $password = $request->input('password');
             if (Auth::guard('center')->attempt(['name' => $username, 'password' => $password])) {
-                // Authentication passed...
                 session(['lock' => '0']);
                 return Helper::jsonSuccess('登录成功','./index.html');
             } else {

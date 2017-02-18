@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Center;
 
 use App\Http\Controllers\Controller;
 
-class ThemeController extends Controller
+class ThemeController extends CommonController
 {
     public function index()
     {

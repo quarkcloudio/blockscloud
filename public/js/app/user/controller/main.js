@@ -136,10 +136,10 @@ function user(appObject) {
 				var index = layer.open({
 					type: 1 
 					,title: '用户组'
-					,area: ['400px', '380px']
+					,area: ['600px', '500px']
 					,shade: 0
-					,minButton: true
-					,maxButton: true
+					,minButton: false
+					,maxButton: false
 					,taskbar:true
 					,moveOut: true
 					,content: render('roleuser.html')
@@ -509,8 +509,8 @@ function user(appObject) {
 					,title: '用户组授权'
 					,area: ['600px', '500px']
 					,shade: 0
-					,minButton: true
-					,maxButton: true
+					,minButton: false
+					,maxButton: false
 					,taskbar:true
 					,moveOut: true
 					,content: render('permissionrole.html')

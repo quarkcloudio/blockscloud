@@ -11,7 +11,7 @@ use App\Role;
 use App\Permission;
 use App\PermissionRole;
 
-class RoleController extends Controller
+class RoleController extends CommonController
 {
 
     // 获取列表
@@ -177,8 +177,9 @@ class RoleController extends Controller
         if($permissions) {
             foreach ($permissions as $key => $value) {
                 $permissionInfo = Permission::query()->where('display_name',$value)->first();
-                $role->perms()->sync(array($permissionInfo->id));
+                $permissionIds[] = $permissionInfo->id;
             }
+            $role->perms()->sync($permissionIds);
         }
 
         return Helper::jsonSuccess('操作成功！');

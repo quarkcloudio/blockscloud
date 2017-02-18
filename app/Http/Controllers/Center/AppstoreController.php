@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Docks;
 
-class AppstoreController extends Controller
+class AppstoreController extends CommonController
 {
 
     public function index(Request $request)

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Wallpaper;
 use App\Models\KeyValue;
 
-class WallpaperController extends Controller
+class WallpaperController extends CommonController
 {
 
     public function index(Request $request)

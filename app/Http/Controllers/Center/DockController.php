@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\SystemFileInfos;
 use App\Models\Docks;
 use App\Models\Apps;
-class DockController extends Controller
+class DockController extends CommonController
 {
     public function index(Request $request)
     {
