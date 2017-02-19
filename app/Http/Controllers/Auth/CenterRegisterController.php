@@ -115,6 +115,13 @@ class CenterRegisterController extends Controller
                         'data' => json_encode($keyValue),
                     ]
                 ]);
+                // 初始化用户组
+                DB::table('role_user')->insert([
+                    [
+                        'user_id' => $result->id,
+                        'role_id' => 1
+                    ]
+                ]);
                 // 初始化桌面文件
                 Helper::makeDir(Helper::appToSystemChar(storage_path('app\\public\\user\\').$data['name']));
                 Helper::copyFileToDir(Helper::appToSystemChar(storage_path('app\\public\\desktop\\home\\')),Helper::appToSystemChar(storage_path('app\\public\\user\\').$data['name']));
