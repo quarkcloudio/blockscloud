@@ -33,7 +33,7 @@ function account(appObject) {
 			submitForm() {
 				var vueObject = this;
 				$.ajax({
-					url:config.url.changePassword,
+					url:config.url.userChangePassword,
 					type:'POST', // GET
 					async:false, // 是否异步
 					data:{
