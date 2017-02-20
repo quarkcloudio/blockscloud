@@ -88,4 +88,4 @@ Route::group(['prefix' => 'center','middleware' => ['web','auth:center'],'namesp
     Route::get('appstore/addToDock', 'AppstoreController@addToDock');
     
 });
-Route::get('center/finder/openFileWithBrowser', 'Center\FinderController@openFileWithBrowser');
+Route::get('center/base/openFileWithBrowser', 'Center\BaseController@openFileWithBrowser');

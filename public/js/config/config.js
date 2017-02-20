@@ -47,7 +47,7 @@ var config = {
 			'uploadFile'				: './center/finder/uploadFile',
 			'callbackMovePath'			: './center/finder/callbackMovePath',
 			'downloadFile'				: './center/finder/downloadFile',
-			'openFileWithBrowser'		: '/center/finder/openFileWithBrowser',
+			'openFileWithBrowser'		: '/center/base/openFileWithBrowser',
 			'dockIndex'					: './center/dock/index',
 			'wallpaperInfo'				: './center/wallpaper/info',
 			'wallpaperIndex'			: './center/wallpaper/index',
