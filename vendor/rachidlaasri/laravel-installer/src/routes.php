@@ -41,23 +41,20 @@ Route::group(['prefix' => 'install', 'as' => 'LaravelInstaller::', 'namespace' =
 
 Route::group(['prefix' => 'update', 'as' => 'LaravelUpdater::', 'namespace' => 'RachidLaasri\LaravelInstaller\Controllers', 'middleware' => 'web'], function()
 {
-    Route::group(['middleware' => 'canUpdate'], function()
-    {
-        Route::get('/', [
-            'as' => 'welcome',
-            'uses' => 'UpdateController@welcome'
-        ]);
+    Route::get('/', [
+        'as' => 'welcome',
+        'uses' => 'UpdateController@welcome'
+    ]);
 
-        Route::get('overview', [
-            'as' => 'overview',
-            'uses' => 'UpdateController@overview'
-        ]);
+    Route::get('overview', [
+        'as' => 'overview',
+        'uses' => 'UpdateController@overview'
+    ]);
 
-        Route::get('database', [
-            'as' => 'database',
-            'uses' => 'UpdateController@database'
-        ]);
-    });
+    Route::get('database', [
+        'as' => 'database',
+        'uses' => 'UpdateController@database'
+    ]);
 
     // This needs to be out of the middleware because right after the migration has been
     // run, the middleware sends a 404.
