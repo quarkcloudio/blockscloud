@@ -13,12 +13,19 @@
 访问：http://www.yoursite.com/install
 
 您需要在第二步配置数据库信息
+
 DB_CONNECTION="mysql"
+
 DB_HOST="127.0.0.1"
+
 DB_PORT=3306
+
 DB_DATABASE="laravel"
+
 DB_USERNAME="root"
+
 DB_PASSWORD="root"
+
 
 方法二：通过命令行安装
 
