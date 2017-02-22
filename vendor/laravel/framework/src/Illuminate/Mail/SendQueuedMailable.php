@@ -12,7 +12,7 @@ class SendQueuedMailable
      *
      * @var Mailable
      */
-    protected $mailable;
+    public $mailable;
 
     /**
      * Create a new job instance.
@@ -34,5 +34,15 @@ class SendQueuedMailable
     public function handle(MailerContract $mailer)
     {
         $mailer->send($this->mailable);
+    }
+
+    /**
+     * Get the display name for the queued job.
+     *
+     * @return string
+     */
+    public function displayName()
+    {
+        return get_class($this->mailable);
     }
 }

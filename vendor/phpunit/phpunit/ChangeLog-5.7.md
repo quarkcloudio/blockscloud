@@ -2,11 +2,36 @@
 
 All notable changes of the PHPUnit 5.7 release series are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [5.7.14] - 2017-02-19
+
+### Fixed
+
+* Fixed [#2489](https://github.com/sebastianbergmann/phpunit/issues/2489): `processUncoveredFilesFromWhitelist` is not handled correctly
+* Fixed default values for `addUncoveredFilesFromWhitelist` and `processUncoveredFilesFromWhitelist` in `phpunit.xsd`
+
+## [5.7.13] - 2017-02-10
+
+### Fixed
+
+* Fixed [#2493](https://github.com/sebastianbergmann/phpunit/issues/2493): Fix for [#2475](https://github.com/sebastianbergmann/phpunit/pull/2475) does not apply to PHPUnit 5.7
+
+## [5.7.12] - 2017-02-08
+
+### Fixed
+
+* Fixed [#2475](https://github.com/sebastianbergmann/phpunit/pull/2475): Defining a test suite with only one file does not work
+
+## [5.7.11] - 2017-02-05
+
+### Fixed
+
+* Deprecation errors when used with PHP 7.2
+
 ## [5.7.10] - 2017-02-04
 
 ### Fixed
 
-* Fixed [#2462](https://github.com/sebastianbergmann/phpunit/issues/2462): Code Coverage blacklist is filled even if no code coverage data is to be collected
+* Fixed [#2462](https://github.com/sebastianbergmann/phpunit/issues/2462): Code Coverage whitelist is filled even if no code coverage data is to be collected
 
 ## [5.7.9] - 2017-01-28
 
@@ -93,6 +118,10 @@ All notable changes of the PHPUnit 5.7 release series are documented in this fil
 * The `--tap` and `--log-tap` commandline options have been deprecated
 * The `--self-update` and `--self-upgrade` commandline options have been deprecated (PHAR binary only)
 
+[5.7.14]: https://github.com/sebastianbergmann/phpunit/compare/5.7.13...5.7.14
+[5.7.13]: https://github.com/sebastianbergmann/phpunit/compare/5.7.12...5.7.13
+[5.7.12]: https://github.com/sebastianbergmann/phpunit/compare/5.7.11...5.7.12
+[5.7.11]: https://github.com/sebastianbergmann/phpunit/compare/5.7.10...5.7.11
 [5.7.10]: https://github.com/sebastianbergmann/phpunit/compare/5.7.9...5.7.10
 [5.7.9]: https://github.com/sebastianbergmann/phpunit/compare/5.7.8...5.7.9
 [5.7.8]: https://github.com/sebastianbergmann/phpunit/compare/5.7.7...5.7.8
