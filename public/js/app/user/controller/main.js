@@ -17,8 +17,6 @@ function user(appObject) {
 		}
 	});
 
-	const cityOptions = ['上海', '北京', '广州', '深圳'];
-
 	// 定义组件
 	var userindex = Vue.extend({
 		template: '#userindex',

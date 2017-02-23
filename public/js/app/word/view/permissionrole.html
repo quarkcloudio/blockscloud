@@ -1,0 +1,18 @@
+<div class="permissionrole-wrapper" id="permissionrole" style="padding: 20px; font-size: 18px;">
+    <el-form label-width="100px" class="demo-ruleForm">
+        <el-form-item label="用户组名">
+            {{form.display_name}}
+        </el-form-item>
+        <el-form-item label="权限列表">
+            <template>
+            <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+            <el-checkbox-group v-model="checkedPermissions" @change="handleCheckedChange">
+                <el-checkbox v-for="permission in permissions" :label="permission">{{permission}}</el-checkbox>
+            </el-checkbox-group>
+            </template>
+        </el-form-item>
+        <el-form-item>
+            <el-button style="float: right;" type="primary" @click="submitForm()">提交</el-button>
+        </el-form-item>
+    </el-form>
+</div>

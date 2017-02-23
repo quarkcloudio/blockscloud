@@ -1,0 +1,16 @@
+<div class="usercreate-wrapper" id="usercreate" style="padding: 20px; font-size: 18px;">
+    <el-form label-width="80px" class="demo-ruleForm">
+        <el-form-item label="用户名">
+            <el-input type="text" v-model="form.name" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱">
+            <el-input type="email" v-model="form.email" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="密码">
+            <el-input type="password" v-model="form.password" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item>
+            <el-button style="float: right;" type="primary" @click="submitForm()">提交</el-button>
+        </el-form-item>
+    </el-form>
+</div>
