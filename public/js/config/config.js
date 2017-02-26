@@ -56,5 +56,19 @@ var config = {
 			'appstoreIndex'				: './center/appstore/index',
 			'addToDesktop'				: './center/appstore/addToDesktop',
 			'addToDock'					: './center/appstore/addToDock',
+
+			'postIndex'					: './center/post/index',
+			'postSetStatus'				: './center/post/setStatus',
+			'postSetAllStatus'			: './center/post/setAllStatus',
+			'postStore'					: './center/post/store',
+			'postEdit'					: './center/post/edit',
+			'postUpdate'				: './center/post/update',
+
+			'postCateIndex'				: './center/postCate/index',
+			'postCateSetStatus'			: './center/postCate/setStatus',
+			'postCateSetAllStatus'		: './center/postCate/setAllStatus',
+			'postCateStore'				: './center/postCate/store',
+			'postCateEdit'				: './center/postCate/edit',
+			'postCateUpdate'			: './center/postCate/update',
 		}
 	}

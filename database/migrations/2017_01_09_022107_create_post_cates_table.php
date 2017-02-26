@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostsCatesTable extends Migration
+class CreatePostCatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreatePostsCatesTable extends Migration
     public function up()
     {
         // 创建posts_cates
-        Schema::create('posts_cates', function (Blueprint $table) {
+        Schema::create('post_cates', function (Blueprint $table) {
             $table->increments('id');
             $table->string('uuid');
             $table->integer('pid');
@@ -33,6 +33,6 @@ class CreatePostsCatesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('posts_cates');
+        Schema::drop('post_cates');
     }
 }

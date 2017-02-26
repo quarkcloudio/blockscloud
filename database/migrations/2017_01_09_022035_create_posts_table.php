@@ -29,8 +29,7 @@ class CreatePostsTable extends Migration
             $table->string('type')->default('post')->comment('文章类型（post/page/link等）');
             $table->integer('comment')->default(0)->comment('评论数量');
             $table->integer('view')->default(0)->comment('浏览数量');
-            $table->integer('updatetime');
-            $table->integer('createtime');
+            $table->timestamps();
             $table->string('status')->default('publish');
         });
     }

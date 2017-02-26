@@ -68,21 +68,21 @@ function word(appObject) {
 				// 打开对话框
 				var index = layer.open({
 						type: 1 
-						,title: '添加用户'
+						,title: '添加文章'
 						,area: ['400px', '380px']
 						,shade: 0
 						,minButton: true
 						,maxButton: true
 						,taskbar:true
 						,moveOut: true
-						,content: render('usercreate.html')
+						,content: render('postCreate.html')
 						,zIndex: layer.zIndex //重点1
 						,success: function(layero){
 							layer.setTop(layero); //重点2
 						}
 					});
 				new Vue({
-					el: '#usercreate',
+					el: '#postCreate',
 					data : {
 						form:{
 							name:'',
@@ -95,7 +95,7 @@ function word(appObject) {
 							// ajax请求后台数据
 							var _subSelf = this;
 							$.ajax({
-								url:config.url.userStore,
+								url:config.url.postStore,
 								type:'POST', // GET
 								async:false, // 是否异步
 								data:{
@@ -126,125 +126,27 @@ function word(appObject) {
 				});
 
 			},
-			roleuserDialog(index, rows) {
-				var id = rows[index]['id'];
-				var name = rows[index]['name'];
-				var _self = this;
-				// 打开对话框
-				var index = layer.open({
-					type: 1 
-					,title: '用户组'
-					,area: ['600px', '500px']
-					,shade: 0
-					,minButton: false
-					,maxButton: false
-					,taskbar:true
-					,moveOut: true
-					,content: render('roleuser.html')
-					,zIndex: layer.zIndex //重点1
-					,success: function(layero){
-						layer.setTop(layero); //重点2
-					}
-				});
-				new Vue({
-					el: '#roleuser',
-					data : {
-						form:{
-							name:'',
-						},
-						checkAll: false,
-						checkedRoles: [],
-						roles: [],
-						isIndeterminate: false
-					},
-					methods: {
-						submitForm(formName) {
-							// ajax请求后台数据
-							var _subSelf = this;
-							$.ajax({
-								url:config.url.userAssignRole,
-								type:'POST', // GET
-								async:false, // 是否异步
-								data:{
-									id:id,
-									roles:_subSelf.checkedRoles,
-								},
-								dataType:'json',
-								success:function(data,textStatus,jqXHR){
-									if (data.status == 'success') {
-										_self.showData();
-										_self.$message({
-											message: data.msg,
-											type: 'success'
-										});
-										layer.close(index);
-									} else {
-										_self.$message.error(data.msg);
-									}
-								},
-								error:function(xhr,textStatus){
-									console.log('错误')
-								}
-							});
-
-						},
-						handleCheckAllChange(event) {
-							this.checkedRoles = event.target.checked ? this.roles : [];
-							this.isIndeterminate = false;
-						},
-						handleCheckedChange(value) {
-							let checkedCount = value.length;
-							this.checkAll = checkedCount === this.roles.length;
-							this.isIndeterminate = checkedCount > 0 && checkedCount < this.roles.length;
-						}
-					},
-					mounted: function () {
-						var _subSelf = this;
-						this.form.name = name;
-						$.ajax({
-							url:config.url.userRoles,
-							type:'GET', // GET
-							async:false, // 是否异步
-							data:{
-								id:id
-							},
-							dataType:'json',
-							success:function(data,textStatus,jqXHR){
-								if (data.status == 'success') {
-									_subSelf.roles = data.data.lists;
-									_subSelf.checkedRoles = data.data.checkedRoles;
-								} else {
-									_self.$message.error(data.msg);
-								}
-							},
-							error:function(xhr,textStatus){
-								console.log('错误')
-							}
-						});
-					}
-				});
-			},
 			editDialog(index, rows) {
 				var id = rows[index]['id'];
 				var _self = this;
 				// 打开对话框
 				var index = layer.open({
 					type: 1 
-					,title: '编辑用户'
+					,title: '编辑文章'
 					,area: ['400px', '380px']
 					,shade: 0
 					,minButton: true
 					,maxButton: true
 					,taskbar:true
 					,moveOut: true
-					,content: render('usercreate.html')
+					,content: render('postCreate.html')
 					,zIndex: layer.zIndex //重点1
 					,success: function(layero){
 						layer.setTop(layero); //重点2
 					}
 				});
 				new Vue({
-					el: '#usercreate',
+					el: '#postCreate',
 					data : {
 						form:{
 							name:'',
@@ -257,7 +159,7 @@ function word(appObject) {
 							// ajax请求后台数据
 							var _subSelf = this;
 							$.ajax({
-								url:config.url.userUpdate,
+								url:config.url.postUpdate,
 								type:'POST', // GET
 								async:false, // 是否异步
 								data:{
@@ -289,7 +191,7 @@ function word(appObject) {
 					mounted: function () {
 						var _subSelf = this;
 						$.ajax({
-							url:config.url.userEdit,
+							url:config.url.postEdit,
 							type:'GET', // GET
 							async:false, // 是否异步
 							data:{
@@ -334,7 +236,7 @@ function word(appObject) {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
-					url:config.url.userIndex,
+					url:config.url.postIndex,
 					type:'GET', // GET
 					async:false, // 是否异步
 					data:{
@@ -358,7 +260,7 @@ function word(appObject) {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
-					url:config.url.userSetStatus,
+					url:config.url.postSetStatus,
 					type:'GET', // GET
 					async:false, // 是否异步
 					data:{
@@ -407,7 +309,7 @@ function word(appObject) {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
-					url:config.url.roleSetAllStatus,
+					url:config.url.postCateSetAllStatus,
 					type:'POST',
 					data:{
 						status:_self.formInline.status,
@@ -439,21 +341,21 @@ function word(appObject) {
 				// 打开对话框
 				var index = layer.open({
 						type: 1 
-						,title: '添加用户组'
+						,title: '添加分类目录'
 						,area: ['400px', '380px']
 						,shade: 0
 						,minButton: true
 						,maxButton: true
 						,taskbar:true
 						,moveOut: true
-						,content: render('rolecreate.html')
+						,content: render('postCateCreate.html')
 						,zIndex: layer.zIndex //重点1
 						,success: function(layero){
 							layer.setTop(layero); //重点2
 						}
 					});
 				new Vue({
-					el: '#rolecreate',
+					el: '#postCateCreate',
 					data : {
 						form:{
 							name:'',
@@ -466,7 +368,7 @@ function word(appObject) {
 							// ajax请求后台数据
 							var _subSelf = this;
 							$.ajax({
-								url:config.url.roleStore,
+								url:config.url.postCateStore,
 								type:'POST', // GET
 								async:false, // 是否异步
 								data:{
@@ -497,125 +399,27 @@ function word(appObject) {
 				});
 
 			},
-			permissionroleDialog(index, rows) {
-				var id = rows[index]['id'];
-				var display_name = rows[index]['display_name'];
-				var _self = this;
-				// 打开对话框
-				var index = layer.open({
-					type: 1 
-					,title: '用户组授权'
-					,area: ['600px', '500px']
-					,shade: 0
-					,minButton: false
-					,maxButton: false
-					,taskbar:true
-					,moveOut: true
-					,content: render('permissionrole.html')
-					,zIndex: layer.zIndex //重点1
-					,success: function(layero){
-						layer.setTop(layero); //重点2
-					}
-				});
-				new Vue({
-					el: '#permissionrole',
-					data : {
-						form:{
-							display_name:'',
-						},
-						checkAll: false,
-						checkedPermissions: [],
-						permissions: [],
-						isIndeterminate: false
-					},
-					methods: {
-						submitForm(formName) {
-							// ajax请求后台数据
-							var _subSelf = this;
-							$.ajax({
-								url:config.url.roleAssignPermission,
-								type:'POST', // GET
-								async:false, // 是否异步
-								data:{
-									id:id,
-									permissions:_subSelf.checkedPermissions,
-								},
-								dataType:'json',
-								success:function(data,textStatus,jqXHR){
-									if (data.status == 'success') {
-										_self.showData();
-										_self.$message({
-											message: data.msg,
-											type: 'success'
-										});
-										layer.close(index);
-									} else {
-										_self.$message.error(data.msg);
-									}
-								},
-								error:function(xhr,textStatus){
-									console.log('错误')
-								}
-							});
-
-						},
-						handleCheckAllChange(event) {
-							this.checkedPermissions = event.target.checked ? this.permissions : [];
-							this.isIndeterminate = false;
-						},
-						handleCheckedChange(value) {
-							let checkedCount = value.length;
-							this.checkAll = checkedCount === this.permissions.length;
-							this.isIndeterminate = checkedCount > 0 && checkedCount < this.permissions.length;
-						}
-					},
-					mounted: function () {
-						var _subSelf = this;
-						this.form.display_name = display_name;
-						$.ajax({
-							url:config.url.rolePermissions,
-							type:'GET', // GET
-							async:false, // 是否异步
-							data:{
-								id:id
-							},
-							dataType:'json',
-							success:function(data,textStatus,jqXHR){
-								if (data.status == 'success') {
-									_subSelf.permissions = data.data.lists;
-									_subSelf.checkedPermissions = data.data.checkedPermissions;
-								} else {
-									_self.$message.error(data.msg);
-								}
-							},
-							error:function(xhr,textStatus){
-								console.log('错误')
-							}
-						});
-					}
-				});
-			},
 			editDialog(index, rows) {
 				var id = rows[index]['id'];
 				var _self = this;
 				// 打开对话框
 				var index = layer.open({
 					type: 1 
-					,title: '编辑用户组'
+					,title: '编辑分类目录'
 					,area: ['400px', '380px']
 					,shade: 0
 					,minButton: true
 					,maxButton: true
 					,taskbar:true
 					,moveOut: true
-					,content: render('rolecreate.html')
+					,content: render('postCateCreate.html')
 					,zIndex: layer.zIndex //重点1
 					,success: function(layero){
 						layer.setTop(layero); //重点2
 					}
 				});
 				new Vue({
-					el: '#rolecreate',
+					el: '#postCateCreate',
 					data : {
 						form:{
 							name:'',
@@ -628,7 +432,7 @@ function word(appObject) {
 							// ajax请求后台数据
 							var _subSelf = this;
 							$.ajax({
-								url:config.url.roleUpdate,
+								url:config.url.postCateUpdate,
 								type:'POST', // GET
 								async:false, // 是否异步
 								data:{
@@ -660,7 +464,7 @@ function word(appObject) {
 					mounted: function () {
 						var _subSelf = this;
 						$.ajax({
-							url:config.url.roleEdit,
+							url:config.url.postCateEdit,
 							type:'GET', // GET
 							async:false, // 是否异步
 							data:{
@@ -705,7 +509,7 @@ function word(appObject) {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
-					url:config.url.roleIndex,
+					url:config.url.postCateIndex,
 					type:'GET', // GET
 					async:false, // 是否异步
 					data:{
@@ -729,7 +533,7 @@ function word(appObject) {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
-					url:config.url.roleSetStatus,
+					url:config.url.postCateSetStatus,
 					type:'GET', // GET
 					async:false, // 是否异步
 					data:{

@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Services\Helper;
-use App\Models\Post;
+use App\Models\PostCate;
 
-class PostController extends CommonController
+class PostCateController extends CommonController
 {
 
     // 获取列表
@@ -18,14 +18,14 @@ class PostController extends CommonController
         $page      = $request->input('page');
         $name      = $request->input('name');
 
-        $query = Post::query()->skip(($page-1)*10)->take(10)->where('status', '<>', -1)->orderBy('created_at', 'desc');
-        $totalQuery = Post::query()->where('status', '<>', -1);
+        $query = PostCate::query()->skip(($page-1)*10)->take(10)->where('status', '<>', -1)->orderBy('created_at', 'desc');
+        $totalQuery = PostCate::query()->where('status', '<>', -1);
         if($name) {
             $query = $query->where('name',$name);
             $totalQuery = $totalQuery->where('name',$name);
         }
         $lists = $query->get();
-        $total = $totalQuery->count();
+        $total     = $totalQuery->count();
 
         if($lists) {
             $data['lists'] = $lists;
@@ -49,7 +49,7 @@ class PostController extends CommonController
             return Helper::jsonError($validatorMsg->errors()->first());
         }
 
-        $result = Post::create([
+        $result = PostCate::create([
             'uuid' => $uuid,
             'name' => $data['name'],
             'email' => $data['email'],
@@ -66,7 +66,7 @@ class PostController extends CommonController
     public function edit(Request $request)
     {
         $id = $request->input('id');
-        $result = Post::where('id',$id)->first();
+        $result = PostCate::where('id',$id)->first();
         if ($result) {
             return Helper::jsonSuccess('获取成功！','',$result);
         } else {
@@ -86,7 +86,7 @@ class PostController extends CommonController
             $data['password'] = bcrypt($password);
         }
 
-        $result = Post::where('id',$id)->update($data);
+        $result = PostCate::where('id',$id)->update($data);
         if ($result) {
             return Helper::jsonSuccess('操作成功！');
         } else {
@@ -101,9 +101,9 @@ class PostController extends CommonController
         $status = $request->input('status');
 
         if($status == -1) {
-            $result = Post::where('id',$id)->delete();
+            $result = PostCate::where('id',$id)->delete();
         } else {
-            $result = Post::where('id',$id)->update(['status'=>$status]);
+            $result = PostCate::where('id',$id)->update(['status'=>$status]);
         }
 
         if ($result) {
@@ -124,9 +124,9 @@ class PostController extends CommonController
         }
 
         if($status == -1) {
-            $result = Post::whereIn('id',$ids)->delete();
+            $result = PostCate::whereIn('id',$ids)->delete();
         } else {
-            $result = Post::whereIn('id',$ids)->update(['status'=>$status]);
+            $result = PostCate::whereIn('id',$ids)->update(['status'=>$status]);
         }
 
         if ($result) {

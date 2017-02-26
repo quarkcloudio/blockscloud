@@ -87,5 +87,18 @@ Route::group(['prefix' => 'center','middleware' => ['web','auth:center'],'namesp
     Route::get('appstore/addToDesktop', 'AppstoreController@addToDesktop');
     Route::get('appstore/addToDock', 'AppstoreController@addToDock');
     
+    Route::get('post/index', 'PostController@index');
+    Route::get('post/setStatus', 'PostController@setStatus');
+    Route::post('post/setAllStatus', 'PostController@setAllStatus');
+    Route::post('post/store', 'PostController@store');
+    Route::get('post/edit', 'PostController@edit');
+    Route::post('post/update', 'PostController@update');
+
+    Route::get('postCate/index', 'PostCateController@index');
+    Route::get('postCate/setStatus', 'PostCateController@setStatus');
+    Route::post('postCate/setAllStatus', 'PostCateController@setAllStatus');
+    Route::post('postCate/store', 'PostCateController@store');
+    Route::get('postCate/edit', 'PostCateController@edit');
+    Route::post('postCate/update', 'PostCateController@update');
 });
 Route::get('center/base/openFileWithBrowser', 'Center\BaseController@openFileWithBrowser');
