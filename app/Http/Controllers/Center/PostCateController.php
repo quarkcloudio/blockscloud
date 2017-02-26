@@ -18,8 +18,8 @@ class PostCateController extends CommonController
         $page      = $request->input('page');
         $name      = $request->input('name');
 
-        $query = PostCate::query()->skip(($page-1)*10)->take(10)->where('status', '<>', -1)->orderBy('created_at', 'desc');
-        $totalQuery = PostCate::query()->where('status', '<>', -1);
+        $query = PostCate::query()->skip(($page-1)*10)->take(10)->orderBy('id', 'desc');
+        $totalQuery = PostCate::query();
         if($name) {
             $query = $query->where('name',$name);
             $totalQuery = $totalQuery->where('name',$name);

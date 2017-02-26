@@ -1,13 +1,17 @@
 <div class="postCateCreate-wrapper" id="postCateCreate" style="padding: 20px; font-size: 18px;">
     <el-form label-width="100px" class="demo-ruleForm">
-        <el-form-item label="用户组名">
+        <el-form-item label="名称">
             <el-input type="text" v-model="form.name" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="用户组标题">
+        <el-form-item label="别名">
             <el-input type="text" v-model="form.display_name" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="用户组描述">
-            <el-input type="text" v-model="form.description" auto-complete="off"></el-input>
+        <el-form-item label="父节点">
+            <el-select v-model="form.description" placeholder="无">
+            <el-option label="启用" value="1"></el-option>
+            <el-option label="禁用" value="-2"></el-option>
+            <el-option label="删除" value="-1"></el-option>
+            </el-select>
         </el-form-item>
         <el-form-item>
             <el-button style="float: right;" type="primary" @click="submitForm()">提交</el-button>

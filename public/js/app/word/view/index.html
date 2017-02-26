@@ -182,7 +182,7 @@
         <el-col :span="15">
             <el-form style="margin: 0px;" :inline="true" :model="formInline">
             <el-form-item style="margin-bottom: 0px;margin-top:4px;">
-                <el-input size="small" v-model="formInline.name" placeholder="用户组名"></el-input>
+                <el-input size="small" v-model="formInline.name" placeholder="名称"></el-input>
             </el-form-item>
             <el-form-item >
                 <el-button size="small" :plain="true" type="info" @click="onSearch">查询</el-button>
@@ -192,7 +192,7 @@
         <el-col :span="4">
             <el-form style="margin: 0px;" :inline="true" :model="formInline" style="float:right; ">
             <el-form-item >
-                <el-button size="small" type="primary" @click="addDialog">添加用户组</el-button>
+                <el-button size="small" type="primary" @click="addDialog">添加新分类目录</el-button>
             </el-form-item>
             </el-form>
         </el-col>
