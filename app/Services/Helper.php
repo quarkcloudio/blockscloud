@@ -275,5 +275,52 @@ class Helper
         }
     }
 
+    /**
+    * 把返回的数据集转换成Tree
+    * @param array $list 要转换的数据集
+    * @param string $pid parent标记字段
+    * @param string $level level标记字段
+    * @return array
+    */
+    static function listToTree($list, $pk='id',$pid = 'pid',$child = '_child',$root=0) {
+        // 创建Tree
+        $tree = array();
+        if(is_array($list)) {
+            // 创建基于主键的数组引用
+            $refer = array();
+            foreach ($list as $key => $data) {
+                $refer[$data[$pk]] =& $list[$key];
+            }
+            foreach ($list as $key => $data) {
+                // 判断是否存在parent
+                $parentId = $data[$pid];
+                if ($root == $parentId) {
+                    $tree[] =& $list[$key];
+                }else{
+                    if (isset($refer[$parentId])) {
+                        $parent =& $refer[$parentId];
+                        $parent[$child][] =& $list[$key];
+                    }
+                }
+            }
+        }
+        return $tree;
+    }
+
+    /**
+    * 把Tree转换为有序列表
+    * @return array
+    */
+    static function treeToOrderList($arr,$level=0) {
+        static $tree=array();
+        foreach ($arr as $key=>$val) {
+                $val['name'] = str_repeat('—', $level).$val['name'];
+                $tree[]=$val;
+                if (isset($val['_child'])) {
+                    self::treeToOrderList($val['_child'],$level+1);
+                }        
+            }
+        return $tree;
+    }
 
 }

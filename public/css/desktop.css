@@ -396,3 +396,50 @@ a:focus {
 	left: 2px;
 	right: 2px;
 }
+.el-upload{
+	display:inline-block !important;
+	text-align:center !important;
+	cursor:pointer !important;
+}
+.el-upload__input{display:none !important;}
+.el-upload-dragger{
+	background-color:#fff !important;
+	border:1px dashed #d9d9d9 !important;
+	border-radius:6px !important;
+	box-sizing:border-box !important;
+	width:360px !important;
+	height:180px !important;
+	text-align:center !important;
+	cursor:pointer !important;
+	position:relative !important;
+	overflow:hidden !important;
+}
+.el-upload-dragger .el-upload__text{
+	color:#97a8be !important;
+	font-size:14px !important;
+	text-align:center !important;
+}
+.el-upload-dragger .el-upload__text em{
+	color:#20a0ff !important;
+	font-style:normal !important;
+}
+.el-upload-dragger .el-icon-upload{
+	font-size:67px !important;
+	color:#97a8be !important;
+	margin:40px 0 16px !important;
+	line-height:50px !important;
+}
+.el-upload-dragger+.el-upload__tip{
+	text-align:center !important;
+}
+.el-upload-dragger~.el-upload__files{
+	border-top:1px solid rgba(191,203,217,.2) !important;
+	margin-top:7px;padding-top:5px !important;
+}
+.el-upload-dragger:hover{
+	border-color:#20a0ff !important;
+}
+.el-upload-dragger.is-dragover{
+	background-color:rgba(32,159,255,.06) !important;
+	border:2px dashed #20a0ff !important;
+}

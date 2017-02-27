@@ -97,6 +97,7 @@ Route::group(['prefix' => 'center','middleware' => ['web','auth:center'],'namesp
     Route::get('postCate/index', 'PostCateController@index');
     Route::get('postCate/setStatus', 'PostCateController@setStatus');
     Route::post('postCate/setAllStatus', 'PostCateController@setAllStatus');
+    Route::get('postCate/create', 'PostCateController@create');
     Route::post('postCate/store', 'PostCateController@store');
     Route::get('postCate/edit', 'PostCateController@edit');
     Route::post('postCate/update', 'PostCateController@update');

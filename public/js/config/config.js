@@ -67,6 +67,7 @@ var config = {
 			'postCateIndex'				: './center/postCate/index',
 			'postCateSetStatus'			: './center/postCate/setStatus',
 			'postCateSetAllStatus'		: './center/postCate/setAllStatus',
+			'postCateCreate'			: './center/postCate/create',
 			'postCateStore'				: './center/postCate/store',
 			'postCateEdit'				: './center/postCate/edit',
 			'postCateUpdate'			: './center/postCate/update',

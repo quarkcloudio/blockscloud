@@ -37,6 +37,26 @@ class PostCateController extends CommonController
     }
 
     // 添加信息
+    public function create(Request $request)
+    {
+        $lists = PostCate::all()->toArray();
+        $tree = Helper::listToTree($lists);
+        $orderList = Helper::treeToOrderList($tree);
+        $data = [];
+        $data[0]['value'] = 0;
+        $data[0]['label'] = '无节点';
+        foreach ($orderList as $key => $value) {
+            $data[$key+1]['value'] = $value['id'];
+            $data[$key+1]['label'] = $value['name'];
+        }
+        if ($data) {
+            return Helper::jsonSuccess('操作成功！','',$data);
+        } else {
+            return Helper::jsonError('操作失败！');
+        }
+    }
+
+    // 执行添加信息
     public function store(Request $request)
     {
         $data['name'] = $request->input('name');

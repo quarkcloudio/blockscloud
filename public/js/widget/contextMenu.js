@@ -466,13 +466,13 @@ function upload(selecter,appObject,eventClass = 'appdblclick') {
 	path = appObject.attr('current-path');
 	html = "<div id='uploadapp' style='padding:10px;'><el-upload\
   action='"+config.url.uploadFile+"'\
-  type='drag'\
+  drag\
   :multiple='true'\
   :on-preview='handlePreview'\
   :on-remove='handleRemove'\
   :on-success='handleSuccess'\
   :on-error='handleError'\
-  :default-file-list='fileList'\
+  :file-list='fileList'\
 >\
   <i class='el-icon-upload'></i>\
   <div class='el-dragger__text'>将文件拖到此处，或<em>点击上传</em></div>\

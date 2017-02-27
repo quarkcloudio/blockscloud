@@ -69,7 +69,7 @@ function word(appObject) {
 				var index = layer.open({
 						type: 1 
 						,title: '添加文章'
-						,area: ['400px', '380px']
+						,area: ['800px', '380px']
 						,shade: 0
 						,minButton: true
 						,maxButton: true
@@ -133,7 +133,7 @@ function word(appObject) {
 				var index = layer.open({
 					type: 1 
 					,title: '编辑文章'
-					,area: ['400px', '380px']
+					,area: ['800px', '380px']
 					,shade: 0
 					,minButton: true
 					,maxButton: true
@@ -342,10 +342,10 @@ function word(appObject) {
 				var index = layer.open({
 						type: 1 
 						,title: '添加分类目录'
-						,area: ['400px', '380px']
+						,area: ['400px', '580px']
 						,shade: 0
-						,minButton: true
-						,maxButton: true
+						,minButton: false
+						,maxButton: false
 						,taskbar:true
 						,moveOut: true
 						,content: render('postCateCreate.html')
@@ -359,8 +359,12 @@ function word(appObject) {
 					data : {
 						form:{
 							name:'',
-							display_name:'',
-							description:'',
+							slug:'',
+							pid:'',
+							lists_tpl:'',
+							detail_tpl:'',
+							page_num:'',
+							options: []
 						}
 					},
 					methods: {
@@ -373,8 +377,11 @@ function word(appObject) {
 								async:false, // 是否异步
 								data:{
 									name:_subSelf.form.name,
-									display_name:_subSelf.form.display_name,
-									description:_subSelf.form.description,
+									slug:_subSelf.form.slug,
+									pid:_subSelf.form.pid,
+									lists_tpl:_subSelf.form.lists_tpl,
+									detail_tpl:_subSelf.form.detail_tpl,
+									page_num:_subSelf.form.page_num,
 								},
 								dataType:'json',
 								success:function(data,textStatus,jqXHR){
@@ -395,6 +402,25 @@ function word(appObject) {
 							});
 
 						}
+					},
+					mounted: function () {
+						var _subSelf = this;
+						$.ajax({
+							url:config.url.postCateCreate,
+							type:'GET', // GET
+							async:false, // 是否异步
+							dataType:'json',
+							success:function(data,textStatus,jqXHR){
+								if (data.status == 'success') {
+									_subSelf.form.options = data.data;
+								} else {
+									_subSelf.$message.error(data.msg);
+								}
+							},
+							error:function(xhr,textStatus){
+								console.log('错误')
+							}
+						});
 					}
 				});
 
