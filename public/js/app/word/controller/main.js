@@ -300,7 +300,6 @@ function word(appObject) {
 				name: '',
 				status: ''
 				},
-				total: 0,
 				multipleSelection: []
 			}
 		},
@@ -361,9 +360,9 @@ function word(appObject) {
 							name:'',
 							slug:'',
 							pid:'',
-							lists_tpl:'',
-							detail_tpl:'',
-							page_num:'',
+							lists_tpl:'lists_tpl',
+							detail_tpl:'detail_tpl',
+							page_num:20,
 							options: []
 						}
 					},
@@ -432,7 +431,7 @@ function word(appObject) {
 				var index = layer.open({
 					type: 1 
 					,title: '编辑分类目录'
-					,area: ['400px', '380px']
+					,area: ['400px', '580px']
 					,shade: 0
 					,minButton: true
 					,maxButton: true
@@ -449,8 +448,12 @@ function word(appObject) {
 					data : {
 						form:{
 							name:'',
-							display_name:'',
-							description:'',
+							slug:'',
+							pid:'',
+							lists_tpl:'lists_tpl',
+							detail_tpl:'detail_tpl',
+							page_num:20,
+							options: []
 						}
 					},
 					methods: {
@@ -463,9 +466,13 @@ function word(appObject) {
 								async:false, // 是否异步
 								data:{
 									id:_subSelf.form.id,
+									uuid:_subSelf.form.uuid,
 									name:_subSelf.form.name,
-									display_name:_subSelf.form.display_name,
-									description:_subSelf.form.description,
+									slug:_subSelf.form.slug,
+									pid:_subSelf.form.pid,
+									lists_tpl:_subSelf.form.lists_tpl,
+									detail_tpl:_subSelf.form.detail_tpl,
+									page_num:_subSelf.form.page_num,
 								},
 								dataType:'json',
 								success:function(data,textStatus,jqXHR){
@@ -522,16 +529,9 @@ function word(appObject) {
 					status = 1
 				}
 				this.setStatus(rows[index]['id'],status);
-			},
-			handleSizeChange(val) {
-				alert(`每页 ${val} 条`);
-			},
-			handleCurrentChange(val) {
-				this.currentPage = val;
-				this.showData(val);
 			},handleSelectionChange(val) {
 				this.multipleSelection = val;
-			},showData(page = 1) {
+			},showData() {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
@@ -539,14 +539,12 @@ function word(appObject) {
 					type:'GET', // GET
 					async:false, // 是否异步
 					data:{
-						page:page,
 						name:_self.formInline.name
 					},
 					dataType:'json',
 					success:function(data,textStatus,jqXHR){
 						if (data.status == 'success') {
-							_self.tableData = data.data.lists;
-							_self.total = data.data.total;
+							_self.tableData = data.data;
 						} else {
 							_self.$message.error(data.msg);
 						}
@@ -569,7 +567,7 @@ function word(appObject) {
 					dataType:'json',
 					success:function(data,textStatus,jqXHR){
 						if (data.status == 'success') {
-							_self.showData(_self.currentPage);
+							_self.showData();
 							_self.$message({
 								message: data.msg,
 								type: 'success'

@@ -212,32 +212,22 @@
                 <el-table-column
                 prop="name"
                 label="名称"
+                >
+                </el-table-column>
+                <el-table-column
+                prop="slug"
+                label="缩略名"
                 width="120">
                 </el-table-column>
                 <el-table-column
-                prop="display_name"
-                label="标题"
+                prop="count"
+                label="总数"
                 width="120">
-                </el-table-column>
-                <el-table-column
-                prop="description"
-                label="描述">
-                </el-table-column>
-                <el-table-column
-                prop="created_at"
-                label="添加日期"
-                width="180">
                 </el-table-column>
                 <el-table-column
                 label="操作"
                 width="180">
                 <template scope="scope">
-                    <el-button
-                    @click.native.prevent="permissionroleDialog(scope.$index, tableData)"
-                    type="text"
-                    size="small">
-                    授予权限
-                    </el-button>
                     <el-button
                     @click.native.prevent="editDialog(scope.$index, tableData)"
                     type="text"
@@ -268,16 +258,6 @@
                 <el-button size="small" :plain="true" type="info" @click="onSubmit">应用</el-button>
             </el-form-item>
             </el-form>
-        </el-col>
-        <el-col :span="19" style="text-align: right">
-            <div class="block">
-                <el-pagination
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-                layout="prev, pager, next"
-                :total=total>
-                </el-pagination>
-            </div>
         </el-col>
     </el-row>
     </div>

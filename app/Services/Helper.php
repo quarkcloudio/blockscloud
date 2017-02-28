@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+use App\Models\KeyValue;
 
 class Helper
 {
@@ -323,4 +324,56 @@ class Helper
         return $tree;
     }
 
+    /**
+    * 添加keyvalue
+    * @return array
+    */
+    static function addKeyValue($collection,$uuid,$data) {
+        $result = KeyValue::create([
+            'collection' => $collection,
+            'uuid' => $uuid,
+            'data' => json_encode($data)
+        ]);
+        return $result;
+    }
+
+    /**
+    * 更新keyvalue
+    * @return array
+    */
+    static function updateKeyValue($collection,$uuid,$data) {
+        $result = KeyValue::where('collection',$collection)->where('uuid',$uuid)->update(['data'=>json_encode($data)]);
+        return $result;
+    }
+
+    /**
+    * 获取keyvalue
+    * @return array
+    */
+    static function getKeyValue($uuid,$collection='') {
+        $query = KeyValue::query();
+        if(!empty($collection)) {
+            $query = $query->where('collection',$collection);
+        }
+
+        $result = $query->where('uuid',$uuid)->first()->toArray();
+        if(!empty($result['data'])) {
+            return json_decode($result['data'],true);
+        }
+
+    }
+
+    /**
+    * 删除keyvalue
+    * @return array
+    */
+    static function delKeyValue($uuid,$collection='') {
+        $query = KeyValue::query();
+        if(!empty($collection)) {
+            $query = $query->where('collection',$collection);
+        }
+
+        $result = $query->where('uuid',$uuid)->delete();
+        return $result;
+    }
 }

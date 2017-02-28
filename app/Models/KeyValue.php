@@ -13,11 +13,10 @@ class KeyValue extends Model
      */
     public $timestamps = false;
 
-    /**
-     * 与模型关联的数据表
-     *
-     * @var string
-     */
-    // protected $table = 'default_open';
+    protected $fillable = [
+        'collection',
+        'uuid',
+        'data'
+    ];
 
 }

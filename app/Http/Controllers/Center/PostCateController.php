@@ -14,22 +14,25 @@ class PostCateController extends CommonController
     // 获取列表
     public function index(Request $request)
     {
-        // 获取当前页码
-        $page      = $request->input('page');
         $name      = $request->input('name');
+        $query = PostCate::query()->orderBy('id', 'desc');
 
-        $query = PostCate::query()->skip(($page-1)*10)->take(10)->orderBy('id', 'desc');
-        $totalQuery = PostCate::query();
         if($name) {
             $query = $query->where('name',$name);
-            $totalQuery = $totalQuery->where('name',$name);
         }
-        $lists = $query->get();
-        $total     = $totalQuery->count();
+        $lists = $query->get()->toArray();
 
-        if($lists) {
-            $data['lists'] = $lists;
-            $data['total'] = $total;
+        $tree = Helper::listToTree($lists);
+        $orderList = Helper::treeToOrderList($tree);
+        $data = [];
+        foreach ($orderList as $key => $value) {
+            $data[$key]['id'] = $value['id'];
+            $data[$key]['name'] = $value['name'];
+            $data[$key]['slug'] = $value['slug'];
+            $data[$key]['count'] = $value['count'];
+        }
+
+        if($data) {
             return Helper::jsonSuccess('获取成功！','',$data);
         } else {
             return Helper::jsonSuccess('获取失败！');
@@ -60,22 +63,20 @@ class PostCateController extends CommonController
     public function store(Request $request)
     {
         $data['name'] = $request->input('name');
-        $data['email'] = $request->input('email');
-        $data['password'] = $request->input('password');
-        $uuid = Helper::createUuid();
+        $data['slug'] = $request->input('slug');
+        $data['pid'] = $request->input('pid');
+        $data['uuid'] = Helper::createUuid();
+        $data['taxonomy'] = 'category';
+        $data['description'] = '';
 
-        $validatorMsg = $this->validator($data);
-        if ($validatorMsg->fails()) {
-            return Helper::jsonError($validatorMsg->errors()->first());
-        }
+        $result = PostCate::create($data);
 
-        $result = PostCate::create([
-            'uuid' => $uuid,
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        $extend['lists_tpl'] = $request->input('lists_tpl');
+        $extend['detail_tpl'] = $request->input('detail_tpl');
+        $extend['page_num'] = $request->input('page_num');
+
         if ($result) {
+            Helper::addKeyValue('post_cates.extend',$data['uuid'],$extend);
             return Helper::jsonSuccess('操作成功！');
         } else {
             return Helper::jsonError('操作失败！');
@@ -86,9 +87,31 @@ class PostCateController extends CommonController
     public function edit(Request $request)
     {
         $id = $request->input('id');
-        $result = PostCate::where('id',$id)->first();
-        if ($result) {
-            return Helper::jsonSuccess('获取成功！','',$result);
+        $result = PostCate::where('id',$id)->first()->toArray();
+
+        $lists = PostCate::all()->toArray();
+        $tree = Helper::listToTree($lists);
+        $orderList = Helper::treeToOrderList($tree);
+        $data = [];
+        $data[0]['value'] = 0;
+        $data[0]['label'] = '无节点';
+        foreach ($orderList as $key => $value) {
+            $data[$key+1]['value'] = $value['id'];
+            $data[$key+1]['label'] = $value['name'];
+        }
+
+        $keyValueInfo = Helper::getKeyValue($result['uuid'],'post_cates.extend');
+
+        $result['options'] = $data;
+
+        if(!empty($keyValueInfo)) {
+            $newArray = array_merge($result,$keyValueInfo);
+        } else {
+            $newArray = $result;
+        }
+
+        if ($newArray) {
+            return Helper::jsonSuccess('获取成功！','',$newArray);
         } else {
             return Helper::jsonError('获取失败，请重试！');
         }
@@ -99,15 +122,23 @@ class PostCateController extends CommonController
     {
         $id = $request->input('id');
         $data['name'] = $request->input('name');
-        $data['email'] = $request->input('email');
-        $password = $request->input('password');
+        $data['slug'] = $request->input('slug');
+        $data['pid']  = $request->input('pid');
+        $data['uuid'] = $request->input('uuid');
+        $data['taxonomy'] = 'category';
+        $data['description'] = '';
 
-        if(!empty($password)) {
-            $data['password'] = bcrypt($password);
+        $extend['lists_tpl'] = $request->input('lists_tpl');
+        $extend['detail_tpl'] = $request->input('detail_tpl');
+        $extend['page_num'] = $request->input('page_num');
+
+        if ($id == $data['pid']) {
+            return Helper::jsonError('不可以选择自己作为父节点！');
         }
 
         $result = PostCate::where('id',$id)->update($data);
-        if ($result) {
+        $result1 = Helper::updateKeyValue('post_cates.extend',$data['uuid'],$extend);
+        if ($result || $result1) {
             return Helper::jsonSuccess('操作成功！');
         } else {
             return Helper::jsonError('操作失败！');
@@ -121,7 +152,9 @@ class PostCateController extends CommonController
         $status = $request->input('status');
 
         if($status == -1) {
+            $postCateInfo = PostCate::where('id',$id)->first();
             $result = PostCate::where('id',$id)->delete();
+            Helper::delKeyValue($postCateInfo->uuid,'post_cates.extend');
         } else {
             $result = PostCate::where('id',$id)->update(['status'=>$status]);
         }
@@ -144,7 +177,11 @@ class PostCateController extends CommonController
         }
 
         if($status == -1) {
+            $postCateLists = PostCate::whereIn('id',$ids)->get();
             $result = PostCate::whereIn('id',$ids)->delete();
+            foreach ($postCateLists as $key => $value) {
+                Helper::delKeyValue($value->uuid,'post_cates.extend');
+            }
         } else {
             $result = PostCate::whereIn('id',$ids)->update(['status'=>$status]);
         }
