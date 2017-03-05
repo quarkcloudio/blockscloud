@@ -16,7 +16,6 @@ function word(appObject) {
 			layer.setTop(layero); //重点2
 		}
 	});
-
 	// 定义组件
 	var postIndex = Vue.extend({
 		template: '#postIndex',
@@ -67,64 +66,20 @@ function word(appObject) {
 				var _self = this;
 				// 打开对话框
 				var index = layer.open({
-						type: 1 
+						type: 2 
 						,title: '添加文章'
-						,area: ['800px', '380px']
+						,area: ['1100px', '580px']
 						,shade: 0
 						,minButton: true
 						,maxButton: true
 						,taskbar:true
 						,moveOut: true
-						,content: render('postCreate.html')
+						,content: 'js/app/word/view/postCreate.html'
 						,zIndex: layer.zIndex //重点1
 						,success: function(layero){
 							layer.setTop(layero); //重点2
 						}
 					});
-				new Vue({
-					el: '#postCreate',
-					data : {
-						form:{
-							name:'',
-							email:'',
-							password:'',
-						}
-					},
-					methods: {
-						submitForm(formName) {
-							// ajax请求后台数据
-							var _subSelf = this;
-							$.ajax({
-								url:config.url.postStore,
-								type:'POST', // GET
-								async:false, // 是否异步
-								data:{
-									name:_subSelf.form.name,
-									email:_subSelf.form.email,
-									password:_subSelf.form.password,
-								},
-								dataType:'json',
-								success:function(data,textStatus,jqXHR){
-									if (data.status == 'success') {
-										_self.showData();
-										_self.$message({
-											message: data.msg,
-											type: 'success'
-										});
-										layer.close(index);
-									} else {
-										_self.$message.error(data.msg);
-									}
-								},
-								error:function(xhr,textStatus){
-									console.log('错误')
-								}
-							});
-
-						}
-					}
-				});
-
 			},
 			editDialog(index, rows) {
 				var id = rows[index]['id'];
@@ -139,76 +94,10 @@ function word(appObject) {
 					,maxButton: true
 					,taskbar:true
 					,moveOut: true
-					,content: render('postCreate.html')
+					,content: render('postEdit.html')
 					,zIndex: layer.zIndex //重点1
 					,success: function(layero){
 						layer.setTop(layero); //重点2
-					}
-				});
-				new Vue({
-					el: '#postCreate',
-					data : {
-						form:{
-							name:'',
-							email:'',
-							password:'',
-						}
-					},
-					methods: {
-						submitForm(formName) {
-							// ajax请求后台数据
-							var _subSelf = this;
-							$.ajax({
-								url:config.url.postUpdate,
-								type:'POST', // GET
-								async:false, // 是否异步
-								data:{
-									id:_subSelf.form.id,
-									name:_subSelf.form.name,
-									email:_subSelf.form.email,
-									password:_subSelf.form.password,
-								},
-								dataType:'json',
-								success:function(data,textStatus,jqXHR){
-									if (data.status == 'success') {
-										_self.showData();
-										_self.$message({
-											message: data.msg,
-											type: 'success'
-										});
-										layer.close(index);
-									} else {
-										_self.$message.error(data.msg);
-									}
-								},
-								error:function(xhr,textStatus){
-									console.log('错误')
-								}
-							});
-
-						}
-					},
-					mounted: function () {
-						var _subSelf = this;
-						$.ajax({
-							url:config.url.postEdit,
-							type:'GET', // GET
-							async:false, // 是否异步
-							data:{
-								id:id
-							},
-							dataType:'json',
-							success:function(data,textStatus,jqXHR){
-								if (data.status == 'success') {
-									_subSelf.form = data.data;
-								} else {
-									_self.$message.error(data.msg);
-								}
-							},
-							error:function(xhr,textStatus){
-								console.log('错误')
-							}
-						});
 					}
 				});
 			},
