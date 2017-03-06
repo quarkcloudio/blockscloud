@@ -60,6 +60,7 @@ var config = {
 			'postIndex'					: './center/post/index',
 			'postSetStatus'				: './center/post/setStatus',
 			'postSetAllStatus'			: './center/post/setAllStatus',
+			'postCreate'				: './center/post/create',
 			'postStore'					: './center/post/store',
 			'postEdit'					: './center/post/edit',
 			'postUpdate'				: './center/post/update',

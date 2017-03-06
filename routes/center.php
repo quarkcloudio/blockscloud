@@ -90,6 +90,7 @@ Route::group(['prefix' => 'center','middleware' => ['web','auth:center'],'namesp
     Route::get('post/index', 'PostController@index');
     Route::get('post/setStatus', 'PostController@setStatus');
     Route::post('post/setAllStatus', 'PostController@setAllStatus');
+    Route::get('post/create', 'PostController@create');
     Route::post('post/store', 'PostController@store');
     Route::get('post/edit', 'PostController@edit');
     Route::post('post/update', 'PostController@update');

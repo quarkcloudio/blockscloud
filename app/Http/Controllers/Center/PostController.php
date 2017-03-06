@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Services\Helper;
 use App\Models\Post;
+use App\Models\PostCate;
 
 class PostController extends CommonController
 {
@@ -37,17 +38,33 @@ class PostController extends CommonController
     }
 
     // 添加信息
+    public function create(Request $request)
+    {
+        $lists = PostCate::all()->toArray();
+        $tree = Helper::listToTree($lists);
+        $orderList = Helper::treeToOrderList($tree);
+        $data = [];
+        foreach ($orderList as $key => $value) {
+            $data[$key]['value'] = $value['id'];
+            $data[$key]['name'] = $value['name'];
+        }
+        if ($data) {
+            return Helper::jsonSuccess('操作成功！','',$data);
+        } else {
+            return Helper::jsonError('操作失败！');
+        }
+    }
+
+    // 添加信息
     public function store(Request $request)
     {
-        $data['name'] = $request->input('name');
-        $data['email'] = $request->input('email');
-        $data['password'] = $request->input('password');
+        $data['title'] = $request->input('title');
+        $data['description'] = $request->input('description');
+        $data['status'] = $request->input('status');
+        $data['content'] = $request->input('content');
+        $checkedPostCates = $request->input('checkedPostCates');
+        $cover_path = $request->input('cover_path');
         $uuid = Helper::createUuid();
-
-        $validatorMsg = $this->validator($data);
-        if ($validatorMsg->fails()) {
-            return Helper::jsonError($validatorMsg->errors()->first());
-        }
 
         $result = Post::create([
             'uuid' => $uuid,

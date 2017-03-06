@@ -68,7 +68,7 @@ function word(appObject) {
 				var index = layer.open({
 						type: 2 
 						,title: '添加文章'
-						,area: ['1100px', '580px']
+						,area: ['1100px', '600px']
 						,shade: 0
 						,minButton: true
 						,maxButton: true
@@ -88,7 +88,7 @@ function word(appObject) {
 				var index = layer.open({
 					type: 1 
 					,title: '编辑文章'
-					,area: ['800px', '380px']
+					,area: ['1100px', '600px']
 					,shade: 0
 					,minButton: true
 					,maxButton: true
@@ -486,7 +486,7 @@ function word(appObject) {
     });
 
 	new Vue({
-		el: '#user',
+		el: '#post',
 		router:router,
 		methods: {
 			handleOpen(key, keyPath) {
