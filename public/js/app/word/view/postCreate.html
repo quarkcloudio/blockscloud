@@ -121,7 +121,9 @@
                     dataType:'json',
                     success:function(data,textStatus,jqXHR){
                         if (data.status == 'success') {
-
+                            var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                            window.parent.showData();
+                            parent.layer.close(index);
                         } else {
 
                         }

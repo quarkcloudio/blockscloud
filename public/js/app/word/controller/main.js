@@ -1,3 +1,4 @@
+var router;
 function word(appObject) {
 
 	// 打开对话框
@@ -477,7 +478,7 @@ function word(appObject) {
 	});
 
 	// 定义路由
-    var router = new VueRouter({
+    router = new VueRouter({
         routes: [
             { path: '/', name: 'postIndex', component: postIndex },
             { path: '/postIndex', name: 'postIndex', component: postIndex },
@@ -498,4 +499,7 @@ function word(appObject) {
 		}
 	});
 
+}
+function showData() {
+	router.go({name: 'postIndex'});
 }

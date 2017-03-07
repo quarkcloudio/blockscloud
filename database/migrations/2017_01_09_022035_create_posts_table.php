@@ -30,7 +30,7 @@ class CreatePostsTable extends Migration
             $table->integer('comment')->default(0)->comment('评论数量');
             $table->integer('view')->default(0)->comment('浏览数量');
             $table->timestamps();
-            $table->string('status')->default('publish');
+            $table->tinyInteger('status')->default('1');
         });
     }
 
