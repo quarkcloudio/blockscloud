@@ -102,5 +102,8 @@ Route::group(['prefix' => 'center','middleware' => ['web','auth:center'],'namesp
     Route::post('postCate/store', 'PostCateController@store');
     Route::get('postCate/edit', 'PostCateController@edit');
     Route::post('postCate/update', 'PostCateController@update');
+
+    Route::post('file/upload', 'FileController@upload');
+
 });
 Route::get('center/base/openFileWithBrowser', 'Center\BaseController@openFileWithBrowser');

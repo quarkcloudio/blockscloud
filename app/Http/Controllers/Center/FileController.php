@@ -18,8 +18,7 @@ class FileController extends CommonController
     public function upload(Request $request)
     {
         $file = $request->file('file');
-        $path = $file->store('public/temp');
-
+        $path = $file->store('public/uploads');
         if($path) {
             $data['fileName'] = $file->getClientOriginalName();
             $data['path'] = $path;

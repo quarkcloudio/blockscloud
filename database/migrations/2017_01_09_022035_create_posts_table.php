@@ -18,18 +18,19 @@ class CreatePostsTable extends Migration
             $table->increments('id');
             $table->integer('uid');
             $table->string('uuid');
-            $table->longText('content');
             $table->string('title');
-            $table->string('description');
-            $table->string('comment_status')->default('open');
-            $table->string('password');
             $table->string('name');
+            $table->string('description');
+            $table->string('password');
+            $table->string('cover_path');
             $table->integer('pid');
             $table->integer('level');
             $table->string('type')->default('post')->comment('文章类型（post/page/link等）');
+            $table->longText('content');
             $table->integer('comment')->default(0)->comment('评论数量');
             $table->integer('view')->default(0)->comment('浏览数量');
             $table->timestamps();
+            $table->string('comment_status')->default('open');
             $table->tinyInteger('status')->default('1');
         });
     }

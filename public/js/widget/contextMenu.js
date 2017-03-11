@@ -203,7 +203,7 @@ define("widget/contextMenu", [ "context", "appsort" ], function(require) {
  */
 function newFolder(selecter,path,eventClass = 'appdblclick') {
 	context.ajax({
-		url:config.url.makeDir,
+		url:config.url.finderMakeDir,
 		type:'GET', // GET
 		async:false, // 是否异步
 		data:{
@@ -250,7 +250,7 @@ function renamePath(appObject) {
 		if (newTitle) {
 			// ajax请求后台数据
 			context.ajax({
-				url:config.url.renamePath,
+				url:config.url.finderRenamePath,
 				type:'GET', // GET
 				data:{
 					path:path,
@@ -283,7 +283,7 @@ function deletePath(appObject) {
 	path = appObject.attr('app-path');
 	// ajax请求后台数据
 	context.ajax({
-		url:config.url.deletePath,
+		url:config.url.finderDeletePath,
 		type:'GET', // GET
 		async:false, // 是否异步
 		data:{
@@ -317,7 +317,7 @@ function pastePath(selecter,appObject,eventClass = 'appdblclick') {
 		if(arr[0] == 1) {
 			// 剪切
 			context.ajax({
-				url:config.url.movePath,
+				url:config.url.finderMovePath,
 				type:'GET', // GET
 				async:false, // 是否异步
 				data:{
@@ -350,7 +350,7 @@ function pastePath(selecter,appObject,eventClass = 'appdblclick') {
 		} else if(arr[0] == 2) {
 			// 复制
 			context.ajax({
-				url:config.url.copyPath,
+				url:config.url.finderCopyPath,
 				type:'GET', // GET
 				async:false, // 是否异步
 				data:{
@@ -392,7 +392,7 @@ function pastePath(selecter,appObject,eventClass = 'appdblclick') {
  */
 function download(appObject) {
 	path = appObject.attr('app-path');
-	window.open(config.url.downloadFile+'?path='+path);
+	window.open(config.url.finderUploadFile+'?path='+path);
 }
 
 /**
@@ -401,7 +401,7 @@ function download(appObject) {
  */
 function newFile(selecter,path,fileName,fileExt,eventClass = 'appdblclick') {
 	context.ajax({
-		url:config.url.makeFile,
+		url:config.url.finderMakeFile,
 		type:'GET', // GET
 		async:false, // 是否异步
 		data:{
@@ -438,7 +438,7 @@ function emptyTrash(appObject) {
 	// 获取路径
 	path = appObject.attr('app-path');
 	context.ajax({
-		url:config.url.emptyTrash,
+		url:config.url.finderEmptyTrash,
 		type:'GET', // GET
 		async:false, // 是否异步
 		data:{
@@ -465,7 +465,7 @@ function emptyTrash(appObject) {
 function upload(selecter,appObject,eventClass = 'appdblclick') {
 	path = appObject.attr('current-path');
 	html = "<div id='uploadapp' style='padding:10px;'><el-upload\
-  action='"+config.url.uploadFile+"'\
+  action='"+config.url.finderUploadFile+"'\
   drag\
   :multiple='true'\
   :on-preview='handlePreview'\
@@ -510,7 +510,7 @@ function upload(selecter,appObject,eventClass = 'appdblclick') {
 			},
 			handleSuccess(file) {
 				context.ajax({
-					url:config.url.callbackMovePath,
+					url:config.url.finderCallbackMovePath,
 					type:'GET', // GET
 					async:false, // 是否异步
 					data:{

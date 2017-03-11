@@ -146,7 +146,7 @@ function getAppInfo(appID) {
 				// ajax请求后台数据
 				var appInfoObject = this;
 				$.ajax({
-					url:config.url.addToDesktop,
+					url:config.url.appstoreAddToDesktop,
 					type:'GET', // GET
 					async:false, // 是否异步
 					data:{
@@ -183,7 +183,7 @@ function getAppInfo(appID) {
 				// ajax请求后台数据
 				var appInfoObject = this;
 				$.ajax({
-					url:config.url.addToDock,
+					url:config.url.appstoreAddToDock,
 					type:'GET', // GET
 					async:false, // 是否异步
 					data:{
@@ -220,7 +220,7 @@ function getAppInfo(appID) {
 			// ajax请求后台数据
 			var appInfoObject = this;
 			$.ajax({
-				url:config.url.appInfo,
+				url:config.url.appstoreInfo,
 				type:'GET', // GET
 				async:false, // 是否异步
 				data:{

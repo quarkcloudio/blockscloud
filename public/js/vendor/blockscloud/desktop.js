@@ -32,7 +32,7 @@ define("vendor/blockscloud/desktop", ["appsort","nicescroll","cookie","element-u
  */
 function openPath(selecter,path) {
 	$.ajax({
-		url:config.url.openPath,
+		url:config.url.finderOpenPath,
 		type:'GET', // GET
 		async:false, // 是否异步
 		data:{

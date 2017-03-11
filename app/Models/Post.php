@@ -12,6 +12,7 @@ class Post extends Model
         'uuid',
         'name',
         'title',
+        'cover_path',
         'description',
         'content',
         'password',

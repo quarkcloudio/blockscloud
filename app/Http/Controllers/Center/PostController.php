@@ -78,6 +78,7 @@ class PostController extends CommonController
         $data['name'] = '';
         $data['description'] = $request->input('description');
         $data['content'] = $request->input('content');
+        $data['cover_path'] = $request->input('cover_path');
         $data['password'] = '';
         $data['status'] = $request->input('status');
         $data['pid'] = 0;
@@ -108,8 +109,22 @@ class PostController extends CommonController
     public function edit(Request $request)
     {
         $id = $request->input('id');
-        $result = Post::where('id',$id)->first();
-        if ($result) {
+        $data = Post::where('id',$id)->first()->toArray();
+        $lists = PostCate::all()->toArray();
+        $tree = Helper::listToTree($lists);
+        $orderList = Helper::treeToOrderList($tree);
+        $postCates = [];
+        foreach ($orderList as $key => $value) {
+            $postCates[$key]['value'] = $value['id'];
+            $postCates[$key]['name'] = $value['name'];
+        }
+
+        if ($data) {
+            $result['fileList'][0]['name'] = '封面图';
+            $result['fileList'][0]['url'] = 'http://'.$_SERVER['HTTP_HOST'].'/center/base/openFileWithBrowser?path='.$data['cover_path'];
+            $result['data'] = $data;
+            $result['checkedPostCates'] = PostRelationships::where('object_id',$id)->pluck('post_cate_id')->toArray();
+            $result['postCates'] = $postCates;
             return Helper::jsonSuccess('获取成功！','',$result);
         } else {
             return Helper::jsonError('获取失败，请重试！');
@@ -120,16 +135,33 @@ class PostController extends CommonController
     public function update(Request $request)
     {
         $id = $request->input('id');
-        $data['name'] = $request->input('name');
-        $data['email'] = $request->input('email');
-        $password = $request->input('password');
 
-        if(!empty($password)) {
-            $data['password'] = bcrypt($password);
-        }
+        $data['title'] = $request->input('title');
+        $data['name'] = '';
+        $data['description'] = $request->input('description');
+        $data['cover_path'] = $request->input('cover_path');
+        $data['content'] = $request->input('content');
+        $data['password'] = '';
+        $data['status'] = $request->input('status');
+        $data['pid'] = 0;
+        $data['level'] = 0;
+        $data['type'] = 'post';
+        $data['comment'] = 0;
+        $data['view'] = 0;
+
+        $checkedPostCates = $request->input('checkedPostCates');
+        $cover_path = $request->input('cover_path');
 
         $result = Post::where('id',$id)->update($data);
         if ($result) {
+            PostRelationships::where('object_id',$id)->delete();
+            foreach ($checkedPostCates as $key => $value) {
+                $postRelationshipsData['object_id'] = $id;
+                $postRelationshipsData['post_cate_id'] = $value;
+                $postRelationshipsData['sort'] = 0;
+                PostRelationships::create($postRelationshipsData);
+            }
+
             return Helper::jsonSuccess('操作成功！');
         } else {
             return Helper::jsonError('操作失败！');

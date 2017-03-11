@@ -20,7 +20,7 @@ function editor(appObject) {
 	$('.dialog-focus .editor-wrapper #file-path').val(path);
 
 	$.ajax({
-		url:config.url.openFile,
+		url:config.url.editorOpenFile,
 		type:'GET', // GET
 		async:false, // 是否异步
 		data:{
@@ -49,7 +49,7 @@ function saveFile() {
 	var editor = ace.edit("editor");
 	filePath = $('.dialog-focus .editor-wrapper #file-path').val();
 	$.ajax({
-		url:config.url.saveFile,
+		url:config.url.editorSaveFile,
 		type:'POST', // GET
 		async:false, // 是否异步
 		data:{

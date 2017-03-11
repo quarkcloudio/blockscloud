@@ -35,7 +35,7 @@ function finder(appObject) {
 
 	// ajax请求sidebar数据
 	$.ajax({
-		url:config.url.sidebar,
+		url:config.url.finderSidebar,
 		type:'GET', // GET
 		async:false, // 是否异步
 		dataType:'json',
@@ -134,7 +134,7 @@ function finderOpenApp(name,path,appObject) {
 
 		// ajax请求后台数据
 		$.ajax({
-			url:config.url.openPath,
+			url:config.url.finderOpenPath,
 			type:'GET', // GET
 			async:false, // 是否异步
 			data:{

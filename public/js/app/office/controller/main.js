@@ -1,6 +1,6 @@
 function office(appObject) {
 	path = appObject.attr('app-path');
-	filePath = "http://dcsapi.com/?k=66668775&url=http://"+document.domain+"/"+config.url.openFileWithBrowser+"?path="+path;
+	filePath = "http://dcsapi.com/?k=66668775&url=http://"+document.domain+"/"+config.url.baseOpenFileWithBrowser+"?path="+path;
 	// 打开对话框
 	layer.open({
 		type: 2 //此处以iframe举例
