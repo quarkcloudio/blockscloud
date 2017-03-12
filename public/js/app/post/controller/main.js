@@ -1,5 +1,4 @@
-var router;
-function word(appObject) {
+function post(appObject) {
 
 	// 打开对话框
 	layer.open({
@@ -11,7 +10,7 @@ function word(appObject) {
 		,maxButton: true
 		,taskbar:true
 		,moveOut: true
-		,content: 'js/app/word/view/index.html'
+		,content: 'js/app/post/view/index.html'
 		,zIndex: layer.zIndex //重点1
 		,success: function(layero){
 			layer.setTop(layero); //重点2

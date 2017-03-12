@@ -62,9 +62,9 @@ class PostController extends CommonController
             $data[$key]['name'] = $value['name'];
         }
         if ($data) {
-            return Helper::jsonSuccess('操作成功！','',$data);
+            return Helper::jsonSuccess('获取成功！','',$data);
         } else {
-            return Helper::jsonError('操作失败！');
+            return Helper::jsonError('请先添加分类目录！');
         }
     }
 
@@ -120,8 +120,10 @@ class PostController extends CommonController
         }
 
         if ($data) {
-            $result['fileList'][0]['name'] = '封面图';
-            $result['fileList'][0]['url'] = 'http://'.$_SERVER['HTTP_HOST'].'/center/base/openFileWithBrowser?path='.$data['cover_path'];
+            if($data['cover_path']) {
+                $result['fileList'][0]['name'] = '封面图';
+                $result['fileList'][0]['url'] = 'http://'.$_SERVER['HTTP_HOST'].'/center/base/openFileWithBrowser?path='.$data['cover_path'];
+            }
             $result['data'] = $data;
             $result['checkedPostCates'] = PostRelationships::where('object_id',$id)->pluck('post_cate_id')->toArray();
             $result['postCates'] = $postCates;
