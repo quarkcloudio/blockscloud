@@ -22,6 +22,7 @@ class FileController extends CommonController
         if($path) {
             $data['fileName'] = $file->getClientOriginalName();
             $data['path'] = $path;
+            $data['full_path'] = 'http://'.$_SERVER['HTTP_HOST'].'/center/base/openFileWithBrowser?path='.$path;
             return Helper::jsonSuccess('上传成功！','',$data);
         } else {
             return Helper::jsonError('上传失败！');

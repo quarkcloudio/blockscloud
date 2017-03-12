@@ -75,10 +75,12 @@
         <el-col :span="15">
             <el-form style="margin: 0px;" :inline="true" :model="formInline">
             <el-form-item style="margin-bottom: 0px;margin-top:4px;width: 150px;">
-                <el-select size="small" v-model="formInline.status" placeholder="所有分类目录">
-                <el-option label="启用" value="1"></el-option>
-                <el-option label="禁用" value="-2"></el-option>
-                <el-option label="删除" value="-1"></el-option>
+                <el-select size="small" v-model="formInline.selectPostCates" placeholder="所有分类目录">
+                    <el-option
+                    v-for='item in postCates'
+                    :label='item.label'
+                    :value='item.value'>
+                    </el-option>
                 </el-select>
             </el-form-item> 
             <el-form-item style="margin-bottom: 0px;margin-top:4px;">
@@ -240,15 +242,13 @@
                     <el-upload
                     :action="uploadFile"
                     list-type="picture-card"
-                    :on-preview="handlePictureCardPreview"
                     :on-remove="handleRemove"
                     :on-success="handSuccess"
+                    :show-file-list="false"
                     >
-                    <i class="el-icon-plus"></i>
+                    <img v-if="form.full_cover_path" :src="form.full_cover_path" class="cover-path">
+                    <i v-else class="el-icon-plus"></i>
                     </el-upload>
-                    <el-dialog v-model="form.dialogVisible" size="tiny">
-                    <img width="100%" :src="form.dialogImageUrl" alt="">
-                    </el-dialog>
                 </div>
             </div>
         </el-col>
@@ -296,15 +296,13 @@
                     <el-upload
                     :action="uploadFile"
                     list-type="picture-card"
-                    :on-preview="handlePictureCardPreview"
                     :on-remove="handleRemove"
                     :on-success="handSuccess"
-                    :file-list="fileList">
-                    <i class="el-icon-plus"></i>
+                    :show-file-list="false"
+                    >
+                    <img v-if="form.full_cover_path" :src="form.full_cover_path" class="cover-path">
+                    <i v-else class="el-icon-plus"></i>
                     </el-upload>
-                    <el-dialog v-model="form.dialogVisible" size="tiny">
-                    <img width="100%" :src="form.dialogImageUrl" alt="">
-                    </el-dialog>
                 </div>
             </div>
         </el-col>
@@ -430,11 +428,13 @@
 			return {
 				tableData: [],
 				formInline: {
-				name: '',
-				status: ''
+                    name: '',
+                    status: '',
+                    selectPostCates: ''
 				},
 				total: 0,
-				multipleSelection: []
+				multipleSelection: [],
+                postCates:[]
 			}
 		},
 		methods: {
@@ -497,13 +497,15 @@
 					async:false, // 是否异步
 					data:{
 						page:page,
-						name:_self.formInline.name
+						name:_self.formInline.name,
+						selectPostCates:_self.formInline.selectPostCates
 					},
 					dataType:'json',
 					success:function(data,textStatus,jqXHR){
 						if (data.status == 'success') {
 							_self.tableData = data.data.lists;
 							_self.total = data.data.total;
+                            _self.postCates = data.data.postCates;
 						} else {
 							_self.$message.error(data.msg);
 						}
@@ -558,9 +560,8 @@
                     title:'',
                     description:'',
                     status: 1,
-                    dialogImageUrl: '',
-                    dialogVisible: false,
                     cover_path: '',
+                    full_cover_path:''
                 },
                 checkedPostCates: [],
                 postCates: [],
@@ -600,12 +601,9 @@
             handleRemove(file, fileList) {
                 console.log(file, fileList);
             },
-            handlePictureCardPreview(file) {
-                this.form.dialogImageUrl = file.url;
-                this.form.dialogVisible = true;
-            },
             handSuccess(file) {
                 this.form.cover_path = file.data.path;
+                this.form.full_cover_path = file.data.full_path;
             }
 		},
 		mounted: function () {
@@ -643,14 +641,12 @@
                     title:'',
                     description:'',
                     status: 1,
-                    dialogImageUrl: '',
-                    dialogVisible: false,
-                    cover_path: ''
+                    cover_path: '',
+                    full_cover_path:''
                 },
                 checkedPostCates: [],
                 postCates: [],
-                uploadFile:'../../../../'+config.url.fileUpload,
-                fileList:[]
+                uploadFile:'../../../../'+config.url.fileUpload
 			}
 		},
 		methods: {
@@ -687,12 +683,9 @@
             handleRemove(file, fileList) {
                 console.log(file, fileList);
             },
-            handlePictureCardPreview(file) {
-                this.form.dialogImageUrl = file.url;
-                this.form.dialogVisible = true;
-            },
             handSuccess(res,file) {
                 this.form.cover_path = res.data.path;
+                this.form.full_cover_path = res.data.full_path;
             }
 		},
 		mounted: function () {
@@ -712,7 +705,6 @@
                         _self.postCates = data.data.postCates;
                         _self.checkedPostCates = data.data.checkedPostCates;
                         _self.editor.setContent(data.data.data.content);
-                        _self.fileList = data.data.fileList;
                     } else {
                         _self.$message.error(data.msg);
                     }

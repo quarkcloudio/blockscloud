@@ -20,6 +20,7 @@ class PostController extends CommonController
         // 获取当前页码
         $page      = $request->input('page');
         $name      = $request->input('name');
+        $selectPostCates  = $request->input('selectPostCates');
 
         $query = Post::query()->skip(($page-1)*10)->take(10)->where('status', '<>', -1)->orderBy('created_at', 'desc');
         $totalQuery = Post::query()->where('status', '<>', -1);
@@ -41,9 +42,22 @@ class PostController extends CommonController
             }
             $lists[$key]['post_cate_name'] = trim($postCateName,',');
         }
+
+        $postCateLists = PostCate::all()->toArray();
+        $tree = Helper::listToTree($postCateLists);
+        $orderList = Helper::treeToOrderList($tree);
+        $postCates = [];
+        $postCates[0]['value'] = 0;
+        $postCates[0]['label'] = '所有';
+        foreach ($orderList as $key => $value) {
+            $postCates[$key+1]['value'] = $value['id'];
+            $postCates[$key+1]['label'] = $value['name'];
+        }
+
         if($lists) {
             $data['lists'] = $lists;
             $data['total'] = $total;
+            $data['postCates'] = $postCates;
             return Helper::jsonSuccess('获取成功！','',$data);
         } else {
             return Helper::jsonSuccess('获取失败！');
@@ -121,8 +135,7 @@ class PostController extends CommonController
 
         if ($data) {
             if($data['cover_path']) {
-                $result['fileList'][0]['name'] = '封面图';
-                $result['fileList'][0]['url'] = 'http://'.$_SERVER['HTTP_HOST'].'/center/base/openFileWithBrowser?path='.$data['cover_path'];
+                $data['full_cover_path'] = 'http://'.$_SERVER['HTTP_HOST'].'/center/base/openFileWithBrowser?path='.$data['cover_path'];
             }
             $result['data'] = $data;
             $result['checkedPostCates'] = PostRelationships::where('object_id',$id)->pluck('post_cate_id')->toArray();
