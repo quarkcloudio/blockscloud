@@ -21,8 +21,9 @@ class PostController extends CommonController
         $page      = $request->input('page');
         $name      = $request->input('name');
         $selectPostCates  = $request->input('selectPostCates');
+        $type      = $request->input('type');
 
-        $query = Post::query()->skip(($page-1)*10)->take(10)->where('status', '<>', -1)->orderBy('created_at', 'desc');
+        $query = Post::query()->skip(($page-1)*10)->take(10)->where('status', '<>', -1)->where('type',$type)->orderBy('created_at', 'desc');
         $totalQuery = Post::query()->where('status', '<>', -1);
         if($name) {
             $query = $query->where('name',$name);
@@ -67,19 +68,40 @@ class PostController extends CommonController
     // 添加信息
     public function create(Request $request)
     {
-        $lists = PostCate::all()->toArray();
-        $tree = Helper::listToTree($lists);
-        $orderList = Helper::treeToOrderList($tree);
-        $data = [];
-        foreach ($orderList as $key => $value) {
-            $data[$key]['value'] = $value['id'];
-            $data[$key]['name'] = $value['name'];
-        }
-        if ($data) {
-            return Helper::jsonSuccess('获取成功！','',$data);
+        $type      = $request->input('type');
+
+        if($type == 'post') {
+            $lists = PostCate::all()->toArray();
+            $tree = Helper::listToTree($lists);
+            $orderList = Helper::treeToOrderList($tree);
+            $data = [];
+            foreach ($orderList as $key => $value) {
+                $data[$key]['value'] = $value['id'];
+                $data[$key]['name'] = $value['name'];
+            }
+            if ($data) {
+                return Helper::jsonSuccess('获取成功！','',$data);
+            } else {
+                return Helper::jsonError('请先添加分类目录！');
+            }
         } else {
-            return Helper::jsonError('请先添加分类目录！');
+            $lists = Post::where('type','page')->get()->toArray();
+            $tree = Helper::listToTree($lists);
+            $orderList = Helper::treeToOrderList($tree);
+            $data = [];
+            $data[0]['value'] = 0;
+            $data[0]['label'] = '无节点';
+            foreach ($orderList as $key => $value) {
+                $data[$key+1]['value'] = $value['id'];
+                $data[$key+1]['label'] = $value['title'];
+            }
+            if ($data) {
+                return Helper::jsonSuccess('操作成功！','',$data);
+            } else {
+                return Helper::jsonError('操作失败！');
+            }
         }
+
     }
 
     // 添加信息
@@ -95,9 +117,9 @@ class PostController extends CommonController
         $data['cover_path'] = $request->input('cover_path');
         $data['password'] = '';
         $data['status'] = $request->input('status');
-        $data['pid'] = 0;
+        $data['pid'] = $request->input('pid',0);
         $data['level'] = 0;
-        $data['type'] = 'post';
+        $data['type'] = $request->input('type');
         $data['comment'] = 0;
         $data['view'] = 0;
 
@@ -106,13 +128,14 @@ class PostController extends CommonController
 
         $result = Post::create($data);
         if ($result) {
-            foreach ($checkedPostCates as $key => $value) {
-                $postRelationshipsData['object_id'] = $result->id;
-                $postRelationshipsData['post_cate_id'] = $value;
-                $postRelationshipsData['sort'] = 0;
-                PostRelationships::create($postRelationshipsData);
+            if(!empty($checkedPostCates)) {
+                foreach ($checkedPostCates as $key => $value) {
+                    $postRelationshipsData['object_id'] = $result->id;
+                    $postRelationshipsData['post_cate_id'] = $value;
+                    $postRelationshipsData['sort'] = 0;
+                    PostRelationships::create($postRelationshipsData);
+                }
             }
-
             return Helper::jsonSuccess('操作成功！');
         } else {
             return Helper::jsonError('操作失败！');
@@ -123,27 +146,55 @@ class PostController extends CommonController
     public function edit(Request $request)
     {
         $id = $request->input('id');
-        $data = Post::where('id',$id)->first()->toArray();
-        $lists = PostCate::all()->toArray();
-        $tree = Helper::listToTree($lists);
-        $orderList = Helper::treeToOrderList($tree);
-        $postCates = [];
-        foreach ($orderList as $key => $value) {
-            $postCates[$key]['value'] = $value['id'];
-            $postCates[$key]['name'] = $value['name'];
+        $type      = $request->input('type');
+
+        if($type == 'post') {
+            $data = Post::where('id',$id)->first()->toArray();
+            $lists = PostCate::all()->toArray();
+            $tree = Helper::listToTree($lists);
+            $orderList = Helper::treeToOrderList($tree);
+            $postCates = [];
+            foreach ($orderList as $key => $value) {
+                $postCates[$key]['value'] = $value['id'];
+                $postCates[$key]['name'] = $value['name'];
+            }
+
+            if ($data) {
+                if($data['cover_path']) {
+                    $data['full_cover_path'] = 'http://'.$_SERVER['HTTP_HOST'].'/center/base/openFileWithBrowser?path='.$data['cover_path'];
+                }
+                $result['data'] = $data;
+                $result['checkedPostCates'] = PostRelationships::where('object_id',$id)->pluck('post_cate_id')->toArray();
+                $result['postCates'] = $postCates;
+                return Helper::jsonSuccess('获取成功！','',$result);
+            } else {
+                return Helper::jsonError('获取失败，请重试！');
+            }
+        } else {
+            $data = Post::where('id',$id)->first()->toArray();
+            $lists = Post::where('type','page')->get()->toArray();
+            $tree = Helper::listToTree($lists);
+            $orderList = Helper::treeToOrderList($tree);
+            $pages = [];
+            $pages[0]['value'] = 0;
+            $pages[0]['label'] = '无节点';
+            foreach ($orderList as $key => $value) {
+                $pages[$key+1]['value'] = $value['id'];
+                $pages[$key+1]['label'] = $value['title'];
+            }
+
+            if ($data) {
+                if($data['cover_path']) {
+                    $data['full_cover_path'] = 'http://'.$_SERVER['HTTP_HOST'].'/center/base/openFileWithBrowser?path='.$data['cover_path'];
+                }
+                $result['data'] = $data;
+                $result['pages'] = $pages;
+                return Helper::jsonSuccess('获取成功！','',$result);
+            } else {
+                return Helper::jsonError('获取失败，请重试！');
+            }
         }
 
-        if ($data) {
-            if($data['cover_path']) {
-                $data['full_cover_path'] = 'http://'.$_SERVER['HTTP_HOST'].'/center/base/openFileWithBrowser?path='.$data['cover_path'];
-            }
-            $result['data'] = $data;
-            $result['checkedPostCates'] = PostRelationships::where('object_id',$id)->pluck('post_cate_id')->toArray();
-            $result['postCates'] = $postCates;
-            return Helper::jsonSuccess('获取成功！','',$result);
-        } else {
-            return Helper::jsonError('获取失败，请重试！');
-        }
     }
 
     // 执行编辑信息
@@ -158,9 +209,9 @@ class PostController extends CommonController
         $data['content'] = $request->input('content');
         $data['password'] = '';
         $data['status'] = $request->input('status');
-        $data['pid'] = 0;
+        $data['pid'] = $request->input('pid',0);
         $data['level'] = 0;
-        $data['type'] = 'post';
+        $data['type'] = $request->input('type');
         $data['comment'] = 0;
         $data['view'] = 0;
 
@@ -169,14 +220,15 @@ class PostController extends CommonController
 
         $result = Post::where('id',$id)->update($data);
         if ($result) {
-            PostRelationships::where('object_id',$id)->delete();
-            foreach ($checkedPostCates as $key => $value) {
-                $postRelationshipsData['object_id'] = $id;
-                $postRelationshipsData['post_cate_id'] = $value;
-                $postRelationshipsData['sort'] = 0;
-                PostRelationships::create($postRelationshipsData);
+            if(!empty($checkedPostCates)) {
+                PostRelationships::where('object_id',$id)->delete();
+                foreach ($checkedPostCates as $key => $value) {
+                    $postRelationshipsData['object_id'] = $id;
+                    $postRelationshipsData['post_cate_id'] = $value;
+                    $postRelationshipsData['sort'] = 0;
+                    PostRelationships::create($postRelationshipsData);
+                }
             }
-
             return Helper::jsonSuccess('操作成功！');
         } else {
             return Helper::jsonError('操作失败！');

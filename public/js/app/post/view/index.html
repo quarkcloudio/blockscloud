@@ -47,6 +47,7 @@
             <el-submenu index="2">
                 <template slot="title">页面</template>
                 <el-menu-item index="pageIndex">所有页面</el-menu-item>
+                <el-menu-item index="pageCreate">新建页面</el-menu-item>
             </el-submenu>
             </el-menu>
         </el-col>
@@ -409,6 +410,258 @@
     </el-row>
     </div>
 </template>
+
+<template id='pageIndex'>
+    <div>
+    <el-row>
+        <el-col :span="5">
+            <el-form style="margin: 0px;" :inline="true" :model="formInline">
+            <el-form-item style="margin-bottom: 0px;margin-top:4px;width: 80px;">
+                <el-select size="small" v-model="formInline.status" placeholder="操作">
+                <el-option label="启用" value="1"></el-option>
+                <el-option label="禁用" value="-2"></el-option>
+                <el-option label="删除" value="-1"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item >
+                <el-button size="small" :plain="true" type="info" @click="onSubmit">应用</el-button>
+            </el-form-item>
+            </el-form>
+        </el-col>
+        <el-col :span="15">
+            <el-form style="margin: 0px;" :inline="true" :model="formInline">
+            <el-form-item style="margin-bottom: 0px;margin-top:4px;">
+                <el-input size="small" v-model="formInline.name" placeholder="标题"></el-input>
+            </el-form-item>
+            <el-form-item >
+                <el-button size="small" :plain="true" type="info" @click="onSearch">查询</el-button>
+            </el-form-item>
+            </el-form>
+        </el-col>
+        <el-col :span="4">
+            <el-form style="margin: 0px;" :inline="true" :model="formInline" style="float:right; ">
+            <el-form-item >
+                <router-link to="pageCreate"><el-button size="small" type="primary">新建页面</el-button></router-link>
+            </el-form-item>
+            </el-form>
+        </el-col>
+    </el-row>
+    <el-row>
+        <el-col :span="24">
+            <template>
+            <el-table
+                :data="tableData"
+                stripe
+                style="width: 100%"
+                @selection-change="handleSelectionChange">
+                <el-table-column
+                type="selection"
+                width="55">
+                </el-table-column>
+                <el-table-column
+                prop="title"
+                label="标题"
+                width="120">
+                </el-table-column>
+                <el-table-column
+                prop="username"
+                label="作者">
+                </el-table-column>
+                <el-table-column
+                prop="created_at"
+                label="日期"
+                width="180">
+                </el-table-column>
+                <el-table-column
+                label="状态"
+                width="80">
+                <template scope="scope">
+                    <div v-if="tableData[scope.$index]['status'] === 1">
+                        启用中
+                    </div>
+                    <div v-else>
+                        已禁用
+                    </div>
+                </template>
+                </el-table-column>
+                <el-table-column
+                label="操作"
+                width="180">
+                <template scope="scope">
+                    <el-button
+                    @click.native.prevent="editDialog(scope.$index, tableData)"
+                    type="text"
+                    size="small">
+                    编辑
+                    </el-button>
+                    <el-button
+                    @click.native.prevent="forbidRow(scope.$index, tableData)"
+                    type="text"
+                    size="small">
+                    <div v-if="tableData[scope.$index]['status'] === 1">
+                        禁用
+                    </div>
+                    <div v-else>
+                        启用
+                    </div>
+                    </el-button>
+                    <el-button
+                    @click.native.prevent="deleteRow(scope.$index, tableData)"
+                    type="text"
+                    size="small">
+                    删除
+                    </el-button>
+                </template>
+                </el-table-column>
+            </el-table>
+            </template>
+        </el-col>
+    </el-row>
+    <el-row style="margin-top: 20px;">
+        <el-col :span="5">
+            <el-form :inline="true" :model="formInline">
+            <el-form-item  style="margin-bottom: 0px;width: 80px;">
+                <el-select size="small" v-model="formInline.status" placeholder="操作">
+                <el-option label="启用" value="1"></el-option>
+                <el-option label="禁用" value="-2"></el-option>
+                <el-option label="删除" value="-1"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item style="margin-top:-4px;">
+                <el-button size="small" :plain="true" type="info" @click="onSubmit">应用</el-button>
+            </el-form-item>
+            </el-form>
+        </el-col>
+        <el-col :span="19" style="text-align: right">
+            <div class="block">
+                <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                layout="prev, pager, next"
+                :total=total>
+                </el-pagination>
+            </div>
+        </el-col>
+    </el-row>
+    </div>
+</template>
+
+<template id='pageCreate'>
+    <div>
+    <el-form >
+        <el-row>
+        <el-col :span="17">
+                <el-input type="text" v-model="form.title" placeholder="在此输入标题" ></el-input>
+                <div id="content"></div>
+                <el-form-item label="描述">
+                    <el-input type="textarea" v-model="form.description"></el-input>
+                </el-form-item>
+        </el-col>
+        <el-col :span="1">&nbsp;</el-col>
+        <el-col :span="6">
+            <div class="panel panel-default">
+                <div class="panel-heading">发布</div>
+                <div class="panel-body">
+                    <el-radio-group v-model="form.status">
+                        <el-radio :label="1">公开</el-radio>
+                        <el-radio :label="2">私密</el-radio>
+                    </el-radio-group>
+                </div>
+                <div class="panel-footer">
+                    <span style=" height: 30px; display: block;"><el-button size="small" style="float: right;" type="primary" @click="submitForm()">提交</el-button></span>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">页面属性</div>
+                <div class="panel-body">
+                    <el-select v-model="form.pid" placeholder="请选择">
+                        <el-option
+                        v-for="item in pages"
+                        :label="item.label"
+                        :value="item.value">
+                        </el-option>
+                    </el-select>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">特色图片</div>
+                <div class="panel-body">
+                    <el-upload
+                    :action="uploadFile"
+                    list-type="picture-card"
+                    :on-remove="handleRemove"
+                    :on-success="handSuccess"
+                    :show-file-list="false"
+                    >
+                    <img v-if="form.full_cover_path" :src="form.full_cover_path" class="cover-path">
+                    <i v-else class="el-icon-plus"></i>
+                    </el-upload>
+                </div>
+            </div>
+        </el-col>
+        </el-row>
+    </el-form>
+    </div>
+</template>
+
+<template id='pageEdit'>
+    <div>
+    <el-form >
+        <el-row>
+        <el-col :span="17">
+                <el-input type="text" v-model="form.title" placeholder="在此输入标题" ></el-input>
+                <div id="content"></div>
+                <el-form-item label="描述">
+                    <el-input type="textarea" v-model="form.description"></el-input>
+                </el-form-item>
+        </el-col>
+        <el-col :span="1">&nbsp;</el-col>
+        <el-col :span="6">
+            <div class="panel panel-default">
+                <div class="panel-heading">发布</div>
+                <div class="panel-body">
+                    <el-radio-group v-model="form.status">
+                        <el-radio :label="1">公开</el-radio>
+                        <el-radio :label="2">私密</el-radio>
+                    </el-radio-group>
+                </div>
+                <div class="panel-footer">
+                    <span style=" height: 30px; display: block;"><el-button size="small" style="float: right;" type="primary" @click="submitForm()">提交</el-button></span>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">页面属性</div>
+                <div class="panel-body">
+                    <el-select v-model="form.pid" placeholder="请选择">
+                        <el-option
+                        v-for="item in pages"
+                        :label="item.label"
+                        :value="item.value">
+                        </el-option>
+                    </el-select>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">特色图片</div>
+                <div class="panel-body">
+                    <el-upload
+                    :action="uploadFile"
+                    list-type="picture-card"
+                    :on-remove="handleRemove"
+                    :on-success="handSuccess"
+                    :show-file-list="false"
+                    >
+                    <img v-if="form.full_cover_path" :src="form.full_cover_path" class="cover-path">
+                    <i v-else class="el-icon-plus"></i>
+                    </el-upload>
+                </div>
+            </div>
+        </el-col>
+        </el-row>
+    </el-form>
+    </div>
+</template>
+
   <script src="../../../../js/vendor/jquery/1.11.3/jquery.min.js"></script>
   <script src="../../../../js/vendor/ueditor/ueditor.config.js"></script>
   <script src="../../../../js/vendor/ueditor/ueditor.all.js"></script>
@@ -498,6 +751,7 @@
 					data:{
 						page:page,
 						name:_self.formInline.name,
+						type:'post',
 						selectPostCates:_self.formInline.selectPostCates
 					},
 					dataType:'json',
@@ -583,6 +837,7 @@
                         content:_self.editor.getContent(),
                         checkedPostCates:_self.checkedPostCates,
                         cover_path:_self.form.cover_path,
+                        type:'post',
                     },
                     dataType:'json',
                     success:function(data,textStatus,jqXHR){
@@ -613,6 +868,9 @@
                 url:'../../../../'+config.url.postCreate,
                 type:'GET', // GET
                 async:false, // 是否异步
+                data:{
+                    type:'post',
+                },
                 dataType:'json',
                 success:function(data,textStatus,jqXHR){
                     if (data.status == 'success') {
@@ -665,6 +923,7 @@
                         content:_self.editor.getContent(),
                         checkedPostCates:_self.checkedPostCates,
                         cover_path:_self.form.cover_path,
+                        type:'post',
                     },
                     dataType:'json',
                     success:function(data,textStatus,jqXHR){
@@ -696,7 +955,8 @@
                 url:'../../../../'+config.url.postEdit,
                 type:'GET', // GET
                 data:{
-                    id:postId
+                    id:postId,
+                    type:'post',
                 },
                 dataType:'json',
                 success:function(data,textStatus,jqXHR){
@@ -719,6 +979,311 @@
             this.editor.destroy();
         }
 	});
+
+
+	// 定义组件
+	var pageIndex = Vue.extend({
+		template: '#pageIndex',
+		data: function() {
+			return {
+				tableData: [],
+				formInline: {
+                    name: '',
+                    status: '',
+                    selectPostCates: ''
+				},
+				total: 0,
+				multipleSelection: [],
+                postCates:[]
+			}
+		},
+		methods: {
+			onSubmit() {
+				// ajax请求后台数据
+				var _self = this;
+				$.ajax({
+					url:config.url.userSetAllStatus,
+					type:'POST',
+					data:{
+						status:_self.formInline.status,
+						selection:_self.multipleSelection
+					},
+					dataType:'json',
+					success:function(data,textStatus,jqXHR){
+						if (data.status == 'success') {
+							_self.showData(_self.currentPage);
+							_self.$message({
+								message: data.msg,
+								type: 'success'
+							});
+						} else {
+							_self.$message.error(data.msg);
+						}
+					},
+					error:function(xhr,textStatus){
+						console.log('错误')
+					}
+				});
+			},
+			onSearch() {
+				this.showData();
+			},
+			deleteRow(index, rows) {
+				this.setStatus(rows[index]['id'],-1);
+				rows.splice(index, 1);
+			},
+			forbidRow(index, rows) {
+				if(rows[index]['status'] == 1) {
+					status = -2
+				} else if(rows[index]['status'] == -2) {
+					status = 1
+				}
+				this.setStatus(rows[index]['id'],status);
+			},
+			handleSizeChange(val) {
+				alert(`每页 ${val} 条`);
+			},
+			handleCurrentChange(val) {
+				this.currentPage = val;
+				this.showData(val);
+			},handleSelectionChange(val) {
+				this.multipleSelection = val;
+			},showData(page = 1) {
+				// ajax请求后台数据
+				var _self = this;
+				$.ajax({
+					url:'../../../../'+config.url.postIndex,
+					type:'GET', // GET
+					async:false, // 是否异步
+					data:{
+						page:page,
+						name:_self.formInline.name,
+						type:'page',
+						selectPostCates:_self.formInline.selectPostCates
+					},
+					dataType:'json',
+					success:function(data,textStatus,jqXHR){
+						if (data.status == 'success') {
+							_self.tableData = data.data.lists;
+							_self.total = data.data.total;
+                            _self.postCates = data.data.postCates;
+						} else {
+							_self.$message.error(data.msg);
+						}
+					},
+					error:function(xhr,textStatus){
+						console.log('错误')
+					}
+				});
+			},setStatus(id,status) {
+				// ajax请求后台数据
+				var _self = this;
+				$.ajax({
+					url:'../../../../'+config.url.postSetStatus,
+					type:'GET', // GET
+					async:false, // 是否异步
+					data:{
+						id:id,
+						status:status
+					},
+					dataType:'json',
+					success:function(data,textStatus,jqXHR){
+						if (data.status == 'success') {
+							_self.showData(_self.currentPage);
+							_self.$message({
+								message: data.msg,
+								type: 'success'
+							});
+						} else {
+							_self.$message.error(data.msg);
+						}
+					},
+					error:function(xhr,textStatus){
+						console.log('错误')
+					}
+				});
+			},editDialog(index, rows) {
+				var id = rows[index]['id'];
+                router.replace({ name: 'pageEdit', params: { postId: id }})
+			}
+		},
+		mounted: function () {
+			this.showData();
+        }
+	});
+
+	// 定义组件
+	var pageCreate = Vue.extend({
+		template: '#pageCreate',
+		data: function() {
+			return {
+                form:{
+                    title:'',
+                    pid:'',
+                    description:'',
+                    status: 1,
+                    cover_path: '',
+                    full_cover_path:''
+                },
+                pages: [],
+                uploadFile:'../../../../'+config.url.fileUpload
+			}
+		},
+		methods: {
+            submitForm(formName) {
+                // ajax请求后台数据
+                var _self = this;
+                $.ajax({
+                    url:'../../../../'+config.url.postStore,
+                    type:'POST', // GET
+                    async:false, // 是否异步
+                    data:{
+                        title:_self.form.title,
+                        description:_self.form.description,
+                        status:_self.form.status,
+                        content:_self.editor.getContent(),
+                        pid:_self.form.pid,
+                        cover_path:_self.form.cover_path,
+                        type:'page',
+                    },
+                    dataType:'json',
+                    success:function(data,textStatus,jqXHR){
+                        if (data.status == 'success') {
+                            router.replace('pageIndex')
+                        } else {
+                            _self.$message.error(data.msg);
+                        }
+                    },
+                    error:function(xhr,textStatus){
+                        console.log('错误')
+                    }
+                });
+
+            },
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            handSuccess(file) {
+                this.form.cover_path = file.data.path;
+                this.form.full_cover_path = file.data.full_path;
+            }
+		},
+		mounted: function () {
+            this.editor = UE.getEditor('content');
+            var _self = this;
+            $.ajax({
+                url:'../../../../'+config.url.postCreate,
+                type:'GET', // GET
+                async:false, // 是否异步
+                data:{
+                    type:'page',
+                },
+                dataType:'json',
+                success:function(data,textStatus,jqXHR){
+                    if (data.status == 'success') {
+                        _self.pages = data.data;
+                    }
+                },
+                error:function(xhr,textStatus){
+                    console.log('错误')
+                }
+            });
+        },
+        destroyed() {
+            this.editor.destroy();
+        }
+	});
+
+	// 定义组件
+	var pageEdit = Vue.extend({
+		template: '#pageEdit',
+		data: function() {
+			return {
+                form:{
+                    id:'',
+                    title:'',
+                    pid:'',
+                    description:'',
+                    status: 1,
+                    cover_path: '',
+                    full_cover_path:''
+                },
+                pages: [],
+                uploadFile:'../../../../'+config.url.fileUpload
+			}
+		},
+		methods: {
+            submitForm(formName) {
+                // ajax请求后台数据
+                var _self = this;
+                $.ajax({
+                    url:'../../../../'+config.url.postUpdate,
+                    type:'POST', // GET
+                    async:false, // 是否异步
+                    data:{
+                        id:_self.form.id,
+                        title:_self.form.title,
+                        description:_self.form.description,
+                        status:_self.form.status,
+                        content:_self.editor.getContent(),
+                        pid:_self.form.pid,
+                        cover_path:_self.form.cover_path,
+                        type:'page',
+                    },
+                    dataType:'json',
+                    success:function(data,textStatus,jqXHR){
+                        if (data.status == 'success') {
+                            router.replace('pageIndex')
+                        } else {
+                            _self.$message.error(data.msg);
+                        }
+                    },
+                    error:function(xhr,textStatus){
+                        console.log('错误')
+                    }
+                });
+
+            },
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            handSuccess(res,file) {
+                this.form.cover_path = res.data.path;
+                this.form.full_cover_path = res.data.full_path;
+            }
+		},
+		mounted: function () {
+            var postId = this.$route.params.postId;
+            this.editor = UE.getEditor('content');
+            var _self = this;
+            $.ajax({
+                url:'../../../../'+config.url.postEdit,
+                type:'GET', // GET
+                data:{
+                    id:postId,
+                    type:'page',
+                },
+                dataType:'json',
+                success:function(data,textStatus,jqXHR){
+                    if (data.status == 'success') {
+                        _self.form = data.data.data;
+                        _self.pages = data.data.pages;
+                        _self.editor.setContent(data.data.data.content);
+                    } else {
+                        _self.$message.error(data.msg);
+                    }
+                },
+                error:function(xhr,textStatus){
+                    console.log('错误')
+                }
+            });
+
+        },
+        destroyed() {
+            this.editor.destroy();
+        }
+	});
+
 
     var  postCateCreate = "<div class='postCateCreate-wrapper' id='postCateCreate' style='padding: 20px; padding-right: 40px; font-size: 18px;'>\
     <el-form label-width='100px' class='demo-ruleForm'>\
@@ -1056,6 +1621,9 @@
             { path: '/postIndex', name: 'postIndex', component: postIndex },
             { path: '/postCreate', name: 'postCreate', component: postCreate },
             { path: '/postEdit', name: 'postEdit', component: postEdit },
+            { path: '/pageIndex', name: 'pageIndex', component: pageIndex },
+            { path: '/pageCreate', name: 'pageCreate', component: pageCreate },
+            { path: '/pageEdit', name: 'pageEdit', component: pageEdit },
             { path: '/postCateIndex', name: 'postCateIndex', component: postCateIndex }
         ]
     });
