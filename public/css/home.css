@@ -1,0 +1,10 @@
+.post-img{ width: 100%;}
+.post-title{padding-top: 10px;}
+.post-box{
+    background:#fff;
+	padding:10px;
+	margin-bottom:20px;
+	border:1px solid #e8e8e8;
+	-webkit-box-shadow:0 0 20px rgba(50,50,50,0.1);
+	box-shadow:0 0 20px rgba(50,50,50,0.1);
+}

@@ -10,4 +10,9 @@ class IndexController extends Controller
     {
         return view('home/index');
     }
+
+    public function detail()
+    {
+        return view('home/detail');
+    }
 }
