@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'Home\IndexController@index');
+Route::get('/home/index/lists', 'Home\IndexController@lists');
 Route::get('/home/index/detail', 'Home\IndexController@detail');
 Auth::routes();
 
