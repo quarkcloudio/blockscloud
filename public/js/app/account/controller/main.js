@@ -30,7 +30,7 @@ function account(appObject) {
 			}
 		},
 		methods: {
-			submitForm() {
+			submitForm : function () {
 				var vueObject = this;
 				$.ajax({
 					url:config.url.userChangePassword,

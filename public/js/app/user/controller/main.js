@@ -32,7 +32,7 @@ function user(appObject) {
 			}
 		},
 		methods: {
-			onSubmit() {
+			onSubmit : function () {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
@@ -59,10 +59,10 @@ function user(appObject) {
 					}
 				});
 			},
-			onSearch() {
-				this.showData();
+			onSearch : function () {
+				this.showData(1);
 			},
-			addDialog() {
+			addDialog : function () {
 				// ajax请求后台数据
 				var _self = this;
 				// 打开对话框
@@ -91,7 +91,7 @@ function user(appObject) {
 						}
 					},
 					methods: {
-						submitForm(formName) {
+						submitForm : function (formName) {
 							// ajax请求后台数据
 							var _subSelf = this;
 							$.ajax({
@@ -106,7 +106,7 @@ function user(appObject) {
 								dataType:'json',
 								success:function(data,textStatus,jqXHR){
 									if (data.status == 'success') {
-										_self.showData();
+										_self.showData(1);
 										_self.$message({
 											message: data.msg,
 											type: 'success'
@@ -126,7 +126,7 @@ function user(appObject) {
 				});
 
 			},
-			roleuserDialog(index, rows) {
+			roleuserDialog : function (index, rows) {
 				var id = rows[index]['id'];
 				var name = rows[index]['name'];
 				var _self = this;
@@ -158,7 +158,7 @@ function user(appObject) {
 						isIndeterminate: false
 					},
 					methods: {
-						submitForm(formName) {
+						submitForm : function (formName) {
 							// ajax请求后台数据
 							var _subSelf = this;
 							$.ajax({
@@ -172,7 +172,7 @@ function user(appObject) {
 								dataType:'json',
 								success:function(data,textStatus,jqXHR){
 									if (data.status == 'success') {
-										_self.showData();
+										_self.showData(1);
 										_self.$message({
 											message: data.msg,
 											type: 'success'
@@ -188,12 +188,12 @@ function user(appObject) {
 							});
 
 						},
-						handleCheckAllChange(event) {
+						handleCheckAllChange : function (event) {
 							this.checkedRoles = event.target.checked ? this.roles : [];
 							this.isIndeterminate = false;
 						},
-						handleCheckedChange(value) {
-							let checkedCount = value.length;
+						handleCheckedChange : function (value) {
+							var checkedCount = value.length;
 							this.checkAll = checkedCount === this.roles.length;
 							this.isIndeterminate = checkedCount > 0 && checkedCount < this.roles.length;
 						}
@@ -224,7 +224,7 @@ function user(appObject) {
 					}
 				});
 			},
-			editDialog(index, rows) {
+			editDialog : function (index, rows) {
 				var id = rows[index]['id'];
 				var _self = this;
 				// 打开对话框
@@ -253,7 +253,7 @@ function user(appObject) {
 						}
 					},
 					methods: {
-						submitForm(formName) {
+						submitForm : function (formName) {
 							// ajax请求后台数据
 							var _subSelf = this;
 							$.ajax({
@@ -269,7 +269,7 @@ function user(appObject) {
 								dataType:'json',
 								success:function(data,textStatus,jqXHR){
 									if (data.status == 'success') {
-										_self.showData();
+										_self.showData(1);
 										_self.$message({
 											message: data.msg,
 											type: 'success'
@@ -310,11 +310,11 @@ function user(appObject) {
 					}
 				});
 			},
-			deleteRow(index, rows) {
+			deleteRow : function (index, rows) {
 				this.setStatus(rows[index]['id'],-1);
 				rows.splice(index, 1);
 			},
-			forbidRow(index, rows) {
+			forbidRow : function (index, rows) {
 				if(rows[index]['status'] == 1) {
 					status = -2
 				} else if(rows[index]['status'] == -2) {
@@ -322,15 +322,15 @@ function user(appObject) {
 				}
 				this.setStatus(rows[index]['id'],status);
 			},
-			handleSizeChange(val) {
-				alert(`每页 ${val} 条`);
+			handleSizeChange : function (val) {
+				// alert(`每页 ${val} 条`);
 			},
-			handleCurrentChange(val) {
+			handleCurrentChange : function (val) {
 				this.currentPage = val;
 				this.showData(val);
-			},handleSelectionChange(val) {
+			},handleSelectionChange : function (val) {
 				this.multipleSelection = val;
-			},showData(page = 1) {
+			},showData : function (page) {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
@@ -354,7 +354,7 @@ function user(appObject) {
 						console.log('错误')
 					}
 				});
-			},setStatus(id,status) {
+			},setStatus : function (id,status) {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
@@ -384,7 +384,7 @@ function user(appObject) {
 			}
 		},
 		mounted: function () {
-			this.showData();
+			this.showData(1);
         }
 	});
 
@@ -403,7 +403,7 @@ function user(appObject) {
 			}
 		},
 		methods: {
-			onSubmit() {
+			onSubmit : function () {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
@@ -430,10 +430,10 @@ function user(appObject) {
 					}
 				});
 			},
-			onSearch() {
-				this.showData();
+			onSearch : function () {
+				this.showData(1);
 			},
-			addDialog() {
+			addDialog : function () {
 				// ajax请求后台数据
 				var _self = this;
 				// 打开对话框
@@ -462,7 +462,7 @@ function user(appObject) {
 						}
 					},
 					methods: {
-						submitForm(formName) {
+						submitForm : function (formName) {
 							// ajax请求后台数据
 							var _subSelf = this;
 							$.ajax({
@@ -477,7 +477,7 @@ function user(appObject) {
 								dataType:'json',
 								success:function(data,textStatus,jqXHR){
 									if (data.status == 'success') {
-										_self.showData();
+										_self.showData(1);
 										_self.$message({
 											message: data.msg,
 											type: 'success'
@@ -497,7 +497,7 @@ function user(appObject) {
 				});
 
 			},
-			permissionroleDialog(index, rows) {
+			permissionroleDialog : function (index, rows) {
 				var id = rows[index]['id'];
 				var display_name = rows[index]['display_name'];
 				var _self = this;
@@ -529,7 +529,7 @@ function user(appObject) {
 						isIndeterminate: false
 					},
 					methods: {
-						submitForm(formName) {
+						submitForm : function (formName) {
 							// ajax请求后台数据
 							var _subSelf = this;
 							$.ajax({
@@ -543,7 +543,7 @@ function user(appObject) {
 								dataType:'json',
 								success:function(data,textStatus,jqXHR){
 									if (data.status == 'success') {
-										_self.showData();
+										_self.showData(1);
 										_self.$message({
 											message: data.msg,
 											type: 'success'
@@ -559,12 +559,12 @@ function user(appObject) {
 							});
 
 						},
-						handleCheckAllChange(event) {
+						handleCheckAllChange : function (event) {
 							this.checkedPermissions = event.target.checked ? this.permissions : [];
 							this.isIndeterminate = false;
 						},
-						handleCheckedChange(value) {
-							let checkedCount = value.length;
+						handleCheckedChange : function (value) {
+							var checkedCount = value.length;
 							this.checkAll = checkedCount === this.permissions.length;
 							this.isIndeterminate = checkedCount > 0 && checkedCount < this.permissions.length;
 						}
@@ -595,7 +595,7 @@ function user(appObject) {
 					}
 				});
 			},
-			editDialog(index, rows) {
+			editDialog : function (index, rows) {
 				var id = rows[index]['id'];
 				var _self = this;
 				// 打开对话框
@@ -624,7 +624,7 @@ function user(appObject) {
 						}
 					},
 					methods: {
-						submitForm(formName) {
+						submitForm : function (formName) {
 							// ajax请求后台数据
 							var _subSelf = this;
 							$.ajax({
@@ -640,7 +640,7 @@ function user(appObject) {
 								dataType:'json',
 								success:function(data,textStatus,jqXHR){
 									if (data.status == 'success') {
-										_self.showData();
+										_self.showData(1);
 										_self.$message({
 											message: data.msg,
 											type: 'success'
@@ -681,11 +681,11 @@ function user(appObject) {
 					}
 				});
 			},
-			deleteRow(index, rows) {
+			deleteRow : function (index, rows) {
 				this.setStatus(rows[index]['id'],-1);
 				rows.splice(index, 1);
 			},
-			forbidRow(index, rows) {
+			forbidRow : function (index, rows) {
 				if(rows[index]['status'] == 1) {
 					status = -2
 				} else if(rows[index]['status'] == -2) {
@@ -693,15 +693,15 @@ function user(appObject) {
 				}
 				this.setStatus(rows[index]['id'],status);
 			},
-			handleSizeChange(val) {
-				alert(`每页 ${val} 条`);
+			handleSizeChange : function (val) {
+				// alert(`每页 ${val} 条`);
 			},
-			handleCurrentChange(val) {
+			handleCurrentChange : function (val) {
 				this.currentPage = val;
 				this.showData(val);
-			},handleSelectionChange(val) {
+			},handleSelectionChange : function (val) {
 				this.multipleSelection = val;
-			},showData(page = 1) {
+			},showData : function (page) {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
@@ -725,7 +725,7 @@ function user(appObject) {
 						console.log('错误')
 					}
 				});
-			},setStatus(id,status) {
+			},setStatus : function (id,status) {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
@@ -755,7 +755,7 @@ function user(appObject) {
 			}
 		},
 		mounted: function () {
-			this.showData();
+			this.showData(1);
         }
 	});
 
@@ -774,7 +774,7 @@ function user(appObject) {
 			}
 		},
 		methods: {
-			onSubmit() {
+			onSubmit : function () {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
@@ -801,10 +801,10 @@ function user(appObject) {
 					}
 				});
 			},
-			onSearch() {
-				this.showData();
+			onSearch : function () {
+				this.showData(1);
 			},
-			addDialog() {
+			addDialog : function () {
 				// ajax请求后台数据
 				var _self = this;
 				// 打开对话框
@@ -833,7 +833,7 @@ function user(appObject) {
 						}
 					},
 					methods: {
-						submitForm(formName) {
+						submitForm : function (formName) {
 							// ajax请求后台数据
 							var _subSelf = this;
 							$.ajax({
@@ -848,7 +848,7 @@ function user(appObject) {
 								dataType:'json',
 								success:function(data,textStatus,jqXHR){
 									if (data.status == 'success') {
-										_self.showData();
+										_self.showData(1);
 										_self.$message({
 											message: data.msg,
 											type: 'success'
@@ -868,7 +868,7 @@ function user(appObject) {
 				});
 
 			},
-			editDialog(index, rows) {
+			editDialog : function (index, rows) {
 				var id = rows[index]['id'];
 				var _self = this;
 				// 打开对话框
@@ -897,7 +897,7 @@ function user(appObject) {
 						}
 					},
 					methods: {
-						submitForm(formName) {
+						submitForm : function (formName) {
 							// ajax请求后台数据
 							var _subSelf = this;
 							$.ajax({
@@ -913,7 +913,7 @@ function user(appObject) {
 								dataType:'json',
 								success:function(data,textStatus,jqXHR){
 									if (data.status == 'success') {
-										_self.showData();
+										_self.showData(1);
 										_self.$message({
 											message: data.msg,
 											type: 'success'
@@ -954,11 +954,11 @@ function user(appObject) {
 					}
 				});
 			},
-			deleteRow(index, rows) {
+			deleteRow : function (index, rows) {
 				this.setStatus(rows[index]['id'],-1);
 				rows.splice(index, 1);
 			},
-			forbidRow(index, rows) {
+			forbidRow : function (index, rows) {
 				if(rows[index]['status'] == 1) {
 					status = -2
 				} else if(rows[index]['status'] == -2) {
@@ -966,15 +966,15 @@ function user(appObject) {
 				}
 				this.setStatus(rows[index]['id'],status);
 			},
-			handleSizeChange(val) {
-				alert(`每页 ${val} 条`);
+			handleSizeChange : function (val) {
+				// alert(`每页 ${val} 条`);
 			},
-			handleCurrentChange(val) {
+			handleCurrentChange : function (val) {
 				this.currentPage = val;
 				this.showData(val);
-			},handleSelectionChange(val) {
+			},handleSelectionChange : function (val) {
 				this.multipleSelection = val;
-			},showData(page = 1) {
+			},showData : function (page) {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
@@ -998,7 +998,7 @@ function user(appObject) {
 						console.log('错误')
 					}
 				});
-			},setStatus(id,status) {
+			},setStatus : function (id,status) {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
@@ -1028,7 +1028,7 @@ function user(appObject) {
 			}
 		},
 		mounted: function () {
-			this.showData();
+			this.showData(1);
         }
 	});
 
@@ -1046,10 +1046,10 @@ function user(appObject) {
 		el: '#user',
 		router:router,
 		methods: {
-			handleOpen(key, keyPath) {
+			handleOpen : function (key, keyPath) {
 				console.log(key, keyPath);
 			},
-			handleClose(key, keyPath) {
+			handleClose : function (key, keyPath) {
 				console.log(key, keyPath);
 			}
 		}

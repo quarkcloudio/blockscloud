@@ -691,7 +691,7 @@
 			}
 		},
 		methods: {
-			onSubmit() {
+			onSubmit:function() {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
@@ -718,14 +718,14 @@
 					}
 				});
 			},
-			onSearch() {
-				this.showData();
+			onSearch:function() {
+				this.showData(1);
 			},
-			deleteRow(index, rows) {
+			deleteRow:function(index, rows) {
 				this.setStatus(rows[index]['id'],-1);
 				rows.splice(index, 1);
 			},
-			forbidRow(index, rows) {
+			forbidRow:function(index, rows) {
 				if(rows[index]['status'] == 1) {
 					status = -2
 				} else if(rows[index]['status'] == -2) {
@@ -733,15 +733,15 @@
 				}
 				this.setStatus(rows[index]['id'],status);
 			},
-			handleSizeChange(val) {
-				alert(`每页 ${val} 条`);
+			handleSizeChange:function(val) {
+				// alert(`每页 ${val} 条`);
 			},
-			handleCurrentChange(val) {
+			handleCurrentChange:function(val) {
 				this.currentPage = val;
 				this.showData(val);
-			},handleSelectionChange(val) {
+			},handleSelectionChange:function(val) {
 				this.multipleSelection = val;
-			},showData(page = 1) {
+			},showData:function(page) {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
@@ -768,7 +768,7 @@
 						console.log('错误')
 					}
 				});
-			},setStatus(id,status) {
+			},setStatus:function(id,status) {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
@@ -795,13 +795,13 @@
 						console.log('错误')
 					}
 				});
-			},editDialog(index, rows) {
+			},editDialog:function(index, rows) {
 				var id = rows[index]['id'];
                 router.replace({ name: 'postEdit', params: { postId: id }})
 			}
 		},
 		mounted: function () {
-			this.showData();
+			this.showData(1);
         }
 	});
 
@@ -823,7 +823,7 @@
 			}
 		},
 		methods: {
-            submitForm(formName) {
+            submitForm:function(formName) {
                 // ajax请求后台数据
                 var _self = this;
                 $.ajax({
@@ -853,10 +853,10 @@
                 });
 
             },
-            handleRemove(file, fileList) {
+            handleRemove:function(file, fileList) {
                 console.log(file, fileList);
             },
-            handSuccess(file) {
+            handSuccess:function(file) {
                 this.form.cover_path = file.data.path;
                 this.form.full_cover_path = file.data.full_path;
             }
@@ -884,7 +884,7 @@
                 }
             });
         },
-        destroyed() {
+        destroyed:function() {
             this.editor.destroy();
         }
 	});
@@ -908,7 +908,7 @@
 			}
 		},
 		methods: {
-            submitForm(formName) {
+            submitForm:function(formName) {
                 // ajax请求后台数据
                 var _self = this;
                 $.ajax({
@@ -939,10 +939,10 @@
                 });
 
             },
-            handleRemove(file, fileList) {
+            handleRemove:function(file, fileList) {
                 console.log(file, fileList);
             },
-            handSuccess(res,file) {
+            handSuccess:function(res,file) {
                 this.form.cover_path = res.data.path;
                 this.form.full_cover_path = res.data.full_path;
             }
@@ -975,7 +975,7 @@
             });
 
         },
-        destroyed() {
+        destroyed:function() {
             this.editor.destroy();
         }
 	});
@@ -998,7 +998,7 @@
 			}
 		},
 		methods: {
-			onSubmit() {
+			onSubmit:function() {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
@@ -1025,14 +1025,14 @@
 					}
 				});
 			},
-			onSearch() {
-				this.showData();
+			onSearch:function() {
+				this.showData(1);
 			},
-			deleteRow(index, rows) {
+			deleteRow:function(index, rows) {
 				this.setStatus(rows[index]['id'],-1);
 				rows.splice(index, 1);
 			},
-			forbidRow(index, rows) {
+			forbidRow:function(index, rows) {
 				if(rows[index]['status'] == 1) {
 					status = -2
 				} else if(rows[index]['status'] == -2) {
@@ -1040,15 +1040,15 @@
 				}
 				this.setStatus(rows[index]['id'],status);
 			},
-			handleSizeChange(val) {
-				alert(`每页 ${val} 条`);
+			handleSizeChange:function(val) {
+				// alert(`每页 ${val} 条`);
 			},
-			handleCurrentChange(val) {
+			handleCurrentChange:function(val) {
 				this.currentPage = val;
 				this.showData(val);
-			},handleSelectionChange(val) {
+			},handleSelectionChange:function(val) {
 				this.multipleSelection = val;
-			},showData(page = 1) {
+			},showData:function(page) {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
@@ -1075,7 +1075,7 @@
 						console.log('错误')
 					}
 				});
-			},setStatus(id,status) {
+			},setStatus:function(id,status) {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
@@ -1102,13 +1102,13 @@
 						console.log('错误')
 					}
 				});
-			},editDialog(index, rows) {
+			},editDialog:function(index, rows) {
 				var id = rows[index]['id'];
                 router.replace({ name: 'pageEdit', params: { postId: id }})
 			}
 		},
 		mounted: function () {
-			this.showData();
+			this.showData(1);
         }
 	});
 
@@ -1130,7 +1130,7 @@
 			}
 		},
 		methods: {
-            submitForm(formName) {
+            submitForm:function(formName) {
                 // ajax请求后台数据
                 var _self = this;
                 $.ajax({
@@ -1160,10 +1160,10 @@
                 });
 
             },
-            handleRemove(file, fileList) {
+            handleRemove:function(file, fileList) {
                 console.log(file, fileList);
             },
-            handSuccess(file) {
+            handSuccess:function(file) {
                 this.form.cover_path = file.data.path;
                 this.form.full_cover_path = file.data.full_path;
             }
@@ -1189,7 +1189,7 @@
                 }
             });
         },
-        destroyed() {
+        destroyed:function() {
             this.editor.destroy();
         }
 	});
@@ -1213,7 +1213,7 @@
 			}
 		},
 		methods: {
-            submitForm(formName) {
+            submitForm:function(formName) {
                 // ajax请求后台数据
                 var _self = this;
                 $.ajax({
@@ -1244,10 +1244,10 @@
                 });
 
             },
-            handleRemove(file, fileList) {
+            handleRemove:function(file, fileList) {
                 console.log(file, fileList);
             },
-            handSuccess(res,file) {
+            handSuccess:function(res,file) {
                 this.form.cover_path = res.data.path;
                 this.form.full_cover_path = res.data.full_path;
             }
@@ -1279,7 +1279,7 @@
             });
 
         },
-        destroyed() {
+        destroyed:function() {
             this.editor.destroy();
         }
 	});
@@ -1331,7 +1331,7 @@
 			}
 		},
 		methods: {
-			onSubmit() {
+			onSubmit:function() {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
@@ -1358,10 +1358,10 @@
 					}
 				});
 			},
-			onSearch() {
-				this.showData();
+			onSearch:function() {
+				this.showData(1);
 			},
-			addDialog() {
+			addDialog:function() {
 				// ajax请求后台数据
 				var _self = this;
 				// 打开对话框
@@ -1394,7 +1394,7 @@
 						}
 					},
 					methods: {
-						submitForm(formName) {
+						submitForm:function(formName) {
 							// ajax请求后台数据
 							var _subSelf = this;
 							$.ajax({
@@ -1451,7 +1451,7 @@
 				});
 
 			},
-			editDialog(index, rows) {
+			editDialog:function(index, rows) {
 				var id = rows[index]['id'];
 				var _self = this;
 				// 打开对话框
@@ -1484,7 +1484,7 @@
 						}
 					},
 					methods: {
-						submitForm(formName) {
+						submitForm:function(formName) {
 							// ajax请求后台数据
 							var _subSelf = this;
 							$.ajax({
@@ -1545,20 +1545,20 @@
 					}
 				});
 			},
-			deleteRow(index, rows) {
+			deleteRow:function(index, rows) {
 				this.setStatus(rows[index]['id'],-1);
 				rows.splice(index, 1);
 			},
-			forbidRow(index, rows) {
+			forbidRow:function(index, rows) {
 				if(rows[index]['status'] == 1) {
 					status = -2
 				} else if(rows[index]['status'] == -2) {
 					status = 1
 				}
 				this.setStatus(rows[index]['id'],status);
-			},handleSelectionChange(val) {
+			},handleSelectionChange:function(val) {
 				this.multipleSelection = val;
-			},showData() {
+			},showData:function() {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
@@ -1580,7 +1580,7 @@
 						console.log('错误')
 					}
 				});
-			},setStatus(id,status) {
+			},setStatus:function(id,status) {
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
@@ -1632,10 +1632,10 @@
 		el: '#post',
 		router:router,
 		methods: {
-			handleOpen(key, keyPath) {
+			handleOpen:function(key, keyPath) {
 				console.log(key, keyPath);
 			},
-			handleClose(key, keyPath) {
+			handleClose:function(key, keyPath) {
 				console.log(key, keyPath);
 			}
 		}

@@ -33,7 +33,7 @@ function demo(appObject) {
 		}
 		},
 		methods: {
-		onSubmit() {
+		onSubmit : function () {
 			console.log('submit!');
 		}
 		}

@@ -21,23 +21,23 @@ define("widget/contextMenu", [ "context", "appsort" ], function(require) {
 			{text: lang.folder, action: function(e){
 				path = context.appObject.attr('current-path');
 				// 新建文件夹
-				newFolder('.desktop .app-list',path);
+				newFolder('.desktop .app-list',path,'appdblclick');
 				e.preventDefault();
 			}},
 			{text: lang.textFile, action: function(e){
 				path = context.appObject.attr('current-path');
 				// ajax请求后台数据
-				newFile('.desktop .app-list',path,lang.newTextFile,'txt');
+				newFile('.desktop .app-list',path,lang.newTextFile,'txt','appdblclick');
 				e.preventDefault();
 			}}
 		]},
 		{text: lang.paste, action: function(e){
 			// 粘贴
-			pastePath('.desktop .app-list',context.appObject);
+			pastePath('.desktop .app-list',context.appObject,'appdblclick');
 		}},
 		{text: lang.upload, action: function(e){
 			// 上传
-			upload('.desktop .app-list',context.appObject);
+			upload('.desktop .app-list',context.appObject,'appdblclick');
 		}},
 		// {divider: true},
 		// {text: lang.wallpaperSetting, action: function(e){
@@ -60,23 +60,23 @@ define("widget/contextMenu", [ "context", "appsort" ], function(require) {
 			{text: lang.folder, action: function(e){
 				path = context.appObject.attr('current-path');
 				// ajax请求后台数据
-				newFolder('.dialog-focus .finder-wrapper .app-list',path,'');
+				newFolder('.dialog-focus .finder-wrapper .app-list',path,'appdblclick');
 				e.preventDefault();
 			}},
 			{text: lang.textFile, action: function(e){
 				path = context.appObject.attr('current-path');
 				// ajax请求后台数据
-				newFile('.dialog-focus .finder-wrapper .app-list',path,lang.newTextFile,'txt','');
+				newFile('.dialog-focus .finder-wrapper .app-list',path,lang.newTextFile,'txt','appdblclick');
 				e.preventDefault();
 			}}
 		]},
 		{text: lang.paste, action: function(e){
 			// 粘贴
-			pastePath('.dialog-focus .finder-wrapper .app-list',context.appObject,'');
+			pastePath('.dialog-focus .finder-wrapper .app-list',context.appObject,'appdblclick');
 		}},
 		{text: lang.upload, action: function(e){
 			// 上传
-			upload('.dialog-focus .finder-wrapper .app-list',context.appObject,'');
+			upload('.dialog-focus .finder-wrapper .app-list',context.appObject,'appdblclick');
 		}},
 		// {divider: true},
 		// {text: lang.wallpaperSetting, action: function(e){
@@ -201,7 +201,7 @@ define("widget/contextMenu", [ "context", "appsort" ], function(require) {
  * 新建文件夹
  * @author tangtanglove
  */
-function newFolder(selecter,path,eventClass = 'appdblclick') {
+function newFolder(selecter,path,eventClass) {
 	context.ajax({
 		url:config.url.finderMakeDir,
 		type:'GET', // GET
@@ -308,7 +308,7 @@ function deletePath(appObject) {
  * 路径粘贴
  * @author tangtanglove
  */
-function pastePath(selecter,appObject,eventClass = 'appdblclick') {
+function pastePath(selecter,appObject,eventClass) {
 	path = appObject.attr('current-path');
 	getPastePath = $.cookie('pastePath');
 	if(getPastePath) {
@@ -399,7 +399,7 @@ function download(appObject) {
  * 新建文本文件
  * @author tangtanglove
  */
-function newFile(selecter,path,fileName,fileExt,eventClass = 'appdblclick') {
+function newFile(selecter,path,fileName,fileExt,eventClass) {
 	context.ajax({
 		url:config.url.finderMakeFile,
 		type:'GET', // GET
@@ -462,7 +462,7 @@ function emptyTrash(appObject) {
  * 上传
  * @author tangtanglove
  */
-function upload(selecter,appObject,eventClass = 'appdblclick') {
+function upload(selecter,appObject,eventClass) {
 	path = appObject.attr('current-path');
 	html = "<div id='uploadapp' style='padding:10px;'><el-upload\
   action='"+config.url.finderUploadFile+"'\
@@ -496,19 +496,19 @@ function upload(selecter,appObject,eventClass = 'appdblclick') {
 	// 渲染模板
 	new Vue({
 		el: '#uploadapp',
-		data() {
+		data : function() {
 		return {
 			fileList: []
 		};
 		},
 		methods: {
-			handleRemove(file, fileList) {
+			handleRemove : function (file, fileList) {
 				console.log(file, fileList);
 			},
-			handlePreview(file) {
+			handlePreview : function (file) {
 				console.log(file);
 			},
-			handleSuccess(file) {
+			handleSuccess : function (file) {
 				context.ajax({
 					url:config.url.finderCallbackMovePath,
 					type:'GET', // GET
@@ -519,7 +519,7 @@ function upload(selecter,appObject,eventClass = 'appdblclick') {
 						fileName:file.data.fileName
 					},
 					dataType:'json',
-					success:function(data,textStatus,jqXHR){
+					success : function(data,textStatus,jqXHR){
 						if (data.status == 'success') {
 							html = "<div class='app-box middle "+eventClass+" "+data.data.context+"' title='"+data.data.title+"' app-path='"+data.data.path+"' app-name='"+data.data.name+"' app-width="+data.data.width+" app-height="+data.data.height+">\
 							<span class='app-icon'><img class='img-rounded' src='"+data.data.icon+"' alt='"+data.data.title+"' app-path='"+data.data.path+"' app-width="+data.data.width+" app-height="+data.data.height+"></span>\
@@ -545,7 +545,7 @@ function upload(selecter,appObject,eventClass = 'appdblclick') {
 				});
 				console.log(file);
 			},
-			handleError(file) {
+			handleError : function (file) {
 				console.log(file);
 			}
 		}

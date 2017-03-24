@@ -19,12 +19,7 @@ function setting(appObject) {
 	// 渲染模板
 	var appContent = new Vue({
 		el: '#app-content',
-		template:render('index.html'),
-		data() {
-			return {
-			currentDate: '2017-01-01'
-			};
-		}
+		template:render('index.html')
 	});
 
 }

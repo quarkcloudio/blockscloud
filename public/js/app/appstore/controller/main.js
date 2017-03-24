@@ -26,10 +26,10 @@ function appstore(appObject) {
 			total: 0,
 		},
 		methods: {
-			handleSizeChange(val) {
-				alert(`每页 ${val} 条`);
+			handleSizeChange : function (val) {
+				// alert(`每页 ${val} 条`);
 			},
-			handleCurrentChange(val) {
+			handleCurrentChange : function (val) {
 				this.currentPage = val;
 				// ajax请求后台数据
 				var vueObject = this;
@@ -54,7 +54,7 @@ function appstore(appObject) {
 					}
 				});
 			},
-			appInfo(appID) {
+			appInfo : function (appID) {
 				getAppInfo(appID)
 			}
 		},
@@ -142,7 +142,7 @@ function getAppInfo(appID) {
 			}
 		},
 		methods: {
-			addToDesktop(val) {
+			addToDesktop : function (val) {
 				// ajax请求后台数据
 				var appInfoObject = this;
 				$.ajax({
@@ -179,7 +179,7 @@ function getAppInfo(appID) {
 					}
 				});
 			},
-			addToDock(val) {
+			addToDock : function (val) {
 				// ajax请求后台数据
 				var appInfoObject = this;
 				$.ajax({
