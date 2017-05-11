@@ -7,12 +7,16 @@ use Illuminate\Http\Request;
 use App\Models\PostCate;
 use App\Models\Post;
 use App\Models\PostRelationships;
+use App\Services\Helper;
+use DB;
 
-class IndexController extends Controller
+class IndexController extends BaseController
 {
     public function index()
     {
-        return view('home/index');
+        $usersInfo = DB::table('users')->where('id', 1)->first();
+        $website = Helper::getKeyValue($usersInfo->uuid,'website.config');
+        return view('home/index',compact('website'));
     }
 
     public function lists(Request $request)
@@ -22,7 +26,6 @@ class IndexController extends Controller
         if(!empty($postCateInfo)) {
             $lists = PostRelationships::where('post_cate_id',$postCateInfo['id'])->get()->toArray();
         }
-        dump($lists);
         return view('home/index');
     }
 

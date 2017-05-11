@@ -4,7 +4,9 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>积木云</title>
+        <title>{{ $website['web_site_title'] }}</title>
+        <meta name="description" content="{{ $website['web_site_description'] }}">
+        <meta name="keywords" content="{{ $website['web_site_keyword'] }}">
         <!-- Styles -->
         <link href="/css/bootstrap.css" rel="stylesheet">
         <link href="/css/home.css" rel="stylesheet">
@@ -20,12 +22,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">云市场</a>
+            <a class="navbar-brand" href="{{ route('home/index/index') }}">云市场</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">文章 <span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="{{ route('home/index/index') }}">文章 <span class="sr-only">(current)</span></a></li>
                 <li><a href="#">视频</a></li>
                 <li><a href="#">图片</a></li>
                 <li><a href="#">种子</a></li>

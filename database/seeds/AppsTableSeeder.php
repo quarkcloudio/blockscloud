@@ -195,6 +195,19 @@ class AppsTableSeeder extends Seeder
                 'type'=>1,
                 'status'=>1,
              ],
+             [
+                'title' => 'iCloud',
+                'name' => 'icloud',
+                'icon' =>'./images/apps/iCloud.png',
+                'width'=>1100,
+                'height'=>600,
+                'sort'=>15,
+                'context'=>'icloud',
+                'version'=>'1.0.0',
+                'author'=>'tangtanglove',
+                'type'=>1,
+                'status'=>1,
+             ],
         ]);
     }
 }
