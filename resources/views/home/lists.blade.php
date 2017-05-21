@@ -4,7 +4,9 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{ $info->title }} - {{ $website['web_site_title'] }}</title>
+        <title>{{ $postCatesInfo->name }} - {{ $website['web_site_title'] }}</title>
+        <meta name="description" content="{{ $website['web_site_description'] }}">
+        <meta name="keywords" content="{{ $website['web_site_keyword'] }}">
         <!-- Styles -->
         <link href="/css/bootstrap.css" rel="stylesheet">
         <link href="/css/home.css" rel="stylesheet">
@@ -43,22 +45,38 @@
         </div><!-- /.container-fluid -->
         </nav>
         <div style="height:80px;"></div>
+        <div class="container">
+            @foreach ($lists as $key=>$list)
+                @if ($key == 0)
+                <div class="row">
+                @endif
+                @if ($key == 4)
+                <div class="row">
+                @endif
+                    <div class="col-md-3">
+                        <div class="post-box">
+                            <div class="post-img">
+                                <a href="{{ route('home/article/detail',['id'=>$list->id,'category'=>$postCatesInfo->id]) }}"><img src="{{ route('home/base/getFile',['path'=>$list->cover_path]) }}" width="100%" height="150" /></a>
+                            </div>
+                            <div class="post-title">
+                                <a href="{{ route('home/article/detail',['id'=>$list->id,'category'=>$postCatesInfo->id]) }}">{{ $list->title }}</a>
+                            </div>
+                        </div>
+                    </div>
+                @if ($key == 3)
+                <div>
+                @endif
+                @if ($key == 5)
+                <div>
+                @endif
+            @endforeach
+            <nav aria-label="...">
+            <ul class="pagination">
+            {{ $lists->links() }}
+            </ul>
+            </nav>
+        </div>
 
-    <div class="container">
-      <div class="page-header">
-        <h1>{{ $info->title }}</h1>
-      </div>
-      <p class="lead">{!! $info->content !!}</p>
-        <!--高速版-->
-        <div id="SOHUCS" sid="请将此处替换为配置SourceID的语句"></div>
-        <script charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/changyan.js" ></script>
-        <script type="text/javascript">
-        window.changyan.api.config({
-        appid: 'cyt1wGQrK',
-        conf: 'prod_7dfd9c381191f8e5bd9a20ff1e49abc9'
-        });
-        </script>
-    </div> <!-- /container -->
     <!-- Scripts -->
     <script src="/js/vendor/jquery/1.11.3/jquery.min.js"></script>
     <script src="/js/vendor/bootstrap/bootstrap.min.js"></script>

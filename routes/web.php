@@ -13,8 +13,11 @@
 
 Route::get('/', 'Home\IndexController@index');
 Route::get('/home/index/index', ['as'=>'home/index/index','uses'=>'Home\IndexController@index']);
-Route::get('/home/index/lists', ['as'=>'home/index/lists','uses'=>'Home\IndexController@lists']);
-Route::get('/home/index/detail', ['as'=>'home/index/detail','uses'=>'Home\IndexController@detail']);
+Route::get('/home/article/index', ['as'=>'home/article/index','uses'=>'Home\ArticleController@index']);
+Route::get('/home/article/lists', ['as'=>'home/article/lists','uses'=>'Home\ArticleController@lists']);
+Route::get('/home/article/detail', ['as'=>'home/article/detail','uses'=>'Home\ArticleController@detail']);
+Route::get('/home/base/getFile', ['as'=>'home/base/getFile','uses'=>'Home\BaseController@getFile']);
+
 Auth::routes();
 
 Route::get('/home', 'Home\UserController@index');

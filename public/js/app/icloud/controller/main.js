@@ -10,7 +10,7 @@ function icloud(appObject) {
 		,maxButton: true
 		,taskbar:true
 		,moveOut: true
-		,content: './home/index/index'
+		,content: './home/article/lists?id=1'
 		,zIndex: layer.zIndex //重点1
 		,success: function(layero){
 			layer.setTop(layero); //重点2

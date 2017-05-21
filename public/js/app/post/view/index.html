@@ -751,7 +751,7 @@
 					data:{
 						page:page,
 						name:_self.formInline.name,
-						type:'post',
+						type:'article',
 						selectPostCates:_self.formInline.selectPostCates
 					},
 					dataType:'json',
@@ -837,7 +837,7 @@
                         content:_self.editor.getContent(),
                         checkedPostCates:_self.checkedPostCates,
                         cover_path:_self.form.cover_path,
-                        type:'post',
+                        type:'article',
                     },
                     dataType:'json',
                     success:function(data,textStatus,jqXHR){
@@ -869,7 +869,7 @@
                 type:'GET', // GET
                 async:false, // 是否异步
                 data:{
-                    type:'post',
+                    type:'article',
                 },
                 dataType:'json',
                 success:function(data,textStatus,jqXHR){
@@ -923,7 +923,7 @@
                         content:_self.editor.getContent(),
                         checkedPostCates:_self.checkedPostCates,
                         cover_path:_self.form.cover_path,
-                        type:'post',
+                        type:'article',
                     },
                     dataType:'json',
                     success:function(data,textStatus,jqXHR){
@@ -956,7 +956,7 @@
                 type:'GET', // GET
                 data:{
                     id:postId,
-                    type:'post',
+                    type:'article',
                 },
                 dataType:'json',
                 success:function(data,textStatus,jqXHR){

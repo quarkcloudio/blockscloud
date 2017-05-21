@@ -10,5 +10,18 @@ use Illuminate\Support\Facades\Auth;
 
 class BaseController extends Controller
 {
-
+    /**
+     * 获取文件
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function getFile(Request $request)
+    {
+        $path   = $request->input('path');
+        $filePath    = Helper::appToSystemChar(storage_path('app\\').$path);
+        $fileContent = file_get_contents($filePath);
+        $fileMime    = mime_content_type ($filePath);
+        return response($fileContent, '200')->header('Content-Type', $fileMime);
+    }
 }

@@ -70,7 +70,7 @@ class PostController extends CommonController
     {
         $type      = $request->input('type');
 
-        if($type == 'post') {
+        if($type == 'article') {
             $lists = PostCate::all()->toArray();
             $tree = Helper::listToTree($lists);
             $orderList = Helper::treeToOrderList($tree);
@@ -148,7 +148,7 @@ class PostController extends CommonController
         $id = $request->input('id');
         $type      = $request->input('type');
 
-        if($type == 'post') {
+        if($type == 'article') {
             $data = Post::where('id',$id)->first()->toArray();
             $lists = PostCate::all()->toArray();
             $tree = Helper::listToTree($lists);

@@ -12,25 +12,11 @@ use DB;
 
 class IndexController extends BaseController
 {
+	//系统首页
     public function index()
     {
         $usersInfo = DB::table('users')->where('id', 1)->first();
         $website = Helper::getKeyValue($usersInfo->uuid,'website.config');
         return view('home/index',compact('website'));
-    }
-
-    public function lists(Request $request)
-    {
-        $slug  = $request->input('slug');
-        $postCateInfo = PostCate::query()->where('slug',$slug)->first();
-        if(!empty($postCateInfo)) {
-            $lists = PostRelationships::where('post_cate_id',$postCateInfo['id'])->get()->toArray();
-        }
-        return view('home/index');
-    }
-
-    public function detail()
-    {
-        return view('home/detail');
     }
 }
