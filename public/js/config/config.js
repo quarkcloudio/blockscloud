@@ -74,5 +74,13 @@ var config = {
 			'postCateUpdate'			: './center/postCate/update',
 
 			'fileUpload'				: './center/file/upload',
+
+			'navbarIndex'				: './center/navbar/index',
+			'navbarSetStatus'			: './center/navbar/setStatus',
+			'navbarSetAllStatus'		: './center/navbar/setAllStatus',
+			'navbarCreate'				: './center/navbar/create',
+			'navbarStore'				: './center/navbar/store',
+			'navbarEdit'				: './center/navbar/edit',
+			'navbarUpdate'				: './center/navbar/update',
 		}
 	}

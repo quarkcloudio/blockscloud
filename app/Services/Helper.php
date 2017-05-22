@@ -312,13 +312,13 @@ class Helper
     * 把Tree转换为有序列表
     * @return array
     */
-    static function treeToOrderList($arr,$level=0) {
+    static function treeToOrderList($arr,$level=0,$filed='name') {
         static $tree=array();
         foreach ($arr as $key=>$val) {
-                $val['name'] = str_repeat('—', $level).$val['name'];
+                $val[$filed] = str_repeat('—', $level).$val[$filed];
                 $tree[]=$val;
                 if (isset($val['_child'])) {
-                    self::treeToOrderList($val['_child'],$level+1);
+                    self::treeToOrderList($val['_child'],$level+1,$filed);
                 }        
             }
         return $tree;

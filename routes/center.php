@@ -105,5 +105,13 @@ Route::group(['prefix' => 'center','middleware' => ['web','auth:center'],'namesp
 
     Route::post('file/upload', 'FileController@upload');
 
+    Route::get('navbar/index', 'NavbarController@index');
+    Route::get('navbar/setStatus', 'NavbarController@setStatus');
+    Route::post('navbar/setAllStatus', 'NavbarController@setAllStatus');
+    Route::get('navbar/create', 'NavbarController@create');
+    Route::post('navbar/store', 'NavbarController@store');
+    Route::get('navbar/edit', 'NavbarController@edit');
+    Route::post('navbar/update', 'NavbarController@update');
+
 });
 Route::get('center/base/openFileWithBrowser', 'Center\BaseController@openFileWithBrowser');
