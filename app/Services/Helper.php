@@ -376,4 +376,13 @@ class Helper
         $result = $query->where('uuid',$uuid)->delete();
         return $result;
     }
+
+    /**
+    * 判断当前url是否被选中
+    * @author tangtanglove <dai_hang_love@126.com>
+    */
+	static function active($url,$active = 'active')
+    {
+        return $active;
+    }
 }

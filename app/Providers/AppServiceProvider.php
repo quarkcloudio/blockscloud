@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\Navigations;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // 视图间共享数据
+
+        $navigations = Navigations::query()->orderBy('sort', 'asc')->orderBy('id', 'asc')->where('pid',0)->get();
+
+        view()->share('navigations',$navigations);
     }
 
     /**

@@ -18,8 +18,8 @@ class ArticleController extends BaseController
 	 */
     public function index(Request $request)
     {
-        $usersInfo = DB::table('users')->where('id', 1)->first();
-        $website = Helper::getKeyValue($usersInfo->uuid,'website.config');
+        $user = DB::table('users')->where('id', 1)->first();
+        $website = Helper::getKeyValue($user->uuid,'website.config');
         return view('home/index',compact('website'));
     }
 
@@ -31,24 +31,24 @@ class ArticleController extends BaseController
     {
         $id      = $request->input('id');
         $slug    = $request->input('slug');
-        $usersInfo = DB::table('users')->where('id', 1)->first();
-        $website = Helper::getKeyValue($usersInfo->uuid,'website.config');
+        $user = DB::table('users')->where('id', 1)->first();
+        $website = Helper::getKeyValue($user->uuid,'website.config');
 
         if (!empty($id)) {
-            $postCatesInfo = DB::table('post_cates')->where('id', $id)->first();
+            $postCate = DB::table('post_cates')->where('id', $id)->first();
         } elseif(!empty($slug)) {
-            $postCatesInfo = DB::table('post_cates')->where('slug', $slug)->first();
+            $postCate = DB::table('post_cates')->where('slug', $slug)->first();
         }
 
-        $postCatesExtend = Helper::getKeyValue($postCatesInfo->uuid);
+        $postCateExtend = Helper::getKeyValue($postCate->uuid);
 
-        $lists = DB::table('posts')
+        $articles = DB::table('posts')
         ->leftJoin("post_relationships",'posts.id','=','post_relationships.object_id')
         ->where('posts.type', 'article')
-        ->where('post_relationships.post_cate_id', $postCatesInfo->id)
-        ->paginate($postCatesExtend['page_num']);
+        ->where('post_relationships.post_cate_id', $postCate->id)
+        ->paginate($postCateExtend['page_num']);
 
-        return view('home/'.$postCatesExtend['lists_tpl'],compact('website','lists','postCatesInfo'));
+        return view('home/'.$postCateExtend['lists_tpl'],compact('website','articles','postCate'));
     }
 
 	/**
@@ -61,18 +61,18 @@ class ArticleController extends BaseController
         $name    = $request->input('name');
         $category      = $request->input('category');
 
-        $usersInfo = DB::table('users')->where('id', 1)->first();
-        $website = Helper::getKeyValue($usersInfo->uuid,'website.config');
-        $postCatesInfo = DB::table('post_cates')->where('id', $category)->first();
-        $postCatesExtend = Helper::getKeyValue($postCatesInfo->uuid);
+        $user = DB::table('users')->where('id', 1)->first();
+        $website = Helper::getKeyValue($user->uuid,'website.config');
+        $postCate = DB::table('post_cates')->where('id', $category)->first();
+        $postCateExtend = Helper::getKeyValue($postCate->uuid);
         if (!empty($id)) {
-            $info = DB::table('posts')->where('id', $id)->first();
+            $article = DB::table('posts')->where('id', $id)->first();
         } elseif(!empty($name)) {
-            $info = DB::table('posts')->where('name', $name)->first();
+            $article = DB::table('posts')->where('name', $name)->first();
         } else {
             return Helper::jsonError('参数错误！');
         }
 
-        return view('home/'.$postCatesExtend['detail_tpl'],compact('website','info','postCatesInfo'));
+        return view('home/'.$postCateExtend['detail_tpl'],compact('website','article','postCate'));
     }
 }
