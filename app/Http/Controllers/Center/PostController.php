@@ -87,7 +87,7 @@ class PostController extends CommonController
         } else {
             $lists = Post::where('type','page')->get()->toArray();
             $tree = Helper::listToTree($lists);
-            $orderList = Helper::treeToOrderList($tree);
+            $orderList = Helper::treeToOrderList($tree,0,'title');
             $data = [];
             $data[0]['value'] = 0;
             $data[0]['label'] = '无节点';
@@ -118,6 +118,7 @@ class PostController extends CommonController
         $data['password'] = '';
         $data['status'] = $request->input('status');
         $data['pid'] = $request->input('pid',0);
+        $data['page_tpl'] = $request->input('page_tpl');
         $data['level'] = 0;
         $data['type'] = $request->input('type');
         $data['comment'] = 0;
@@ -174,7 +175,7 @@ class PostController extends CommonController
             $data = Post::where('id',$id)->first()->toArray();
             $lists = Post::where('type','page')->get()->toArray();
             $tree = Helper::listToTree($lists);
-            $orderList = Helper::treeToOrderList($tree);
+            $orderList = Helper::treeToOrderList($tree,0,'title');
             $pages = [];
             $pages[0]['value'] = 0;
             $pages[0]['label'] = '无节点';
@@ -210,6 +211,7 @@ class PostController extends CommonController
         $data['password'] = '';
         $data['status'] = $request->input('status');
         $data['pid'] = $request->input('pid',0);
+        $data['page_tpl'] = $request->input('page_tpl');
         $data['level'] = 0;
         $data['type'] = $request->input('type');
         $data['comment'] = 0;
@@ -243,6 +245,7 @@ class PostController extends CommonController
 
         if($status == -1) {
             $result = Post::where('id',$id)->delete();
+            PostRelationships::where('object_id',$id)->delete();
         } else {
             $result = Post::where('id',$id)->update(['status'=>$status]);
         }
@@ -266,6 +269,7 @@ class PostController extends CommonController
 
         if($status == -1) {
             $result = Post::whereIn('id',$ids)->delete();
+            PostRelationships::whereIn('object_id',$ids)->delete();
         } else {
             $result = Post::whereIn('id',$ids)->update(['status'=>$status]);
         }

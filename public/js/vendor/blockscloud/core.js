@@ -41,11 +41,14 @@ function showTime(){
 
 	if(day==0) {
 		var now_time='周日'+TA+hour+':'+minutes;
+		var currentDate = time.getMonth()+'月'+date+'日'+'周日';
 	} else {
 		var now_time=show_day[day-1]+TA+hour+':'+minutes; 
+		var currentDate = time.getMonth()+'月'+date+'日'+show_day[day-1];
 	}
 
-	document.getElementById('currentTime').innerHTML=now_time; 
+	document.getElementById('currentTime').innerHTML=now_time;
+	document.getElementById('currentDate').innerHTML=currentDate;
 	setTimeout("showTime();",1000); 
 }
 

@@ -73,6 +73,9 @@ class ArticleController extends BaseController
             return Helper::jsonError('参数错误！');
         }
 
+        // 浏览量自增
+        DB::table('posts')->where('id', $id)->increment('view');
+
         return view('home/'.$postCateExtend['detail_tpl'],compact('website','article','postCate'));
     }
 }

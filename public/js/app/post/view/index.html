@@ -584,6 +584,12 @@
                 </div>
             </div>
             <div class="panel panel-default">
+                <div class="panel-heading">页面模板</div>
+                <div class="panel-body">
+                    <el-input type="text" v-model="form.page_tpl" placeholder="输入模板名称" ></el-input>
+                </div>
+            </div>
+            <div class="panel panel-default">
                 <div class="panel-heading">特色图片</div>
                 <div class="panel-body">
                     <el-upload
@@ -642,6 +648,12 @@
                 </div>
             </div>
             <div class="panel panel-default">
+                <div class="panel-heading">页面模板</div>
+                <div class="panel-body">
+                    <el-input type="text" v-model="form.page_tpl" placeholder="输入模板名称" ></el-input>
+                </div>
+            </div>
+            <div class="panel panel-default">
                 <div class="panel-heading">特色图片</div>
                 <div class="panel-body">
                     <el-upload
@@ -695,7 +707,7 @@
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
-					url:config.url.userSetAllStatus,
+					url:'../../../../'+config.url.postSetAllStatus,
 					type:'POST',
 					data:{
 						status:_self.formInline.status,
@@ -1002,7 +1014,7 @@
 				// ajax请求后台数据
 				var _self = this;
 				$.ajax({
-					url:config.url.userSetAllStatus,
+					url:'../../../../'+config.url.postSetAllStatus,
 					type:'POST',
 					data:{
 						status:_self.formInline.status,
@@ -1121,6 +1133,7 @@
                     title:'',
                     pid:'',
                     description:'',
+                    page_tpl:'page',
                     status: 1,
                     cover_path: '',
                     full_cover_path:''
@@ -1140,6 +1153,7 @@
                     data:{
                         title:_self.form.title,
                         description:_self.form.description,
+                        page_tpl:_self.form.page_tpl,
                         status:_self.form.status,
                         content:_self.editor.getContent(),
                         pid:_self.form.pid,
@@ -1204,6 +1218,7 @@
                     title:'',
                     pid:'',
                     description:'',
+                    page_tpl:'',
                     status: 1,
                     cover_path: '',
                     full_cover_path:''
@@ -1224,6 +1239,7 @@
                         id:_self.form.id,
                         title:_self.form.title,
                         description:_self.form.description,
+                        page_tpl:_self.form.page_tpl,
                         status:_self.form.status,
                         content:_self.editor.getContent(),
                         pid:_self.form.pid,

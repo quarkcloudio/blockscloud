@@ -21,5 +21,6 @@ class Post extends Model
         'type',
         'comment',
         'view',
+        'page_tpl',
     ];
 }

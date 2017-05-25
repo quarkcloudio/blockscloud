@@ -17,13 +17,6 @@
                 @foreach ($navigations as $key=>$navigation)
                 <li class="{{ $helper::active($navigation->url)}}"><a href="{{ $navigation->url }}">{{ $navigation->title }}</a></li>
                 @endforeach
-                <li @if ($postCate->id == 1)class="active"@endif><a href="{{ route('home/article/lists',['id'=>1]) }}">文章 <span class="sr-only">(current)</span></a></li>
-                <li @if ($postCate->id == 2)class="active"@endif><a href="{{ route('home/article/lists',['id'=>2]) }}">视频</a></li>
-                <li @if ($postCate->id == 3)class="active"@endif><a href="{{ route('home/article/lists',['id'=>3]) }}">图片</a></li>
-                <li @if ($postCate->id == 4)class="active"@endif><a href="{{ route('home/article/lists',['id'=>4]) }}">种子</a></li>
-                <li @if ($postCate->id == 5)class="active"@endif><a href="{{ route('home/article/lists',['id'=>5]) }}">磁链</a></li>
-                <li @if ($postCate->id == 6)class="active"@endif><a href="{{ route('home/article/lists',['id'=>6]) }}">云盘</a></li>
-                <li @if ($postCate->id == 7)class="active"@endif><a href="{{ route('home/article/lists',['id'=>7]) }}">文档</a></li>
             </ul>
             <form class="navbar-form navbar-right">
                 <div class="form-group">

@@ -15,7 +15,7 @@
 
     <div class="container">
       <div class="page-header">
-        <h1>{{ $article->title }}</h1>
+        <h1>{{ $article->title }} <span style="font-size:12px;">阅读 ({{ $article->view }})</span></h1>
       </div>
       <p class="lead">{!! $article->content !!}</p>
         <!--高速版-->
