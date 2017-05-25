@@ -46,6 +46,7 @@ class ArticleController extends BaseController
         ->leftJoin("post_relationships",'posts.id','=','post_relationships.object_id')
         ->where('posts.type', 'article')
         ->where('post_relationships.post_cate_id', $postCate->id)
+        ->orderBy('id', 'desc')
         ->paginate($postCateExtend['page_num']);
 
         return view('home/'.$postCateExtend['lists_tpl'],compact('website','articles','postCate'));
