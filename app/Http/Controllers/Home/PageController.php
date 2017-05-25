@@ -34,6 +34,6 @@ class PageController extends BaseController
         // 浏览量自增
         DB::table('posts')->where('id', $id)->increment('view');
 
-        return view('home/'.$page['page_tpl'],compact('website','page'));
+        return view('home/'.$page->page_tpl,compact('website','page'));
     }
 }
