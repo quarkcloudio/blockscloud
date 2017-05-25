@@ -24,6 +24,23 @@ define("vendor/blockscloud/desktop", ["appsort","nicescroll","cookie","element-u
 		// app鼠标移动上去的动态效果
 		appHover();
 
+		// 打开窗口
+		layer.open({
+			type: 2 //此处以iframe举例
+			,title: 'iCloud'
+			,area: ['1100px', '600px']
+			,shade: 0
+			,minButton: true
+			,maxButton: true
+			,taskbar:true
+			,moveOut: true
+			,content: './home/article/lists?id=1'
+			,zIndex: layer.zIndex //重点1
+			,success: function(layero){
+				layer.setTop(layero); //重点2
+			}
+		});
+
 });
 
 /**
