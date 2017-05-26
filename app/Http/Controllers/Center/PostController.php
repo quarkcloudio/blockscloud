@@ -215,7 +215,6 @@ class PostController extends CommonController
         $data['level'] = 0;
         $data['type'] = $request->input('type');
         $data['comment'] = 0;
-        $data['view'] = 0;
 
         $checkedPostCates = $request->input('checkedPostCates');
         $cover_path = $request->input('cover_path');
