@@ -5,6 +5,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ $page->title }} - {{ $website['web_site_title'] }}</title>
+
+        <link rel="shortcut icon" href="/favicon.ico"/>
         <!-- Styles -->
         <link href="/css/bootstrap.css" rel="stylesheet">
         <link href="/css/home.css" rel="stylesheet">
