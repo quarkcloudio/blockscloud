@@ -392,7 +392,7 @@ function pastePath(selecter,appObject,eventClass) {
  */
 function download(appObject) {
 	path = appObject.attr('app-path');
-	window.open(config.url.finderUploadFile+'?path='+path);
+	window.open(config.url.finderDownloadFile+'?path='+path);
 }
 
 /**
