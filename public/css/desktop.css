@@ -72,10 +72,10 @@ a:focus {
 	clear: both;
 }
 .trash-wrapper .main .content .active,.finder-wrapper .main .content .active,.desktop .active {
-	background-image: url(../images/app_active_bg.png);
+	background-image: url(../images/icons/app_active_bg.png);
 }
 .trash-wrapper .main .content .hover,.finder-wrapper .main .content .hover,.desktop .hover {
-	background-image: url(../images/app_hover_bg.png);
+	background-image: url(../images/icons/app_hover_bg.png);
 }
 .trash-wrapper .main .content .app-box,.finder-wrapper .main .content .app-box,.desktop .app-box {
 	text-align: center;
@@ -152,10 +152,10 @@ a:focus {
 	text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
 }
 .trash-wrapper .main .content .active,.finder-wrapper .main .content .active {
-	background-image: url(../images/finder_app_active_bg.png);
+	background-image: url(../images/icons/finder_app_active_bg.png);
 }
 .trash-wrapper .main .content .hover,.finder-wrapper .main .content .hover {
-	background-image: url(../images/finder_app_hover_bg.png);
+	background-image: url(../images/icons/finder_app_hover_bg.png);
 }
 .editor-wrapper,.trash-wrapper,.finder-wrapper {
 	width: 100%;
@@ -178,7 +178,7 @@ a:focus {
 }
 .trash-wrapper .topbar .next-prev-box,.finder-wrapper .topbar .next-prev-box {
 	float: left;
-	background: url(../images/next_prev.png) no-repeat;
+	background: url(../images/icons/next_prev.png) no-repeat;
 	width: 53px;
 	height: 24px;
 	margin-left: 5px;
@@ -187,7 +187,7 @@ a:focus {
 }
 .trash-wrapper .topbar .sortstyle-box,.finder-wrapper .topbar .sortstyle-box {
 	float: left;
-	background: url(../images/sortstyle.png) no-repeat;
+	background: url(../images/icons/sortstyle.png) no-repeat;
 	width: 58px;
 	height: 24px;
 	margin-left: 105px;
@@ -195,7 +195,7 @@ a:focus {
 }
 .trash-wrapper .topbar .config-button,.finder-wrapper .topbar .config-button {
 	float: left;
-	background: url(../images/config.png) no-repeat;
+	background: url(../images/icons/config.png) no-repeat;
 	width: 40px;
 	height: 24px;
 	margin-left: 10px;
@@ -203,7 +203,7 @@ a:focus {
 }
 .trash-wrapper .topbar .higher-button,.finder-wrapper .topbar .higher-button {
 	float: left;
-	background: url(../images/higher.png) no-repeat;
+	background: url(../images/icons/higher.png) no-repeat;
 	width: 40px;
 	height: 24px;
 	margin-left: 10px;
@@ -211,7 +211,7 @@ a:focus {
 }
 .trash-wrapper .topbar .collection-button,.finder-wrapper .topbar .collection-button {
 	float: left;
-	background: url(../images/collection.png) no-repeat;
+	background: url(../images/icons/collection.png) no-repeat;
 	width: 40px;
 	height: 24px;
 	margin-left: 10px;
@@ -219,7 +219,7 @@ a:focus {
 }
 .trash-wrapper .topbar .search-box,.finder-wrapper .topbar .search-box {
 	float: right;
-	background: url(../images/search.png) no-repeat;
+	background: url(../images/icons/search.png) no-repeat;
 	width: 234px;
 	height: 24px;
 	margin-right: 5px;
