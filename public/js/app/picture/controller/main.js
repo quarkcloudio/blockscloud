@@ -8,8 +8,8 @@ function picture(appObject) {
 				{
 				"alt": appObject.attr('title'),
 				"pid": 1, //图片id
-				"src": config.url.openFileWithBrowser+"?path="+path, //原图地址
-				"thumb": config.url.openFileWithBrowser+"?path="+path //缩略图地址
+				"src": config.url.baseOpenFileWithBrowser+"?path="+path, //原图地址
+				"thumb": config.url.baseOpenFileWithBrowser+"?path="+path //缩略图地址
 				}
 			]
 			}

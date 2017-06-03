@@ -7,6 +7,8 @@
         <title>{{ $website['web_site_title'] }}</title>
         <meta name="description" content="{{ $website['web_site_description'] }}">
         <meta name="keywords" content="{{ $website['web_site_keyword'] }}">
+
+        <link rel="shortcut icon" href="/favicon.ico"/>
         <!-- Styles -->
         <link href="/css/bootstrap.css" rel="stylesheet">
         <link href="/css/home.css" rel="stylesheet">

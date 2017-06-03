@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // 视图间共享数据
 
-        $navigations = Navigations::query()->orderBy('sort', 'asc')->orderBy('id', 'asc')->where('pid',0)->get();
+        $navigations = Navigations::query()->orderBy('sort', 'asc')->orderBy('id', 'asc')->where('pid',0)->where('status',1)->get();
 
         view()->share('navigations',$navigations);
     }

@@ -383,7 +383,12 @@ class Helper
     */
 	static function active($url,$active = 'active')
     {
-        return $active;
+        $fullUrl = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+        if(strpos($fullUrl, $url) !== false) {
+            return $active;
+        } else {
+            return '';
+        }
     }
 
     /**
