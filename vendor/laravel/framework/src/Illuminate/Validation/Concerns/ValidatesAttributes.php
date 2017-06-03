@@ -424,7 +424,7 @@ trait ValidatesAttributes
      */
     protected function validateDimensions($attribute, $value, $parameters)
     {
-        if (! $this->isValidFileInstance($value) || ! $sizeDetails = getimagesize($value->getRealPath())) {
+        if (! $this->isValidFileInstance($value) || ! $sizeDetails = @getimagesize($value->getRealPath())) {
             return false;
         }
 
@@ -478,7 +478,7 @@ trait ValidatesAttributes
             [1, 1], array_filter(sscanf($parameters['ratio'], '%f/%d'))
         );
 
-        return $numerator / $denominator !== $width / $height;
+        return abs($numerator / $denominator - $width / $height) > 0.000001;
     }
 
     /**
@@ -926,7 +926,9 @@ trait ValidatesAttributes
             return false;
         }
 
-        return $value->getPath() != '' && in_array($value->getMimeType(), $parameters);
+        return $value->getPath() != '' &&
+                (in_array($value->getMimeType(), $parameters) ||
+                 in_array(explode('/', $value->getMimeType())[0].'/*', $parameters));
     }
 
     /**

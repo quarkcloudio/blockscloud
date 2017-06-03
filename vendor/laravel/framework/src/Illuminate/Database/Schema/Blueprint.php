@@ -406,6 +406,17 @@ class Blueprint
     }
 
     /**
+     * Create a new auto-incrementing tiny integer (1-byte) column on the table.
+     *
+     * @param  string  $column
+     * @return \Illuminate\Support\Fluent
+     */
+    public function tinyIncrements($column)
+    {
+        return $this->unsignedTinyInteger($column, true);
+    }
+
+    /**
      * Create a new auto-incrementing small integer (2-byte) column on the table.
      *
      * @param  string  $column
@@ -824,11 +835,12 @@ class Blueprint
     /**
      * Add a "deleted at" timestamp for the table.
      *
+     * @param  string  $column
      * @return \Illuminate\Support\Fluent
      */
-    public function softDeletes()
+    public function softDeletes($column = 'deleted_at')
     {
-        return $this->timestamp('deleted_at')->nullable();
+        return $this->timestamp($column)->nullable();
     }
 
     /**

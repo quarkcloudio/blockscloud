@@ -3,7 +3,7 @@
 /*
  * This file is part of Psy Shell.
  *
- * (c) 2012-2015 Justin Hileman
+ * (c) 2012-2017 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -39,8 +39,9 @@ class PropertyEnumerator extends Enumerator
             return;
         }
 
-        $showAll    = $input->getOption('all');
-        $properties = $this->prepareProperties($this->getProperties($showAll, $reflector), $target);
+        $showAll = $input->getOption('all');
+        $noInherit = $input->getOption('no-inherit');
+        $properties = $this->prepareProperties($this->getProperties($showAll, $reflector, $noInherit), $target);
 
         if (empty($properties)) {
             return;
@@ -57,19 +58,26 @@ class PropertyEnumerator extends Enumerator
      *
      * @param bool       $showAll   Include private and protected properties
      * @param \Reflector $reflector
+     * @param bool       $noInherit Exclude inherited properties
      *
      * @return array
      */
-    protected function getProperties($showAll, \Reflector $reflector)
+    protected function getProperties($showAll, \Reflector $reflector, $noInherit = false)
     {
+        $className = $reflector->getName();
+
         $properties = array();
         foreach ($reflector->getProperties() as $property) {
+            if ($noInherit && $property->getDeclaringClass()->getName() !== $className) {
+                continue;
+            }
+
             if ($showAll || $property->isPublic()) {
                 $properties[$property->getName()] = $property;
             }
         }
 
-        // TODO: this should be natcasesort
+        // @todo this should be natcasesort
         ksort($properties);
 
         return $properties;
@@ -147,9 +155,21 @@ class PropertyEnumerator extends Enumerator
      */
     protected function presentValue(\ReflectionProperty $property, $target)
     {
+        // If $target is a class, trait or interface (try to) get the default
+        // value for the property.
         if (!is_object($target)) {
-            // TODO: figure out if there's a way to return defaults when target
-            // is a class/interface/trait rather than an object.
+            try {
+                $refl = new \ReflectionClass($target);
+                $props = $refl->getDefaultProperties();
+                if (array_key_exists($property->name, $props)) {
+                    $suffix = $property->isStatic() ? '' : ' <aside>(default)</aside>';
+
+                    return $this->presentRef($props[$property->name]) . $suffix;
+                }
+            } catch (\Exception $e) {
+                // Well, we gave it a shot.
+            }
+
             return '';
         }
 

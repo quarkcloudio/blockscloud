@@ -11,9 +11,13 @@
 
 namespace Symfony\Component\Process\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\ProcessUtils;
 
-class ProcessUtilsTest extends \PHPUnit_Framework_TestCase
+/**
+ * @group legacy
+ */
+class ProcessUtilsTest extends TestCase
 {
     /**
      * @dataProvider dataArguments

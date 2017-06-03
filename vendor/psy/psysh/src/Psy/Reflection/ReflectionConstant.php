@@ -3,7 +3,7 @@
 /*
  * This file is part of Psy Shell.
  *
- * (c) 2012-2015 Justin Hileman
+ * (c) 2012-2017 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -52,7 +52,19 @@ class ReflectionConstant implements \Reflector
      */
     public function getDeclaringClass()
     {
-        return $this->class;
+        $parent = $this->class;
+
+        // Since we don't have real reflection constants, we can't see where
+        // it's actually defined. Let's check for a constant that is also
+        // available on the parent class which has exactly the same value.
+        //
+        // While this isn't _technically_ correct, it's prolly close enough.
+        do {
+            $class = $parent;
+            $parent = $class->getParentClass();
+        } while ($parent && $parent->hasConstant($this->name) && $parent->getConstant($this->name) === $this->value);
+
+        return $class;
     }
 
     /**

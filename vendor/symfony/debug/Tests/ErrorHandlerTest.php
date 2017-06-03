@@ -11,10 +11,10 @@
 
 namespace Symfony\Component\Debug\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Psr\Log\LogLevel;
 use Symfony\Component\Debug\BufferingLogger;
 use Symfony\Component\Debug\ErrorHandler;
-use Symfony\Component\Debug\Exception\ContextErrorException;
 use Symfony\Component\Debug\Exception\SilencedErrorContext;
 
 /**
@@ -23,7 +23,7 @@ use Symfony\Component\Debug\Exception\SilencedErrorContext;
  * @author Robert Schönthal <seroscho@googlemail.com>
  * @author Nicolas Grekas <p@tchwork.com>
  */
-class ErrorHandlerTest extends \PHPUnit_Framework_TestCase
+class ErrorHandlerTest extends TestCase
 {
     public function testRegister()
     {
@@ -71,13 +71,12 @@ class ErrorHandlerTest extends \PHPUnit_Framework_TestCase
 
         try {
             self::triggerNotice($this);
-            $this->fail('ContextErrorException expected');
-        } catch (ContextErrorException $exception) {
+            $this->fail('ErrorException expected');
+        } catch (\ErrorException $exception) {
             // if an exception is thrown, the test passed
             $this->assertEquals(E_NOTICE, $exception->getSeverity());
             $this->assertEquals(__FILE__, $exception->getFile());
             $this->assertRegExp('/^Notice: Undefined variable: (foo|bar)/', $exception->getMessage());
-            $this->assertArrayHasKey('foobar', $exception->getContext());
 
             $trace = $exception->getTrace();
 

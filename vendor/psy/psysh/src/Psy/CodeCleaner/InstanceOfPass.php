@@ -3,7 +3,7 @@
 /*
  * This file is part of Psy Shell.
  *
- * (c) 2012-2015 Justin Hileman
+ * (c) 2012-2017 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,7 +13,7 @@ namespace Psy\CodeCleaner;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\ConstFetch;
-use PhpParser\Node\Expr\Instanceof_ as InstanceofStmt;
+use PhpParser\Node\Expr\Instanceof_;
 use PhpParser\Node\Scalar;
 use PhpParser\Node\Scalar\Encapsed;
 use Psy\Exception\FatalErrorException;
@@ -34,7 +34,7 @@ class InstanceOfPass extends CodeCleanerPass
      */
     public function enterNode(Node $node)
     {
-        if (!$node instanceof InstanceofStmt) {
+        if (!$node instanceof Instanceof_) {
             return;
         }
 

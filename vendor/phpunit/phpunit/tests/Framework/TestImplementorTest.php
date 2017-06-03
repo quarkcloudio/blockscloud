@@ -8,14 +8,8 @@
  * file that was distributed with this source code.
  */
 
-/**
- * @since      Class available since Release 2.0.0
- */
 class Framework_TestImplementorTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers PHPUnit_Framework_TestCase
-     */
     public function testSuccessfulRun()
     {
         $result = new PHPUnit_Framework_TestResult;

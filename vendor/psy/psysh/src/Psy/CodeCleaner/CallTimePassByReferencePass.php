@@ -3,7 +3,7 @@
 /*
  * This file is part of Psy Shell.
  *
- * (c) 2012-2015 Justin Hileman
+ * (c) 2012-2017 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,7 +12,7 @@
 namespace Psy\CodeCleaner;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\FuncCall as FunctionCall;
+use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use Psy\Exception\FatalErrorException;
@@ -39,7 +39,7 @@ class CallTimePassByReferencePass extends CodeCleanerPass
             return;
         }
 
-        if (!$node instanceof FunctionCall && !$node instanceof MethodCall && !$node instanceof StaticCall) {
+        if (!$node instanceof FuncCall && !$node instanceof MethodCall && !$node instanceof StaticCall) {
             return;
         }
 

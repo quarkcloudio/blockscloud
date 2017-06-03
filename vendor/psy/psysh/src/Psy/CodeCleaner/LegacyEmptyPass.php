@@ -3,7 +3,7 @@
 /*
  * This file is part of Psy Shell.
  *
- * (c) 2012-2015 Justin Hileman
+ * (c) 2012-2017 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,7 +12,7 @@
 namespace Psy\CodeCleaner;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\Empty_ as ExprEmpty;
+use PhpParser\Node\Expr\Empty_;
 use PhpParser\Node\Expr\Variable;
 use Psy\Exception\ParseErrorException;
 
@@ -35,7 +35,7 @@ class LegacyEmptyPass extends CodeCleanerPass
             return;
         }
 
-        if (!$node instanceof ExprEmpty) {
+        if (!$node instanceof Empty_) {
             return;
         }
 

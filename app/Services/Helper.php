@@ -385,4 +385,30 @@ class Helper
     {
         return $active;
     }
+
+    /**
+     * sms_post Sioo希奥发送手机短信接口
+     * @return string 验证码（用于测试）$uid  = '500',$auth = '680d1acc90b4f062'
+     */
+    static function siooSendSms($uid,$auth,$phone,$content) {
+        if(preg_match("/^1[34578]\d{9}$/", $phone)) {
+            //执行发短信
+            $msg  = $content;
+            $msg  = mb_convert_encoding($msg,'GBK','utf-8');
+            $va_url = "http://sms.10690221.com:9011/hy/?uid=".$uid."&auth=".$auth."&mobile=".$phone."&msg=".$msg."&expid=0"; //验证的 url 链接地址  
+            $ch = curl_init($va_url);  
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // 获取数据返回  
+            curl_setopt($ch, CURLOPT_BINARYTRANSFER, true); // 在启用 CURLOPT_RETURNTRANSFER 时候将获取数据返回  
+            $pageContents = curl_exec($ch);
+            curl_close($ch);
+        } else {
+            $this->error('手机号错误！');
+        }
+
+        if ($pageContents>=0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 }

@@ -11,13 +11,14 @@
 
 namespace Symfony\Component\HttpKernel\Tests\Controller;
 
+use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\Controller\ControllerResolver;
 use Symfony\Component\HttpKernel\Tests\Fixtures\Controller\NullableController;
 use Symfony\Component\HttpKernel\Tests\Fixtures\Controller\VariadicController;
 use Symfony\Component\HttpFoundation\Request;
 
-class ControllerResolverTest extends \PHPUnit_Framework_TestCase
+class ControllerResolverTest extends TestCase
 {
     public function testGetControllerWithoutControllerParameter()
     {
@@ -117,7 +118,12 @@ class ControllerResolverTest extends \PHPUnit_Framework_TestCase
     public function testGetControllerOnNonUndefinedFunction($controller, $exceptionName = null, $exceptionMessage = null)
     {
         $resolver = $this->createControllerResolver();
-        $this->setExpectedException($exceptionName, $exceptionMessage);
+        if (method_exists($this, 'expectException')) {
+            $this->expectException($exceptionName);
+            $this->expectExceptionMessage($exceptionMessage);
+        } else {
+            $this->setExpectedException($exceptionName, $exceptionMessage);
+        }
 
         $request = Request::create('/');
         $request->attributes->set('_controller', $controller);

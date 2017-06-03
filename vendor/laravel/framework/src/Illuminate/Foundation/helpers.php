@@ -94,15 +94,18 @@ if (! function_exists('app')) {
      * Get the available container instance.
      *
      * @param  string  $abstract
+     * @param  array   $parameters
      * @return mixed|\Illuminate\Foundation\Application
      */
-    function app($abstract = null)
+    function app($abstract = null, array $parameters = [])
     {
         if (is_null($abstract)) {
             return Container::getInstance();
         }
 
-        return Container::getInstance()->make($abstract);
+        return empty($parameters)
+            ? Container::getInstance()->make($abstract)
+            : Container::getInstance()->makeWith($abstract, $parameters);
     }
 }
 
@@ -228,15 +231,19 @@ if (! function_exists('cache')) {
             return app('cache')->get($arguments[0], isset($arguments[1]) ? $arguments[1] : null);
         }
 
-        if (is_array($arguments[0])) {
-            if (! isset($arguments[1])) {
-                throw new Exception(
-                    'You must set an expiration time when putting to the cache.'
-                );
-            }
-
-            return app('cache')->put(key($arguments[0]), reset($arguments[0]), $arguments[1]);
+        if (! is_array($arguments[0])) {
+            throw new Exception(
+                'When setting a value in the cache, you must pass an array of key / value pairs.'
+            );
         }
+
+        if (! isset($arguments[1])) {
+            throw new Exception(
+                'You must specify an expiration time when setting a value in the cache.'
+            );
+        }
+
+        return app('cache')->put(key($arguments[0]), reset($arguments[0]), $arguments[1]);
     }
 }
 
@@ -343,7 +350,7 @@ if (! function_exists('database_path')) {
      */
     function database_path($path = '')
     {
-        return app()->databasePath().($path ? DIRECTORY_SEPARATOR.$path : $path);
+        return app()->databasePath($path);
     }
 }
 
@@ -417,7 +424,7 @@ if (! function_exists('encrypt')) {
     /**
      * Encrypt the given value.
      *
-     * @param  string  $value
+     * @param  mixed  $value
      * @return string
      */
     function encrypt($value)
@@ -562,8 +569,16 @@ if (! function_exists('mix')) {
     {
         static $manifest;
 
+        if (! starts_with($path, '/')) {
+            $path = "/{$path}";
+        }
+
         if ($manifestDirectory && ! starts_with($manifestDirectory, '/')) {
             $manifestDirectory = "/{$manifestDirectory}";
+        }
+
+        if (file_exists(public_path($manifestDirectory.'/hot'))) {
+            return new HtmlString("//localhost:8080{$path}");
         }
 
         if (! $manifest) {
@@ -574,10 +589,6 @@ if (! function_exists('mix')) {
             $manifest = json_decode(file_get_contents($manifestPath), true);
         }
 
-        if (! starts_with($path, '/')) {
-            $path = "/{$path}";
-        }
-
         if (! array_key_exists($path, $manifest)) {
             throw new Exception(
                 "Unable to locate Mix file: {$path}. Please check your ".
@@ -585,9 +596,7 @@ if (! function_exists('mix')) {
             );
         }
 
-        return file_exists(public_path($manifestDirectory.'/hot'))
-                    ? new HtmlString("http://localhost:8080{$manifest[$path]}")
-                    : new HtmlString($manifestDirectory.$manifest[$path]);
+        return new HtmlString($manifestDirectory.$manifest[$path]);
     }
 }
 
@@ -697,7 +706,7 @@ if (! function_exists('resource_path')) {
      */
     function resource_path($path = '')
     {
-        return app()->resourcePath().($path ? DIRECTORY_SEPARATOR.$path : $path);
+        return app()->resourcePath($path);
     }
 }
 

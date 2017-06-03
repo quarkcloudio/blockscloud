@@ -5,6 +5,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Debug\Dumper;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\HigherOrderTapProxy;
 
 if (! function_exists('append_config')) {
     /**
@@ -311,7 +312,7 @@ if (! function_exists('array_wrap')) {
      */
     function array_wrap($value)
     {
-        return ! is_array($value) ? [$value] : $value;
+        return Arr::wrap($value);
     }
 }
 
@@ -506,11 +507,11 @@ if (! function_exists('dd')) {
      * @param  mixed
      * @return void
      */
-    function dd()
+    function dd(...$args)
     {
-        array_map(function ($x) {
+        foreach ($args as $x) {
             (new Dumper)->dump($x);
-        }, func_get_args());
+        }
 
         die(1);
     }
@@ -557,6 +558,19 @@ if (! function_exists('head')) {
     function head($array)
     {
         return reset($array);
+    }
+}
+
+if (! function_exists('kebab_case')) {
+    /**
+     * Convert a string to kebab case.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    function kebab_case($value)
+    {
+        return Str::kebab($value);
     }
 }
 
@@ -678,6 +692,20 @@ if (! function_exists('starts_with')) {
     function starts_with($haystack, $needles)
     {
         return Str::startsWith($haystack, $needles);
+    }
+}
+
+if (! function_exists('str_after')) {
+    /**
+     * Return the remainder of a string after a given value.
+     *
+     * @param  string  $subject
+     * @param  string  $search
+     * @return string
+     */
+    function str_after($subject, $search)
+    {
+        return Str::after($subject, $search);
     }
 }
 
@@ -857,11 +885,15 @@ if (! function_exists('tap')) {
      * Call the given Closure with the given value then return the value.
      *
      * @param  mixed  $value
-     * @param  callable  $callback
+     * @param  callable|null  $callback
      * @return mixed
      */
-    function tap($value, $callback)
+    function tap($value, $callback = null)
     {
+        if (is_null($callback)) {
+            return new HigherOrderTapProxy($value);
+        }
+
         $callback($value);
 
         return $value;

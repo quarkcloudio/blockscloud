@@ -3,7 +3,7 @@
 /*
  * This file is part of Psy Shell.
  *
- * (c) 2012-2015 Justin Hileman
+ * (c) 2012-2017 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,11 +11,12 @@
 
 namespace Psy;
 
-use Psy\VersionUpdater\Checker;
+use Psy\VersionUpdater\GitHubChecker;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;
+use XdgBaseDir\Xdg;
 
 if (!function_exists('Psy\sh')) {
     /**
@@ -32,9 +33,39 @@ if (!function_exists('Psy\sh')) {
 }
 
 if (!function_exists('Psy\info')) {
-    function info()
+    /**
+     * Get a bunch of debugging info about the current PsySH environment and
+     * configuration.
+     *
+     * If a Configuration param is passed, that configuration is stored and
+     * used for the current shell session, and no debugging info is returned.
+     *
+     * @param Configuration|null $config
+     *
+     * @return array|null
+     */
+    function info(Configuration $config = null)
     {
-        $config = new Configuration();
+        static $lastConfig;
+        if ($config !== null) {
+            $lastConfig = $config;
+
+            return;
+        }
+
+        $xdg = new Xdg();
+        $home = rtrim(str_replace('\\', '/', $xdg->getHomeDir()), '/');
+        $homePattern = '#^' . preg_quote($home, '#') . '/#';
+
+        $prettyPath = function ($path) use ($homePattern) {
+            if (is_string($path)) {
+                return preg_replace($homePattern, '~/', $path);
+            } else {
+                return $path;
+            }
+        };
+
+        $config = $lastConfig ?: new Configuration();
 
         $core = array(
             'PsySH version'       => Shell::VERSION,
@@ -43,9 +74,9 @@ if (!function_exists('Psy\info')) {
             'require semicolons'  => $config->requireSemicolons(),
             'error logging level' => $config->errorLoggingLevel(),
             'config file'         => array(
-                'default config file' => $config->getConfigFile(),
-                'local config file'   => $config->getLocalConfigFile(),
-                'PSYSH_CONFIG env'    => getenv('PSYSH_CONFIG'),
+                'default config file' => $prettyPath($config->getConfigFile()),
+                'local config file'   => $prettyPath($config->getLocalConfigFile()),
+                'PSYSH_CONFIG env'    => $prettyPath(getenv('PSYSH_CONFIG')),
             ),
             // 'config dir'  => $config->getConfigDir(),
             // 'data dir'    => $config->getDataDir(),
@@ -53,12 +84,12 @@ if (!function_exists('Psy\info')) {
         );
 
         // Use an explicit, fresh update check here, rather than relying on whatever is in $config.
-        $checker = new Checker();
+        $checker = new GitHubChecker();
         $updates = array(
             'update available'       => !$checker->isLatest(),
             'latest release version' => $checker->getLatest(),
             'update check interval'  => $config->getUpdateCheck(),
-            'update cache file'      => $config->getUpdateCheckCacheFile(),
+            'update cache file'      => $prettyPath($config->getUpdateCheckCacheFile()),
         );
 
         if ($config->hasReadline()) {
@@ -68,10 +99,13 @@ if (!function_exists('Psy\info')) {
                 'readline available' => true,
                 'readline enabled'   => $config->useReadline(),
                 'readline service'   => get_class($config->getReadline()),
-                'readline library'   => $info['library_version'],
             );
 
-            if ($info['readline_name'] !== '') {
+            if (isset($info['library_version'])) {
+                $readline['readline library'] = $info['library_version'];
+            }
+
+            if (isset($info['readline_name']) && $info['readline_name'] !== '') {
                 $readline['readline name'] = $info['readline_name'];
             }
         } else {
@@ -86,13 +120,13 @@ if (!function_exists('Psy\info')) {
         );
 
         $history = array(
-            'history file'     => $config->getHistoryFile(),
+            'history file'     => $prettyPath($config->getHistoryFile()),
             'history size'     => $config->getHistorySize(),
             'erase duplicates' => $config->getEraseDuplicates(),
         );
 
         $docs = array(
-            'manual db file'   => $config->getManualDbFile(),
+            'manual db file'   => $prettyPath($config->getManualDbFile()),
             'sqlite available' => true,
         );
 
@@ -219,7 +253,7 @@ EOL;
             } catch (Exception $e) {
                 echo $e->getMessage() . PHP_EOL;
 
-                // TODO: this triggers the "exited unexpectedly" logic in the
+                // @todo this triggers the "exited unexpectedly" logic in the
                 // ForkingLoop, so we can't exit(1) after starting the shell...
                 // fix this :)
 

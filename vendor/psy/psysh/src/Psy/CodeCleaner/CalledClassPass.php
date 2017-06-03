@@ -3,7 +3,7 @@
 /*
  * This file is part of Psy Shell.
  *
- * (c) 2012-2015 Justin Hileman
+ * (c) 2012-2017 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -15,8 +15,8 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
-use PhpParser\Node\Stmt\Class_ as ClassStmt;
-use PhpParser\Node\Stmt\Trait_ as TraitStmt;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\Trait_;
 use Psy\Exception\ErrorException;
 
 /**
@@ -42,13 +42,13 @@ class CalledClassPass extends CodeCleanerPass
      */
     public function enterNode(Node $node)
     {
-        if ($node instanceof ClassStmt || $node instanceof TraitStmt) {
+        if ($node instanceof Class_ || $node instanceof Trait_) {
             $this->inClass = true;
         } elseif ($node instanceof FuncCall && !$this->inClass) {
             // We'll give any args at all (besides null) a pass.
             // Technically we should be checking whether the args are objects, but this will do for now.
             //
-            // TODO: switch this to actually validate args when we get context-aware code cleaner passes.
+            // @todo switch this to actually validate args when we get context-aware code cleaner passes.
             if (!empty($node->args) && !$this->isNull($node->args[0])) {
                 return;
             }
@@ -71,7 +71,7 @@ class CalledClassPass extends CodeCleanerPass
      */
     public function leaveNode(Node $node)
     {
-        if ($node instanceof ClassStmt) {
+        if ($node instanceof Class_) {
             $this->inClass = false;
         }
     }

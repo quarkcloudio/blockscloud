@@ -11,12 +11,11 @@ class ComposerStaticInit4d1f29497758ec0bc9aec4c41cd0f58e
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '1d1b89d124cc9cb8219922c9d5569199' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
-        '72579e7bd17821bb1321b87411366eae' => __DIR__ . '/..' . '/illuminate/support/helpers.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
+        '644eac6922bf02ccca749aef9ce048bb' => __DIR__ . '/..' . '/rachidlaasri/laravel-installer/src/functions.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
-        '644eac6922bf02ccca749aef9ce048bb' => __DIR__ . '/..' . '/rachidlaasri/laravel-installer/src/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -79,10 +78,6 @@ class ComposerStaticInit4d1f29497758ec0bc9aec4c41cd0f58e
         ),
         'I' => 
         array (
-            'Illuminate\\Support\\' => 19,
-            'Illuminate\\Contracts\\' => 21,
-            'Illuminate\\Console\\' => 19,
-            'Illuminate\\Cache\\' => 17,
             'Illuminate\\' => 11,
         ),
         'F' => 
@@ -216,22 +211,6 @@ class ComposerStaticInit4d1f29497758ec0bc9aec4c41cd0f58e
         'Laravel\\Tinker\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/tinker/src',
-        ),
-        'Illuminate\\Support\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/illuminate/support',
-        ),
-        'Illuminate\\Contracts\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/illuminate/contracts',
-        ),
-        'Illuminate\\Console\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/illuminate/console',
-        ),
-        'Illuminate\\Cache\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/illuminate/cache',
         ),
         'Illuminate\\' => 
         array (
@@ -704,6 +683,7 @@ class ComposerStaticInit4d1f29497758ec0bc9aec4c41cd0f58e
         'PHP_Token_NEW' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_NS_C' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_NS_SEPARATOR' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
+        'PHP_Token_NULLSAFE_OBJECT_OPERATOR' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_NUM_STRING' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_OBJECT_CAST' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_OBJECT_OPERATOR' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
