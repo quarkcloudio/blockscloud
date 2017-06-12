@@ -2,6 +2,10 @@
 
 namespace App\Services;
 use App\Models\KeyValue;
+use Flc\Alidayu\Client;
+use Flc\Alidayu\App;
+use Flc\Alidayu\Requests\AlibabaAliqinFcSmsNumSend;
+use Flc\Alidayu\Requests\IRequest;
 
 class Helper
 {
@@ -406,6 +410,37 @@ class Helper
             curl_setopt($ch, CURLOPT_BINARYTRANSFER, true); // 在启用 CURLOPT_RETURNTRANSFER 时候将获取数据返回  
             $pageContents = curl_exec($ch);
             curl_close($ch);
+        } else {
+            $this->error('手机号错误！');
+        }
+
+        if ($pageContents>=0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * sms_post Alidayu发送手机短信接口
+     * string $config = ['app_key' => '*****','app_secret' => '************',// 'sandbox' => true,  // 是否为沙箱环境，默认false;
+     * string $signName = '积木云'
+     * string $templateCode = 'SMS_70450333'
+     * string $phone = '15076569633'
+     * string $smsParam = [ 'number' => rand(100000, 999999)]
+     */
+    static function alidayuSendSms($config,$signName,$templateCode,$phone,$smsParam) {
+        if(preg_match("/^1[34578]\d{9}$/", $phone)) {
+            //执行发短信
+            $client = new Client(new App($config));
+            $req    = new AlibabaAliqinFcSmsNumSend;
+
+            $req->setRecNum($phone)
+                ->setSmsParam($smsParam)
+                ->setSmsFreeSignName($signName)
+                ->setSmsTemplateCode($templateCode);
+
+            $resp = $client->execute($req);
         } else {
             $this->error('手机号错误！');
         }

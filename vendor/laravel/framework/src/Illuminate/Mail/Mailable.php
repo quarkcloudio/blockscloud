@@ -192,7 +192,7 @@ class Mailable implements MailableContract
 
         return [
             'html' => $markdown->render($this->markdown, $data),
-            'text' => $markdown->renderText($this->markdown, $data),
+            'text' => $this->buildMarkdownText($markdown, $data),
         ];
     }
 
@@ -212,6 +212,20 @@ class Mailable implements MailableContract
         }
 
         return $data;
+    }
+
+    /**
+     * Build the text view for a Markdown message.
+     *
+     * @param  \Illuminate\Mail\Markdown  $markdown
+     * @param  array  $data
+     * @return string
+     */
+    protected function buildMarkdownText($markdown, $data)
+    {
+        return isset($this->textView)
+                ? $this->textView
+                : $markdown->renderText($this->markdown, $data);
     }
 
     /**
