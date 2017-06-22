@@ -44,7 +44,7 @@
             @endforeach
             <nav aria-label="...">
             <ul class="pagination">
-            {{ $articles->links() }}
+            {{ $articles->appends(['id'=>$postCate->id])->links() }}
             </ul>
             </nav>
         </div>
