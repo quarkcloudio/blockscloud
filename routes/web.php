@@ -18,6 +18,7 @@ Route::get('/home/article/lists', ['as'=>'home/article/lists','uses'=>'Home\Arti
 Route::get('/home/article/detail', ['as'=>'home/article/detail','uses'=>'Home\ArticleController@detail']);
 Route::get('/home/page/index', ['as'=>'home/page/index','uses'=>'Home\PageController@index']);
 Route::get('/home/base/getFile', ['as'=>'home/base/getFile','uses'=>'Home\BaseController@getFile']);
+Route::get('/home/search/index', ['as'=>'home/search/index','uses'=>'Home\SearchController@index']);
 
 Auth::routes();
 

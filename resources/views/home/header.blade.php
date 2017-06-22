@@ -9,7 +9,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">积木云</a>
+            <a class="navbar-brand" href="{{ route('home/article/index') }}">积木云</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -18,9 +18,10 @@
                 <li class="{{ $helper::active($navigation->url)}}"><a href="{{ $navigation->url }}">{{ $navigation->title }}</a></li>
                 @endforeach
             </ul>
-            <form class="navbar-form navbar-right">
+            <form class="navbar-form navbar-right" action="{{ route('home/search/index') }}" method="get">
                 <div class="form-group">
-                <input type="text" class="form-control" value="" placeholder="请输入要搜索的内容">
+                <input type="hidden" name="module" class="form-control" value="article">
+                <input type="text" name="query" class="form-control" value="@if(isset($query)){{ $query }}@endif" placeholder="请输入要搜索的内容">
                 </div>
                 <button type="submit" class="btn btn-default">提交</button>
             </form>

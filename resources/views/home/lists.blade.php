@@ -35,10 +35,10 @@
                         </div>
                     </div>
                 @if ($key == 3)
-                <div>
+                </div>
                 @endif
-                @if ($key == 5)
-                <div>
+                @if ($key == 7)
+                </div>
                 @endif
             @endforeach
             <nav aria-label="...">

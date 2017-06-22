@@ -125,7 +125,7 @@ class Helper
     }
 
     /**
-    * 将app字符串转换为系统中的utf8类型，目前只支持win中文版，linux版
+    * 将app字符串转换为系统中的GBK类型，目前只支持win中文版，linux版
     * @author tangtanglove <dai_hang_love@126.com>
     */
     static function appToSystemChar($value)

@@ -18,9 +18,16 @@ class ArticleController extends BaseController
 	 */
     public function index(Request $request)
     {
+
         $user = DB::table('users')->where('id', 1)->first();
         $website = Helper::getKeyValue($user->uuid,'website.config');
-        return view('home/index',compact('website'));
+
+        $articles = DB::table('posts')
+        ->leftJoin("post_relationships",'posts.id','=','post_relationships.object_id')
+        ->where('posts.type', 'article')
+        ->orderBy('id', 'desc')
+        ->paginate(8);
+        return view('home/index',compact('website','articles'));
     }
 
 	/**
@@ -64,6 +71,12 @@ class ArticleController extends BaseController
 
         $user = DB::table('users')->where('id', 1)->first();
         $website = Helper::getKeyValue($user->uuid,'website.config');
+
+        if(empty($category)) {
+            $getCategory = DB::table('post_relationships')->where('object_id',$id)->first();
+            $category = $getCategory->post_cate_id;
+        }
+
         $postCate = DB::table('post_cates')->where('id', $category)->first();
         $postCateExtend = Helper::getKeyValue($postCate->uuid);
         if (!empty($id)) {
