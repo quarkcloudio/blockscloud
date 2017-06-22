@@ -27,7 +27,7 @@
                     <div class="col-md-3">
                         <div class="post-box">
                             <div class="post-img">
-                                <a href="{{ route('home/article/detail',['id'=>$article->id]) }}"><img src="{{ route('home/base/getFile',['path'=>$article->cover_path]) }}" width="100%" height="150" /></a>
+                                <a href="{{ route('home/article/detail',['id'=>$article->id]) }}"><img src="@if(!empty($article->cover_path)){{ route('home/base/getFile',['path'=>$article->cover_path]) }}@else /images/icons/default.jpg @endif" width="100%" height="150" /></a>
                             </div>
                             <div class="post-title">
                                 <a href="{{ route('home/article/detail',['id'=>$article->id]) }}">{{ $article->title }}</a>

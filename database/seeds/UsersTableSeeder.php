@@ -13,6 +13,12 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $uuid = Helper::createUuid();
+
+        // 初始化桌面文件
+        Helper::makeDir(Helper::appToSystemChar(storage_path('app\\public\\user\\administrator')));
+        Helper::copyFileToDir(Helper::appToSystemChar(storage_path('app\\public\\desktop\\home\\')),Helper::appToSystemChar(storage_path('app\\public\\user\\administrator')));
+        Helper::copyFileToDir(Helper::appToSystemChar(storage_path('app\\public\\desktop\\recycle\\')),Helper::appToSystemChar(storage_path('app\\public\\user\\administrator')));
+
         return User::create([
             'uuid' => $uuid,
             'name' => 'administrator',
