@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>积木云-直播</title>
+  <!-- Bootstrap 核心 CSS 文件 -->
+  <link rel="stylesheet" href="../../../../css/bootstrap.css">
+  <!-- style CSS 文件 -->
+  <link rel="stylesheet" href="../../../../css/font-awesome.min.css">
+  <link rel="stylesheet" href="../../../../fonts/fontawesome-webfont.svg">
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <script src="../../../../js/vendor/jquery/1.11.3/jquery.min.js"></script>
+  <script type="text/javascript" src="../../../../js/vendor/ckplayer/ckplayer.js" charset="utf-8"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li><a href="../../../../js/app/tv/view/hunan.html">湖南卫视</a></li>
+            <li><a href="../../../../js/app/tv/view/zhejiang.html">浙江卫视</a></li>
+            <li><a href="../../../../js/app/tv/view/jiangsu.html">江苏卫视</a></li>
+            <li><a href="../../../../js/app/tv/view/dongfang.html">东方卫视</a></li>
+            <li><a href="../../../../js/app/tv/view/beijing.html">北京卫视</a></li>
+            <li><a href="../../../../js/app/tv/view/anhui.html">安徽卫视</a></li>
+            <li><a href="../../../../js/app/tv/view/guangdong.html">广东卫视</a></li>
+        </ul>
+        </div><!-- /.navbar-collapse -->
+        <div id="a1"></div>
+    </nav>
+    <script type="text/javascript">
+        var videoUrl = "http%3A%2F%2Flive.hcs.cmvideo.cn%3A8088%2Fwd-hunanhd-1200%2Findex.m3u8%3Fmsisdn%3D15282029370%26mdspid%3D%26spid%3D699017%26netType%3D5%26sid%3D2201064496%26pid%3D%26timestamp%3D20170624011800%26Channel_ID%3D0116_23000100-99000-201600010010002%26ProgramID%3D609153594%26ParentNodeID%3D-99%26preview%3D1%26playseek%3D000000-000600%26client_ip%3D114.215.153.24%26assertID%3D2201064496%26chargePhone%3D%26SecurityKey%3D20170624011800%26encrypt%3Dac8a043e844a9c317394e98eaff4c5ad&lv=1&c=0&s=4&p=1&v=1000&wh=16:9&hls_live_flushurlcache=true";//视频地址
+        var flashvars={
+          f:"../../../../js/vendor/ckplayer/m3u8.swf",
+          a:videoUrl,
+          s:4,
+          c:0,
+          p:1
+        };
+        var params={bgcolor:"#FFF",allowFullScreen:true,allowScriptAccess:"always",wmode:"transparent"};
+        var video=[videoUrl];
+        CKobject.embed("../../../../js/vendor/ckplayer/ckplayer.swf","a1","ckplayer_a1","100%","510",false,flashvars,video,params);
+    </script>
+</body>
+</html>

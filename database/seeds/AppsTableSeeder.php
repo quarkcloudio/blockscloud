@@ -208,6 +208,19 @@ class AppsTableSeeder extends Seeder
                 'type'=>1,
                 'status'=>1,
              ],
+             [
+                'title' => '电视直播',
+                'name' => 'tv',
+                'icon' =>'./images/apps/tv.png',
+                'width'=>1100,
+                'height'=>600,
+                'sort'=>16,
+                'context'=>'tv',
+                'version'=>'1.0.0',
+                'author'=>'tangtanglove',
+                'type'=>1,
+                'status'=>1,
+             ],
         ]);
     }
 }
