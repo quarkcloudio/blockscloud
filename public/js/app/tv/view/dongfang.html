@@ -19,7 +19,7 @@
   <script type="text/javascript" src="../../../../js/vendor/ckplayer/ckplayer.js" charset="utf-8"></script>
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
         <!-- Brand and toggle get grouped for better mobile display -->
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -33,20 +33,7 @@
             <li><a href="../../../../js/app/tv/view/guangdong.html">广东卫视</a></li>
         </ul>
         </div><!-- /.navbar-collapse -->
-        <div id="a1"></div>
+        <embed src="http://player.kksmg.com/data/player_swf/KKPlayer.swf" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="opaque" name="player2" id="player2" flashvars="playerId=2969363206&amp;liveChannelID=800081" style="width:100%; height:510px;">
     </nav>
-    <script type="text/javascript">
-        var videoUrl = "http%3A%2F%2Flive.hcs.cmvideo.cn%3A8088%2Fwd_r4%2Fdfl%2Fdongfangwshd%2F1200%2Findex.m3u8%3Fmsisdn%3D18317877607%26mdspid%3D%26spid%3D699001%26netType%3D5%26sid%3D5500058351%26pid%3D2028597139%26timestamp%3D20170624012527%26Channel_ID%3D0116_23000100-99000-201600010010002%26ProgramID%3D619811679%26ParentNodeID%3D-99%26client_ip%3D114.215.153.24%26assertID%3D5500058351%26chargePhone%3D%26SecurityKey%3D20170624012527%26encrypt%3D86aa8e2ae77a3dd69da8d2e20e3d418b&lv=1&c=0&s=4&p=1&v=1000&wh=16:9&hls_live_flushurlcache=true";//视频地址
-        var flashvars={
-          f:"../../../../js/vendor/ckplayer/m3u8.swf",
-          a:videoUrl,
-          s:4,
-          c:0,
-          p:1
-        };
-        var params={bgcolor:"#FFF",allowFullScreen:true,allowScriptAccess:"always",wmode:"transparent"};
-        var video=[videoUrl];
-        CKobject.embed("../../../../js/vendor/ckplayer/ckplayer.swf","a1","ckplayer_a1","100%","510",false,flashvars,video,params);
-    </script>
 </body>
 </html>
