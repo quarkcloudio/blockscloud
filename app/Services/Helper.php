@@ -444,11 +444,5 @@ class Helper
         } else {
             $this->error('手机号错误！');
         }
-
-        if ($pageContents>=0) {
-            return 1;
-        } else {
-            return 0;
-        }
     }
 }

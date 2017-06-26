@@ -1,1 +1,1 @@
-php artisan schedule:run 1>> NUL 2>&1
+php yourpath\artisan schedule:run 1>> NUL 2>&1
