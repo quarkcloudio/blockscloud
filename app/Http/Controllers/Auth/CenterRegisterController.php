@@ -123,9 +123,9 @@ class CenterRegisterController extends Controller
                     ]
                 ]);
                 // 初始化桌面文件
-                Helper::makeDir(Helper::appToSystemChar(storage_path('app\\public\\user\\').$data['name']));
-                Helper::copyFileToDir(Helper::appToSystemChar(storage_path('app\\public\\desktop\\home\\')),Helper::appToSystemChar(storage_path('app\\public\\user\\').$data['name']));
-                Helper::copyFileToDir(Helper::appToSystemChar(storage_path('app\\public\\desktop\\recycle\\')),Helper::appToSystemChar(storage_path('app\\public\\user\\').$data['name']));
+                Helper::makeDir(Helper::appToSystemChar(storage_path('app/public/user/').$data['name']));
+                Helper::copyFileToDir(Helper::appToSystemChar(storage_path('app/public/desktop/home/')),Helper::appToSystemChar(storage_path('app/public/user/').$data['name']));
+                Helper::copyFileToDir(Helper::appToSystemChar(storage_path('app/public/desktop/recycle/')),Helper::appToSystemChar(storage_path('app/public/user/').$data['name']));
                 if (Auth::guard('center')->attempt(['name' => $data['name'], 'password' => $data['password']])) {
                     session(['lock' => '0']);
                     return Helper::jsonSuccess('注册成功，正在登录...','./index.html');

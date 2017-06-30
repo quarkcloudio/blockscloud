@@ -38,7 +38,7 @@ class FileController extends CommonController
     public function download(Request $request)
     {
         $path   = $request->input('path');
-        $filePath    = Helper::appToSystemChar(storage_path('app\\').$path);
+        $filePath    = Helper::appToSystemChar(storage_path('app/').$path);
         $fileinfo = pathinfo($filePath);
         header('Content-type: application/x-'.$fileinfo['extension']);
         header('Content-Disposition: attachment; filename='.$fileinfo['basename']);

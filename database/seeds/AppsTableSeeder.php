@@ -55,7 +55,7 @@ class AppsTableSeeder extends Seeder
              [
                 'title' => '应用中心',
                 'name' => 'appstore',
-                'icon' =>'./images/apps/AppStore.png',
+                'icon' =>'./images/apps/appstore.png',
                 'width'=>800,
                 'height'=>560,
                 'sort'=>4,

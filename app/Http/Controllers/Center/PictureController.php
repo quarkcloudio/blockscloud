@@ -13,9 +13,9 @@ class PictureController extends CommonController
     public function open(Request $request)
     {
         $path   = $request->input('path');
-        $filePath    = Helper::appToSystemChar(storage_path('app\\').$path);
+        $filePath    = Helper::appToSystemChar(storage_path('app/').$path);
         $fileContent = file_get_contents($filePath);
-        $fileMime    = mime_content_type ($filePath);
+        $fileMime    = Helper::detectFileMimeType($filePath);
         return response($fileContent, '200')->header('Content-Type', $fileMime);
     }
 }

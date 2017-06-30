@@ -126,9 +126,9 @@ class UserController extends CommonController
                 ]
             ]);
             // 初始化桌面文件
-            Helper::makeDir(Helper::appToSystemChar(storage_path('app\\public\\user\\').$data['name']));
-            Helper::copyFileToDir(Helper::appToSystemChar(storage_path('app\\public\\desktop\\home\\')),Helper::appToSystemChar(storage_path('app\\public\\user\\').$data['name']));
-            Helper::copyFileToDir(Helper::appToSystemChar(storage_path('app\\public\\desktop\\recycle\\')),Helper::appToSystemChar(storage_path('app\\public\\user\\').$data['name']));
+            Helper::makeDir(Helper::appToSystemChar(storage_path('app/public/user/').$data['name']));
+            Helper::copyFileToDir(Helper::appToSystemChar(storage_path('app/public/desktop/home/')),Helper::appToSystemChar(storage_path('app/public/user/').$data['name']));
+            Helper::copyFileToDir(Helper::appToSystemChar(storage_path('app/public/desktop/recycle/')),Helper::appToSystemChar(storage_path('app/public/user/').$data['name']));
 
             return Helper::jsonSuccess('操作成功！');
         } else {

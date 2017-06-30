@@ -18,7 +18,7 @@ class EditorController extends CommonController
     {
         // 获取当前路径
         $path        = $request->input('path');
-        $filePath    = Helper::appToSystemChar(storage_path('app\\').$path);
+        $filePath    = Helper::appToSystemChar(storage_path('app/').$path);
         $fileContent = file_get_contents($filePath);
         if($fileContent!==false) {
             return Helper::jsonSuccess('操作成功！','',$fileContent);
@@ -36,7 +36,7 @@ class EditorController extends CommonController
         // 获取当前路径
         $path       = $request->input('path');
         $content    = $request->input('content');
-        $filePath   = Helper::appToSystemChar(storage_path('app\\').$path);
+        $filePath   = Helper::appToSystemChar(storage_path('app/').$path);
         $result = file_put_contents($filePath, $content);
         if($result) {
             return Helper::jsonSuccess('保存成功！');

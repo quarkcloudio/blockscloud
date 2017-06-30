@@ -18,6 +18,7 @@ return [
             'pdo',
             'mbstring',
             'tokenizer',
+            'php_fileinfo'
         ],
         'apache' => [
             'mod_rewrite',

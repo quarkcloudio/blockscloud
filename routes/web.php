@@ -13,6 +13,7 @@
 
 Route::get('/', 'Home\IndexController@index');
 Route::get('/home/index/index', ['as'=>'home/index/index','uses'=>'Home\IndexController@index']);
+Route::get('/home/article', ['as'=>'home/article','uses'=>'Home\ArticleController@index']);
 Route::get('/home/article/index', ['as'=>'home/article/index','uses'=>'Home\ArticleController@index']);
 Route::get('/home/article/lists', ['as'=>'home/article/lists','uses'=>'Home\ArticleController@lists']);
 Route::get('/home/article/detail', ['as'=>'home/article/detail','uses'=>'Home\ArticleController@detail']);

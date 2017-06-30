@@ -54,7 +54,7 @@ class FinderController extends CommonController
             $dirPath = 'public/user/'.$userInfo['name'].'/home/';
         }
         // 路径地址，例如：'public/user/administrator/home/desktop'，文件存储在storage目录里
-        $getDirPath = Helper::appToSystemChar(storage_path('app\\').$dirPath);
+        $getDirPath = Helper::appToSystemChar(storage_path('app/').$dirPath);
         $dirs   = Helper::getDir($getDirPath);
         $files  = Helper::getFile($getDirPath);
         // 返回错误
@@ -91,7 +91,7 @@ class FinderController extends CommonController
                 // 根据扩展名查找需要那个用哪个程序打开
                 if($fileExt == 'oexe') {
                     // 如果是可执行程序的快捷方式，解析里面的信息
-                    $url = str_replace("/","\\",$value);
+                    $url = str_replace("/","/",$value);
                     $contents = file_get_contents($getDirPath.$url);
                     $oexeInfo = json_decode($contents, true);
                     $getOexes[$key]['title']    = $arr1[0];
@@ -99,7 +99,7 @@ class FinderController extends CommonController
 
                     // 回收站图标特定状态，是否满了
                     if($oexeInfo['name'] == 'trash') {
-                        $recyclePath    = Helper::appToSystemChar(storage_path('app\\public\\user\\'.$userInfo['name'].'\\recycle'));
+                        $recyclePath    = Helper::appToSystemChar(storage_path('app/public/user/'.$userInfo['name'].'/recycle'));
                         $isEmpty  = Helper::isEmptyDir($recyclePath);
                         if(!$isEmpty) {
                             $getOexes[$key]['icon']     = './images/apps/FullTrashIcon.png';
@@ -162,18 +162,18 @@ class FinderController extends CommonController
         } else {
             $arr = explode('/',$filePath);
             $count = count($arr);
-            $url = str_replace("/","\\",$filePath);
+            $url = str_replace("/","/",$filePath);
 
-            $getFilePath = Helper::appToSystemChar(storage_path('app\\').$url);
+            $getFilePath = Helper::appToSystemChar(storage_path('app/').$url);
 
             if(is_file($getFilePath)) {
-                $recycle = Helper::appToSystemChar(storage_path('app\\public\\user\\'.$userInfo['name'].'\\recycle\\'.$arr[$count-1]));
+                $recycle = Helper::appToSystemChar(storage_path('app/public/user/'.$userInfo['name'].'/recycle/'.$arr[$count-1]));
                 if(is_file($recycle)) {
                     // 如果回收站有文件则先删除
                     Helper::delDirAndFile($recycle);
                 }
             } else {
-                $recycle = Helper::appToSystemChar(storage_path('app\\public\\user\\'.$userInfo['name'].'\\recycle\\'.$arr[$count-2]));
+                $recycle = Helper::appToSystemChar(storage_path('app/public/user/'.$userInfo['name'].'/recycle/'.$arr[$count-2]));
                 if(is_dir($recycle)) {
                     // 如果回收站有文件夹则先删除
                    Helper::delDirAndFile($recycle);
@@ -198,7 +198,7 @@ class FinderController extends CommonController
     public function emptyTrash(Request $request)
     {
         $userInfo       = Auth::user();
-        $recyclePath    = Helper::appToSystemChar(storage_path('app\\public\\user\\'.$userInfo['name'].'\\recycle'));
+        $recyclePath    = Helper::appToSystemChar(storage_path('app/public/user/'.$userInfo['name'].'/recycle'));
         if(is_dir($recyclePath)) {
             $result     = Helper::delDirAndFile($recyclePath);
             // 重新在创建回收站
@@ -226,12 +226,12 @@ class FinderController extends CommonController
         $oldTitle   = $request->input('oldTitle');
 
         $length = mb_strlen($oldTitle,'utf-8');
-        if (!is_dir(Helper::appToSystemChar(storage_path('app\\').$path))) {
+        if (!is_dir(Helper::appToSystemChar(storage_path('app/').$path))) {
             $newPath = mb_substr($path,0,(0-$length),'utf-8').$newTitle;
         } else {
             $newPath = mb_substr($path,0,(0-$length-1),'utf-8').$newTitle;
         }
-        $result    = rename(Helper::appToSystemChar(storage_path('app\\').$path),Helper::appToSystemChar(storage_path('app\\').$newPath));
+        $result    = rename(Helper::appToSystemChar(storage_path('app/').$path),Helper::appToSystemChar(storage_path('app/').$newPath));
         if($result!=='error') {
             return Helper::jsonSuccess('操作成功！','',$newPath);
         } else {
@@ -272,9 +272,9 @@ class FinderController extends CommonController
         $arrOldPath  = explode('/',$oldPath);
         $count = count($arrOldPath);
 
-        $result = Helper::copyFileToDir(Helper::appToSystemChar(storage_path('app\\').$oldPath),Helper::appToSystemChar(storage_path('app\\').$newPath));
+        $result = Helper::copyFileToDir(Helper::appToSystemChar(storage_path('app/').$oldPath),Helper::appToSystemChar(storage_path('app/').$newPath));
 
-        if(is_dir(Helper::appToSystemChar(storage_path('app\\').$oldPath))) {
+        if(is_dir(Helper::appToSystemChar(storage_path('app/').$oldPath))) {
             // 查找默认打开方式
             $systemFileInfos = SystemFileInfos::where('file_type', 'dir')->first();
             if(empty($systemFileInfos)) {
@@ -291,7 +291,7 @@ class FinderController extends CommonController
             $data['height']   = $appInfo->height;
             $data['path']     = $newPath.$fileName;
             $data['context']  = $systemFileInfos->context;
-        } elseif (is_file(Helper::appToSystemChar(storage_path('app\\').$oldPath))) {
+        } elseif (is_file(Helper::appToSystemChar(storage_path('app/').$oldPath))) {
             $fileName = array_last($arrOldPath);
             $arr    = explode('.',$fileName);
             // 文件扩展名
@@ -328,7 +328,7 @@ class FinderController extends CommonController
     {
         // 获取当前路径
         $dirPath   = $request->input('path');
-        $result    = Helper::makeDir(Helper::appToSystemChar(storage_path('app\\').$dirPath));
+        $result    = Helper::makeDir(Helper::appToSystemChar(storage_path('app/').$dirPath));
         if($result!=='error') {
             return Helper::jsonSuccess('操作成功！');
         } else {
@@ -347,7 +347,7 @@ class FinderController extends CommonController
         $fileName   = $request->input('fileName');
         $fileExt    = $request->input('fileExt');
 
-        $result = file_put_contents(Helper::appToSystemChar(storage_path('app\\').$filePath.$fileName.'.'.$fileExt),'text');
+        $result = file_put_contents(Helper::appToSystemChar(storage_path('app/').$filePath.$fileName.'.'.$fileExt),'text');
         if($result) {
             // 查找数据库中默认打开程序及文件的默认图标
             $systemFileInfos = SystemFileInfos::where('file_type', $fileExt)->first();
@@ -418,7 +418,7 @@ class FinderController extends CommonController
     public function downloadFile(Request $request)
     {
         $path   = $request->input('path');
-        $filePath    = Helper::appToSystemChar(storage_path('app\\').$path);
+        $filePath    = Helper::appToSystemChar(storage_path('app/').$path);
         $fileinfo = pathinfo($filePath);
         header('Content-type: application/x-'.$fileinfo['extension']);
         header('Content-Disposition: attachment; filename='.$fileinfo['basename']);
@@ -432,9 +432,9 @@ class FinderController extends CommonController
         $arrOldPath  = explode('/',$oldPath);
         $count = count($arrOldPath);
 
-        if(is_dir(Helper::appToSystemChar(storage_path('app\\').$oldPath))) {
+        if(is_dir(Helper::appToSystemChar(storage_path('app/').$oldPath))) {
             $fileName  = $arrOldPath[$count-2];
-            $result    = rename(Helper::appToSystemChar(storage_path('app\\').$oldPath),Helper::appToSystemChar(storage_path('app\\').$newPath.$fileName));
+            $result    = rename(Helper::appToSystemChar(storage_path('app/').$oldPath),Helper::appToSystemChar(storage_path('app/').$newPath.$fileName));
             // 查找默认打开方式
             $systemFileInfos = SystemFileInfos::where('file_type', 'dir')->first();
             if(empty($systemFileInfos)) {
@@ -451,11 +451,11 @@ class FinderController extends CommonController
             $data['path']     = $newPath.$fileName;
             $data['context']  = $systemFileInfos->context;
             $data['result']   = $result;
-        } elseif (is_file(Helper::appToSystemChar(storage_path('app\\').$oldPath))) {
+        } elseif (is_file(Helper::appToSystemChar(storage_path('app/').$oldPath))) {
             if(empty($fileName)) {
                 $fileName  = array_last($arrOldPath);
             }
-            $result    = rename(Helper::appToSystemChar(storage_path('app\\').$oldPath),Helper::appToSystemChar(storage_path('app\\').$newPath.$fileName));
+            $result    = rename(Helper::appToSystemChar(storage_path('app/').$oldPath),Helper::appToSystemChar(storage_path('app/').$newPath.$fileName));
             $arr       = explode('.',$fileName);
             // 文件扩展名
             $fileExt = array_last($arr);
