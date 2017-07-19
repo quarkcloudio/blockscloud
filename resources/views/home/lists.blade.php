@@ -17,6 +17,7 @@
         @include('home/header')
         <div style="height:80px;"></div>
         <div class="container">
+        @if(isset($articles))
             @foreach ($articles as $key=>$article)
                 @if ($key == 0)
                 <div class="row">
@@ -47,8 +48,8 @@
             {{ $articles->appends(['id'=>$postCate->id])->links() }}
             </ul>
             </nav>
+        @endif
         </div>
-
     <!-- Scripts -->
     <script src="/js/vendor/jquery/1.11.3/jquery.min.js"></script>
     <script src="/js/vendor/bootstrap/bootstrap.min.js"></script>
