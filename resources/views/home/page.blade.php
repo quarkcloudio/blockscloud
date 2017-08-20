@@ -21,7 +21,7 @@
       </div>
       <p class="lead">{!! $page->content !!}</p>
         <!--高速版-->
-        <div id="SOHUCS" sid="请将此处替换为配置SourceID的语句"></div>
+        <div id="SOHUCS" sid="{{ $page->id }}"></div>
         <script charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/changyan.js" ></script>
         <script type="text/javascript">
         window.changyan.api.config({
